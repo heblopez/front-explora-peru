@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Detect which package manager command to use
+if [ -f "pnpm-lock.yaml" ]; then
+  package_manager_cmd="pnpx"
+elif [ -f "yarn.lock" ]; then
+  package_manager_cmd="yarn"
+else
+  package_manager_cmd="npx"
+fi
+
+# Run commitlint
+$package_manager_cmd commitlint --edit $1

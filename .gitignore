@@ -29,3 +29,6 @@ pnpm-lock.yaml
 pnpm-lock.yml
 yarn.lock
 *.lock
+
+# Husky internal files
+.husky/_

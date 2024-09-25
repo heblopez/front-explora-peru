@@ -25,6 +25,10 @@ body {
   min-height: 100vh;
 }
 
+#root {
+  @apply min-h-screen flex flex-col flex-grow bg-gray-50;
+}
+
 h1,
 h2,
 h3,

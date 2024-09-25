@@ -5,7 +5,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: 'hsl(208.552, 64%, 45%)',
+        primary: 'hsl(217, 91%, 60%)',
+        'primary-lighter': 'hsl(217, 91%, 80%)',
+        'primary-light': 'hsl(217, 91%, 70%)',
+        'primary-dark': 'hsl(217, 91%, 50%)',
+        'primary-darker': 'hsl(217, 91%, 40%)',
+        accent: 'hsl(37, 91%, 60%)',
         secondary: 'hsl(0, 0%, 95%)',
         success: 'hsl(145, 63%, 49%)',
         warning: 'hsl(48, 89%, 50%)',

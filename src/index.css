@@ -40,3 +40,9 @@ h6 {
     color: #ffffff;
   }
 }
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}

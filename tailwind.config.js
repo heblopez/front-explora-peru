@@ -1,9 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: ['class'],
   theme: {
     extend: {
       colors: {
@@ -32,8 +30,13 @@ export default {
         h4: '2.2rem',
         h5: '1.65rem',
         h6: '1.375rem'
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)'
       }
     }
   },
-  plugins: []
+  plugins: [require('tailwindcss-animate')]
 }

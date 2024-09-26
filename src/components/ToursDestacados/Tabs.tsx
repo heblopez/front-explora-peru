@@ -12,7 +12,7 @@ interface TabsProps {
 
 const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, setActiveTab }) => (
   <div className='mb-12'>
-    <div className='flex flex-wrap justify-center sm:justify-start space-x-4 mb-4'>
+    <div className='flex flex-wrap gap-4 justify-center sm:justify-start space-x-4 mb-4'>
       {tabs.map((tab, index) => (
         <button
           key={index}

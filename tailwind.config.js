@@ -1,15 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  darkMode: ['class'],
+  darkMode: ['media'],
   theme: {
     extend: {
       colors: {
-        primary: 'hsl(217, 91%, 60%)',
-        'primary-lighter': 'hsl(217, 91%, 80%)',
+        primary: 'hsl(217, 91%, 50%)',
+        'primary-lighter': 'hsl(217, 91%, 90%)',
         'primary-light': 'hsl(217, 91%, 70%)',
-        'primary-dark': 'hsl(217, 91%, 50%)',
-        'primary-darker': 'hsl(217, 91%, 40%)',
+        'primary-dark': 'hsl(217, 91%, 40%)',
+        'primary-darker': 'hsl(217, 91%, 30%)',
         accent: 'hsl(37, 91%, 60%)',
         secondary: 'hsl(0, 0%, 95%)',
         success: 'hsl(145, 63%, 49%)',

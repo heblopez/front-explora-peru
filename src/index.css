@@ -39,8 +39,8 @@ h6 {
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    background-color: #242424;
+  #root {
+    background-color: #01040e;
     color: #ffffff;
   }
 }

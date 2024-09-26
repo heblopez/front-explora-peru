@@ -15,7 +15,7 @@ export default function Login() {
     <main className='flex justify-center p-4'>
       <Card className='w-full max-w-md'>
         <CardHeader>
-          <CardTitle className='text-2xl font-bold text-center text-primary'>
+          <CardTitle className='text-2xl font-bold text-center text-primary dark:text-slate-50'>
             Iniciar Sesión
           </CardTitle>
           <CardDescription className='text-center'>
@@ -52,14 +52,14 @@ export default function Login() {
           </form>
         </CardContent>
         <CardFooter className='flex flex-col space-y-4'>
-          <Button className='w-full bg-slate-700 hover:bg-primary-darker'>
+          <Button className='w-full bg-primary dark:bg-primary-light hover:bg-primary-dark hover:dark:bg-primary-lighter'>
             Iniciar Sesión
           </Button>
           <div className='text-sm text-center'>
             ¿Olvidaste tu contraseña? <br />
             <Link
               to='#'
-              className='text-primary-dark font-bold hover:underline'
+              className='text-primary-dark font-bold hover:underline dark:text-primary-light'
             >
               Recupérala aquí
             </Link>
@@ -68,7 +68,7 @@ export default function Login() {
             ¿No tienes una cuenta? <br />
             <Link
               to='/register'
-              className='text-primary-dark font-bold hover:underline'
+              className='text-primary-dark font-bold hover:underline dark:text-primary-light'
             >
               Regístrate
             </Link>

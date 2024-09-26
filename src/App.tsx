@@ -20,7 +20,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path='/home' element={<Home />} />
+          <Route path='/' Component={Home} />
           <Route path='/agencies' element={<Agencies />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />

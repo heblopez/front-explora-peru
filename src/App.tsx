@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import Tours from './pages/Tours'
 import Navbar from './components/Navbar'
 import { useEffect } from 'react'
+import AgenciesLanding from './pages/AgenciesLanding'
 
 function App() {
   useEffect(() => {
@@ -21,6 +22,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/home' element={<Home />} />
+          <Route path='/AgenciesLanding' element={<AgenciesLanding />} />
           <Route path='/agencies' element={<Agencies />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />

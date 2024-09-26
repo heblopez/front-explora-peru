@@ -5,8 +5,16 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Tours from './pages/Tours'
 import Navbar from './components/Navbar'
+import { useEffect } from 'react'
 
 function App() {
+  useEffect(() => {
+    const rootDiv = document.getElementById('root')
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      rootDiv?.classList.add('dark')
+    }
+  }, [])
+
   return (
     <>
       <BrowserRouter>

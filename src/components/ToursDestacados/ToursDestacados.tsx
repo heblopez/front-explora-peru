@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import { ChevronRight } from 'lucide-react'
+import ScrollableSection from './ScrollableSection'
+import RouteCard from './RouteCard'
+
 const routesData = [
   {
     name: 'Eiger',
@@ -157,6 +160,14 @@ const ToursPopulares: React.FC = () => {
                 <p>{tours[activeTour].longDescription}</p>
               </div>
             )}
+
+            <div className='mt-12'>
+              <ScrollableSection>
+                {tours[activeTour].routes.map((route, index) => (
+                  <RouteCard key={index} route={route} />
+                ))}
+              </ScrollableSection>
+            </div>
           </div>
         </div>
       </div>

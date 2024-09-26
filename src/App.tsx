@@ -9,9 +9,11 @@ import { useEffect } from 'react'
 
 function App() {
   useEffect(() => {
-    const rootDiv = document.getElementById('root')
+    const body = document.body
+    const rootDOM = document.querySelector('#root')
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      rootDiv?.classList.add('dark')
+      body.classList.add('dark')
+      rootDOM?.classList.add('dark')
     }
   }, [])
 

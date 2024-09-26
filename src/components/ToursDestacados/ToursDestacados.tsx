@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ChevronRight } from 'lucide-react'
 const routesData = [
   {
     name: 'Eiger',
@@ -76,24 +77,38 @@ const tours = [
     title: 'MACHU PICCHU',
     bgImage:
       'https://www.peru.travel/Contenido/Atractivo/Imagen/es/38/1.1/Principal/machu-picchu.jpg',
+    shortDescription: 'machu picchu en cuzco',
+    longDescription:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
     routes: routesData
   },
   {
     title: 'LAGO TITICACA',
     bgImage:
       'https://www.peru.travel/Contenido/Atractivo/Imagen/es/32/1.1/Principal/comunidad-andina-en-el-lago-titicaca.jpg',
+    shortDescription: 'lago mas alto del mundo en puno',
+    longDescription:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
     routes: routesData
   },
   {
     title: 'LIMA',
     bgImage:
       'https://www.peru.travel/Contenido/Destino/Imagen/es/8/1.4/Principal/lima-banner-3.jpg',
+
+    shortDescription: 'Lima capital del Peru',
+    longDescription:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
     routes: routesData
   }
 ]
 
 const ToursPopulares: React.FC = () => {
   const [activeTour, setActiveTour] = useState(0)
+  const [showMoreInfo, setShowMoreInfo] = useState(false)
+  const toggleMoreInfo = () => {
+    setShowMoreInfo(!showMoreInfo)
+  }
   return (
     <div className='min-h-screen bg-black text-white'>
       <div className='relative min-h-screen'>
@@ -120,6 +135,28 @@ const ToursPopulares: React.FC = () => {
                 aria-label={`Route ${index + 1}`}
               ></button>
             ))}
+          </div>
+          <div className='ml-12 sm:ml-8'>
+            <h1 className='text-5xl sm:text-7xl font-bold mb-4 text-shadow-lg'>
+              {tours[activeTour].title}
+            </h1>
+            <p className='text-lg sm:text-xl mb-8 text-gray-300 text-shadow'>
+              Descubre las majestuosas montañas y rutas de los{' '}
+              {tours[activeTour].shortDescription}.
+            </p>
+            <button
+              className='bg-[#2975BA] text-white px-6 py-2 rounded-full font-semibold flex items-center hover:bg-orange-600 transition-colors duration-300'
+              onClick={toggleMoreInfo}
+            >
+              {showMoreInfo ? 'LEER MENOS' : 'LEER MÁS'}{' '}
+              <ChevronRight className='ml-2' />
+            </button>
+
+            {showMoreInfo && (
+              <div className='mt-4 p-4 bg-gray-800 rounded-lg'>
+                <p>{tours[activeTour].longDescription}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

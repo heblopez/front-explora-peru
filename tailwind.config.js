@@ -6,8 +6,8 @@ export default {
     extend: {
       colors: {
         primary: 'hsl(217, 91%, 50%)',
-        'primary-lighter': 'hsl(217, 91%, 90%)',
-        'primary-light': 'hsl(217, 91%, 70%)',
+        'primary-lighter': 'hsl(217, 91%, 77%)',
+        'primary-light': 'hsl(217, 91%, 67%)',
         'primary-dark': 'hsl(217, 91%, 40%)',
         'primary-darker': 'hsl(217, 91%, 30%)',
         accent: 'hsl(37, 91%, 60%)',

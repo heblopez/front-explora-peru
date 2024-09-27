@@ -246,7 +246,7 @@ const ToursPopulares: React.FC = () => {
               setActiveTab={setActiveTab}
             />
 
-            <div className='absolute left-0  flex sm:flex-col items-center space-x-2 sm:space-x-0 sm:space-y-2'>
+            <div className='absolute left-2 flex flex-col items-center space-y-2'>
               {tabs[activeTab].tours.map((_, index) => (
                 <button
                   key={index}

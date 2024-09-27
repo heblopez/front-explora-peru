@@ -1,5 +1,7 @@
+import ToursPopulares from '../components/ToursDestacados/ToursDestacados'
+
 function Home() {
-  return <h1>Home</h1>
+  return <ToursPopulares />
 }
 
 export default Home

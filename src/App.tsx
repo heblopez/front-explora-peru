@@ -6,6 +6,7 @@ import Tours from './pages/Tours'
 import Navbar from './components/Navbar'
 import { useEffect } from 'react'
 import AgenciesLanding from './pages/AgenciesLanding'
+import Footer from './components/Footer'
 
 function App() {
   useEffect(() => {
@@ -28,6 +29,7 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/tours' element={<Tours />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   )

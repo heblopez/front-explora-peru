@@ -16,17 +16,17 @@ export default function AgenciesLanding() {
         <div className='absolute inset-0 bg-black opacity-60'></div>
 
         <div className='relative z-10 flex flex-col items-center justify-center text-center'>
-          <h1 className='text-h1 font-bold font-title mb-4 text-secundary'>
+          <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold font-title mb-4 text-secondary'>
             Únete a ExploraPerú y publica tus tours
           </h1>
-          <p className='text-xl text-gray-300 max-w-xl mb-6 text-center'>
+          <p className='text-base md:text-lg lg:text-xl text-gray-300 max-w-xl mb-6 text-center'>
             Regístrate como agencia y empieza a mostrar tus tours a miles de
             viajeros en todo el mundo. Aprovecha nuestras herramientas para
             gestionar fácilmente tus reservas y mejorar tu negocio.
           </p>
           <section className='py-2 space-y-4'>
             <Button
-              className='w-full bg-primary dark:bg-primary-light hover:bg-primary-dark hover:dark:bg-primary-lighter'
+              className='w-full sm:w-auto bg-primary dark:bg-primary-light hover:bg-primary-dark hover:dark:bg-primary-lighter'
               size='lg'
             >
               <Link to='/register'>Regístrate ahora</Link>
@@ -35,14 +35,14 @@ export default function AgenciesLanding() {
         </div>
       </section>
 
-      <section className='py-8 bg-secundary '>
-        <h2 className='text-h2 font-title text-center mb-12 text-primary'>
+      <section className='py-8 bg-white'>
+        <h2 className='text-2xl md:text-3xl font-title text-center mb-12 text-primary'>
           ¿Por qué trabajar con nosotros?
         </h2>
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
           <Card className='bg-white shadow-md'>
             <CardHeader>
-              <CardTitle className='text-h4'>+10,000 actividades</CardTitle>
+              <CardTitle className='text-xl'>+10,000 actividades</CardTitle>
               <CardDescription>
                 Sube detalles de todos tus tours y actividades.
               </CardDescription>
@@ -50,7 +50,7 @@ export default function AgenciesLanding() {
           </Card>
           <Card className='bg-white shadow-md'>
             <CardHeader>
-              <CardTitle className='text-h4'>Gestión de reservas</CardTitle>
+              <CardTitle className='text-xl'>Gestión de reservas</CardTitle>
               <CardDescription>
                 Administra fácilmente tus reservas en nuestro sistema.
               </CardDescription>
@@ -58,7 +58,7 @@ export default function AgenciesLanding() {
           </Card>
           <Card className='bg-white shadow-md'>
             <CardHeader>
-              <CardTitle className='text-h4 '>Capacitación continua</CardTitle>
+              <CardTitle className='text-xl'>Capacitación continua</CardTitle>
               <CardDescription>
                 Recibe formación para mejorar tus habilidades.
               </CardDescription>
@@ -66,7 +66,7 @@ export default function AgenciesLanding() {
           </Card>
           <Card className='bg-white shadow-md'>
             <CardHeader>
-              <CardTitle className='text-h4'>Comunidad activa</CardTitle>
+              <CardTitle className='text-xl'>Comunidad activa</CardTitle>
               <CardDescription>
                 Únete a una red de profesionales del turismo.
               </CardDescription>
@@ -74,15 +74,15 @@ export default function AgenciesLanding() {
           </Card>
           <Card className='bg-white shadow-md'>
             <CardHeader>
-              <CardTitle className='text-h4'>Soporte 24/7</CardTitle>
+              <CardTitle className='text-xl'>Soporte 24/7</CardTitle>
               <CardDescription>
-                Nuestro equipo de soporte está disponible para ayudarte
+                Nuestro equipo de soporte está disponible para ayudarte.
               </CardDescription>
             </CardHeader>
           </Card>
           <Card className='bg-white shadow-md'>
             <CardHeader>
-              <CardTitle className='text-h4'>Pagos seguros</CardTitle>
+              <CardTitle className='text-xl'>Pagos seguros</CardTitle>
               <CardDescription>
                 Transacciones protegidas y confiables.
               </CardDescription>
@@ -91,32 +91,40 @@ export default function AgenciesLanding() {
         </div>
       </section>
 
-      <section className='py-8 bg-white text-white'>
-        <h2 className='text-h2 font-title text-center mb-12 text-primary '>
+      <section className='py-8 bg-white'>
+        <h2 className='text-2xl md:text-3xl font-title text-center mb-12 text-primary'>
           Nuestro panel de agencias mejorado
         </h2>
-        <div className='flex  md:flex-row justify-around'>
-          <div className='text-center'>
-            <p className='text-h5 text-gray-800'>Eficaz y fácil de usar</p>
-            <p className='text-h6 text-gray-800'>
+        <div className='flex flex-col md:flex-row justify-around '>
+          <div className='text-center mb-4 md:mb-0 '>
+            <p className='text-xl text-gray-800 font-bold '>
+              Eficaz y fácil de usar
+            </p>
+            <p className='text-md text-gray-800'>
               Controla todas tus operaciones desde un solo lugar.
             </p>
           </div>
-          <div className='text-center'>
-            <p className='text-h5 text-gray-800'>Reservas instantáneas</p>
-            <p className='text-h6 text-gray-800'>
+          <div className='text-center mb-4 md:mb-0'>
+            <p className='text-xl text-gray-800 font-bold '>
+              Reservas instantáneas
+            </p>
+            <p className='text-md text-gray-800'>
               Confirma tours con un solo clic.
             </p>
           </div>
-          <div className='text-center'>
-            <p className='text-h5 text-gray-800'>Interfaz amigable</p>
-            <p className='text-h6 text-gray-800'>
+          <div className='text-center mb-4 md:mb-0'>
+            <p className='text-xl text-gray-800 font-bold '>
+              Interfaz amigable
+            </p>
+            <p className='text-md text-gray-800'>
               Navegación intuitiva para una mejor usabilidad.
             </p>
           </div>
-          <div className='text-center'>
-            <p className='text-h5 text-gray-800'>Soporte personalizado</p>
-            <p className='text-h6 text-gray-800'>
+          <div className='text-center mb-4 md:mb-0'>
+            <p className='text-xl text-gray-800 font-bold '>
+              Soporte personalizado
+            </p>
+            <p className='text-md text-gray-800'>
               Asistencia dedicada para resolver tus dudas.
             </p>
           </div>
@@ -125,13 +133,12 @@ export default function AgenciesLanding() {
 
       <section className='bg-white py-8'>
         <div className='text-center mb-8'>
-          <h2 className='text-h2 font-title text-primary'>
+          <h2 className='text-2xl md:text-3xl font-title text-primary'>
             Lo que dicen nuestros socios
           </h2>
-          <p className='text-lg italic text-gray-800'></p>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
           <div className='border rounded-lg p-6 shadow-lg text-center'>
             <img
               src='https://www.rutasdelperu.com/images/logo_rutasdelperu.svg?crc=24125356'
@@ -176,13 +183,14 @@ export default function AgenciesLanding() {
           </div>
         </div>
       </section>
+
       <section className='py-16 flex flex-col items-center bg-gray-800'>
-        <h2 className='text-h2 font-title text-center mb-4 text-white'>
+        <h2 className='text-3xl md:text-4xl font-title text-center mb-4 text-white'>
           ¡Empieza hoy mismo!
         </h2>
         <section className='py-2 space-y-4'>
           <Button
-            className='w-full bg-primary dark:bg-primary-light hover:bg-primary-dark hover:dark:bg-primary-lighter'
+            className='w-full sm:w-auto bg-primary dark:bg-primary-light hover:bg-primary-dark hover:dark:bg-primary-lighter'
             size='lg'
           >
             <Link to='/register'>Regístrate ahora</Link>

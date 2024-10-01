@@ -40,6 +40,11 @@ export default {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
+      },
+      width: {
+        26: '6.5rem',
+        27: '6.75rem',
+        29: '7.25rem'
       }
     }
   },

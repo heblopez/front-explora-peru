@@ -72,6 +72,7 @@ function Calendar({
           const options = React.Children.toArray(
             children
           ) as React.ReactElement<React.HTMLProps<HTMLOptionElement>>[]
+          const width = props.name === 'months' ? 'w-27' : 'w-16'
           const selected = options.find(child => child.props.value === value)
           const handleChange = (value: string) => {
             const changeEvent = {
@@ -86,7 +87,7 @@ function Calendar({
                 handleChange(value)
               }}
             >
-              <SelectTrigger className='pr-1.5 focus:ring-0'>
+              <SelectTrigger className={`pr-1 focus:ring-0 ${width}`}>
                 <SelectValue>{selected?.props?.children}</SelectValue>
               </SelectTrigger>
               <SelectContent position='popper'>

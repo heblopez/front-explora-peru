@@ -25,11 +25,10 @@ body {
   min-height: 100vh;
 }
 
-body,
-#root {
+* {
   transition:
-    color 0.3s,
-    background-color 0.3s;
+    color 40ms,
+    background-color 250ms;
   transition-timing-function: ease-in-out;
 }
 

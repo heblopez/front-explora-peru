@@ -4,24 +4,17 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Tours from './pages/Tours'
 import Navbar from './components/Navbar'
-import { useEffect } from 'react'
 import AgenciesLanding from './pages/AgenciesLanding'
 import Footer from './components/Footer'
+import { useDarkMode } from './hooks/useDarkMode'
 
 function App() {
-  useEffect(() => {
-    const body = document.body
-    const rootDOM = document.querySelector('#root')
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      body.classList.add('dark')
-      rootDOM?.classList.add('dark')
-    }
-  }, [])
+  const { isDarkMode, toggleDarkMode } = useDarkMode()
 
   return (
     <>
       <BrowserRouter>
-        <Navbar />
+        <Navbar isDark={isDarkMode} toggleTheme={toggleDarkMode} />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/agencies' element={<AgenciesLanding />} />

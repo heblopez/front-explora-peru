@@ -18,8 +18,15 @@ import {
   UserPlus,
   User
 } from 'lucide-react'
+import { DarkModeBtn } from './DarkModeBtn'
 
-function Navbar() {
+function Navbar({
+  isDark,
+  toggleTheme
+}: {
+  isDark: boolean
+  toggleTheme: () => void
+}) {
   const [isOpen, setIsOpen] = useState(false)
   const toggleMenu = () => setIsOpen(!isOpen)
 
@@ -58,6 +65,7 @@ function Navbar() {
           <CurrencyDropdown />
           <LoginDropdown />
           <RegisterDropdown />
+          <DarkModeBtn isDark={isDark} toggleTheme={toggleTheme} />
         </nav>
       </div>
 

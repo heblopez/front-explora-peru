@@ -18,8 +18,15 @@ import {
   UserPlus,
   User
 } from 'lucide-react'
+import { DarkModeBtn } from './DarkModeBtn'
 
-function Navbar() {
+function Navbar({
+  isDark,
+  toggleTheme
+}: {
+  isDark: boolean
+  toggleTheme: () => void
+}) {
   const [isOpen, setIsOpen] = useState(false)
   const toggleMenu = () => setIsOpen(!isOpen)
 
@@ -58,6 +65,7 @@ function Navbar() {
           <CurrencyDropdown />
           <LoginDropdown />
           <RegisterDropdown />
+          <DarkModeBtn isDark={isDark} toggleTheme={toggleTheme} />
         </nav>
       </div>
 
@@ -85,6 +93,14 @@ function Navbar() {
             </li>
             <li className='px-3 py-2'>
               <RegisterDropdown />
+            </li>
+            <li className='pl-4 py-2 flex gap-2 items-center text-xs text-slate-600 dark:text-slate-100'>
+              <DarkModeBtn
+                isDark={isDark}
+                toggleTheme={toggleTheme}
+                sizeIcon={16}
+              />
+              <p>Modo actual: {isDark ? 'Oscuro' : 'Claro'}</p>
             </li>
           </ul>
         </nav>
@@ -138,8 +154,9 @@ function CurrencyDropdown() {
 }
 
 function LoginDropdown() {
+  const [isOpen, setIsOpen] = useState(false)
   return (
-    <DropdownMenu>
+    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
         <Button
           variant='ghost'
@@ -153,8 +170,9 @@ function LoginDropdown() {
       <DropdownMenuContent>
         <DropdownMenuItem>
           <Link
-            to='/login/'
+            to='/login'
             className='flex items-center space-x-2 font-content'
+            onClick={prev => setIsOpen(!prev)}
           >
             <User className='h-4 w-4' />
             <span>Viajero</span>
@@ -164,6 +182,7 @@ function LoginDropdown() {
           <Link
             to='/login/'
             className='flex items-center space-x-2 font-content'
+            onClick={prev => setIsOpen(!prev)}
           >
             <Building2 className='h-4 w-4' />
             <span>Agencia</span>

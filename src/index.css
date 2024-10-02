@@ -25,6 +25,13 @@ body {
   min-height: 100vh;
 }
 
+* {
+  transition:
+    color 40ms,
+    background-color 250ms;
+  transition-timing-function: ease-in-out;
+}
+
 #root {
   @apply min-h-screen flex flex-col bg-gray-50;
 

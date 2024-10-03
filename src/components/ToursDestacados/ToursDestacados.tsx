@@ -5,11 +5,10 @@ import RouteCard from './RouteCard'
 import Tabs from './Tabs'
 const routesData = [
   {
-    name: 'Eiger',
+    name: 'Intihuatana',
     region: 'Suiza',
     rating: 4.8,
-    image:
-      'https://www.peru.travel/Contenido/Atractivo/Imagen/es/38/0/AtractivoCarouselSection/intihuatana.jpg',
+    image: 'intihuatana.jpg',
     duration: '3 horas',
     price: '$150',
     ratingCount: 1250,
@@ -19,11 +18,10 @@ const routesData = [
     agency: 'Swiss Alpine Tours'
   },
   {
-    name: 'Mönch',
+    name: 'Templo del Condor',
     region: 'Suiza',
     rating: 4.7,
-    image:
-      'https://www.peru.travel/Contenido/Atractivo/Imagen/es/38/0/AtractivoCarouselSection/templo-condor.jpg',
+    image: 'templo-condor.jpg',
     duration: '4 horas',
     price: '$180',
     ratingCount: 980,
@@ -33,11 +31,10 @@ const routesData = [
     agency: 'Mountain Explorers'
   },
   {
-    name: 'Piz Bernina',
+    name: 'Templo del sol',
     region: 'Suiza/Italia',
     rating: 4.9,
-    image:
-      'https://www.peru.travel/Contenido/Atractivo/Imagen/es/38/0/AtractivoCarouselSection/templo-del-sol.jpg',
+    image: 'templo-del-sol.jpg',
     duration: '6 horas',
     price: '$220',
     ratingCount: 1500,
@@ -50,8 +47,7 @@ const routesData = [
     name: 'Mont Blanc',
     region: 'Francia/Italia',
     rating: 4.9,
-    image:
-      'https://www.peru.travel/Contenido/Atractivo/Imagen/es/38/0/AtractivoCarouselSection/intihuatana.jpg',
+    image: 'intihuatana.jpg',
     duration: '8 horas',
     price: '$250',
     ratingCount: 2000,
@@ -61,11 +57,10 @@ const routesData = [
     agency: 'Mont Blanc Expeditions'
   },
   {
-    name: 'Cervino',
+    name: 'Huayna Picchu',
     region: 'Suiza/Italia',
     rating: 4.8,
-    image:
-      'https://www.peru.travel/Contenido/Atractivo/Imagen/es/38/0/AtractivoCarouselSection/huayna1.jpg',
+    image: 'huayna1.jpg',
     duration: '5 horas',
     price: '$200',
     ratingCount: 1750,
@@ -78,8 +73,7 @@ const routesData = [
 const tours = [
   {
     title: 'MACHU PICCHU',
-    bgImage:
-      'https://www.peru.travel/Contenido/Atractivo/Imagen/es/38/1.1/Principal/machu-picchu.jpg',
+    bgImage: 'machu-picchu.jpg',
     shortDescription: 'machu picchu en cuzco',
     longDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
@@ -87,8 +81,7 @@ const tours = [
   },
   {
     title: 'LAGO TITICACA',
-    bgImage:
-      'https://www.peru.travel/Contenido/Atractivo/Imagen/es/32/1.1/Principal/comunidad-andina-en-el-lago-titicaca.jpg',
+    bgImage: 'comunidad-andina-en-el-lago-titicaca.jpg',
     shortDescription: 'lago mas alto del mundo en puno',
     longDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
@@ -96,8 +89,7 @@ const tours = [
   },
   {
     title: 'LIMA',
-    bgImage:
-      'https://www.peru.travel/Contenido/Destino/Imagen/es/8/1.4/Principal/lima-banner-3.jpg',
+    bgImage: 'lima-banner-3.jpg',
 
     shortDescription: 'Lima capital del Peru',
     longDescription:
@@ -108,8 +100,7 @@ const tours = [
 const toursMejorValoradas = [
   {
     title: 'MACHU PICCHU',
-    bgImage:
-      'https://www.peru.travel/Contenido/Atractivo/Imagen/es/38/1.1/Principal/machu-picchu.jpg',
+    bgImage: 'machu-picchu.jpg',
     shortDescription: 'machu picchu en cuzco',
     longDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
@@ -117,8 +108,7 @@ const toursMejorValoradas = [
   },
   {
     title: 'LAGO TITICACA',
-    bgImage:
-      'https://www.peru.travel/Contenido/Atractivo/Imagen/es/32/1.1/Principal/comunidad-andina-en-el-lago-titicaca.jpg',
+    bgImage: 'comunidad-andina-en-el-lago-titicaca.jpg',
     shortDescription: 'lago mas alto del mundo en puno',
     longDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
@@ -126,8 +116,7 @@ const toursMejorValoradas = [
   },
   {
     title: 'LIMA',
-    bgImage:
-      'https://www.peru.travel/Contenido/Destino/Imagen/es/8/1.4/Principal/lima-banner-3.jpg',
+    bgImage: 'lima-banner-3.jpg',
 
     shortDescription: 'Lima capital del Peru',
     longDescription:
@@ -138,8 +127,7 @@ const toursMejorValoradas = [
 const toursMasPopulares = [
   {
     title: 'MACHU PICCHU',
-    bgImage:
-      'https://www.peru.travel/Contenido/Atractivo/Imagen/es/38/1.1/Principal/machu-picchu.jpg',
+    bgImage: 'machu-picchu.jpg',
     shortDescription: 'machu picchu en cuzco',
     longDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
@@ -147,8 +135,7 @@ const toursMasPopulares = [
   },
   {
     title: 'LAGO TITICACA',
-    bgImage:
-      'https://www.peru.travel/Contenido/Atractivo/Imagen/es/32/1.1/Principal/comunidad-andina-en-el-lago-titicaca.jpg',
+    bgImage: 'comunidad-andina-en-el-lago-titicaca.jpg',
     shortDescription: 'lago mas alto del mundo en puno',
     longDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
@@ -156,8 +143,7 @@ const toursMasPopulares = [
   },
   {
     title: 'LIMA',
-    bgImage:
-      'https://www.peru.travel/Contenido/Destino/Imagen/es/8/1.4/Principal/lima-banner-3.jpg',
+    bgImage: 'lima-banner-3.jpg',
 
     shortDescription: 'Lima capital del Peru',
     longDescription:
@@ -178,8 +164,7 @@ const toursRecomendadas = [
   },
   {
     title: 'LAGO TITICACA',
-    bgImage:
-      'https://www.peru.travel/Contenido/Atractivo/Imagen/es/32/1.1/Principal/comunidad-andina-en-el-lago-titicaca.jpg',
+    bgImage: 'comunidad-andina-en-el-lago-titicaca.jpg',
     shortDescription: 'lago mas alto del mundo en puno',
     longDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
@@ -187,8 +172,7 @@ const toursRecomendadas = [
   },
   {
     title: 'LIMA',
-    bgImage:
-      'https://www.peru.travel/Contenido/Destino/Imagen/es/8/1.4/Principal/lima-banner-3.jpg',
+    bgImage: 'lima-banner-3.jpg',
 
     shortDescription: 'Lima capital del Peru',
     longDescription:
@@ -232,7 +216,7 @@ const ToursPopulares: React.FC = () => {
       <div className='relative min-h-screen'>
         <div className='absolute inset-0 z-0'>
           <img
-            src={tours[activeTour].bgImage}
+            src={`/assets/${tours[activeTour].bgImage}`}
             alt={tours[activeTour].title}
             className='w-full h-full object-cover'
           />

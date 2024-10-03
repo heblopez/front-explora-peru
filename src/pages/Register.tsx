@@ -34,7 +34,7 @@ export default function Register() {
   }
 
   return (
-    <main className='flex justify-center my-auto p-4'>
+    <main className='flex justify-center my-auto px-4 py-8'>
       <Card className='w-full max-w-md'>
         <CardHeader>
           <CardTitle className='text-3xl font-bold text-center text-primary dark:text-primary-lighter'>

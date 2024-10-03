@@ -24,7 +24,7 @@ const RouteCard: React.FC<RouteCardProps> = ({ route }) => (
     className={`flex-shrink-0 w-64 sm:w-72 bg-white  rounded-lg overflow-hidden shadow-lg transform transition-all duration-300 hover:scale-105 h-96`}
   >
     <img
-      src={route.image}
+      src={`/assets/${route.image}`}
       alt={route.name}
       className='w-full h-48 object-cover'
     />

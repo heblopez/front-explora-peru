@@ -7,6 +7,7 @@ import Navbar from './components/Navbar'
 import AgenciesLanding from './pages/AgenciesLanding'
 import Footer from './components/Footer'
 import { useDarkMode } from './hooks/useDarkMode'
+import EditProfile from './pages/EditProfile'
 
 function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
@@ -21,6 +22,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/tours' element={<Tours />} />
+          <Route path='/editprofile' element={<EditProfile />} />
         </Routes>
         <Footer />
       </BrowserRouter>

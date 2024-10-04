@@ -22,6 +22,7 @@ function App() {
           closeButton
           richColors
           theme={isDarkMode ? 'dark' : 'light'}
+          visibleToasts={4}
         />
         <Routes>
           <Route path='/' element={<Home />} />

@@ -31,6 +31,7 @@ import { toast } from 'sonner'
 
 export default function Register() {
   const [date, setDate] = useState<Date | undefined>()
+  const [openCalendar, setOpenCalendar] = useState(false)
   const formatDate = (date: Date) => {
     return format(date, 'dd MMMMMM yyyy', { locale: es })
   }
@@ -197,7 +198,7 @@ export default function Register() {
                   >
                     * Fecha de Nacimiento
                   </label>
-                  <Popover>
+                  <Popover open={openCalendar} onOpenChange={setOpenCalendar}>
                     <PopoverTrigger id='birthdate' asChild>
                       <Button
                         variant={'outline'}
@@ -213,7 +214,10 @@ export default function Register() {
                       <Calendar
                         mode='single'
                         selected={date}
-                        onSelect={setDate}
+                        onSelect={date => {
+                          setDate(date)
+                          setOpenCalendar(false)
+                        }}
                         initialFocus
                         captionLayout='dropdown-buttons'
                         fromYear={1970}

@@ -11,8 +11,46 @@
       "name": "Jane Doe",
       "email": "janedoe@mail.com",
       "password": "123456"
+    },
+    {
+      "name": "Testino",
+      "lastName": "Probino",
+      "documentType": "DNI",
+      "documentNumber": 99999999,
+      "birthdate": "2024-10-03",
+      "country": "Peru",
+      "gender": "male",
+      "phone": "+51999888789",
+      "email": "testino@mail.com",
+      "password": "letmein",
+      "id": 3
+    },
+    {
+      "name": "Heberth",
+      "lastName": "López",
+      "documentType": "DNI",
+      "documentNumber": 123456789,
+      "birthdate": "2024-10-03",
+      "country": "Peru",
+      "gender": "male",
+      "phone": "+51987888789",
+      "email": "heblopez@mail.com",
+      "password": "letmein",
+      "id": 4
     }
   ],
-  "posts": [{ "id": 1, "title": "json-server", "author": "typicode" }],
-  "comments": [{ "id": 1, "body": "some comment", "postId": 1 }]
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ]
 }

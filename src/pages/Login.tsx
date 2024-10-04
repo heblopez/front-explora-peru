@@ -37,7 +37,6 @@ export default function Login() {
                 email: user.email
               }
               localStorage.setItem('user', JSON.stringify(dataToStore))
-              document.cookie = `user=${JSON.stringify(dataToStore)}`
               formRef.current?.reset()
               setTimeout(() => {
                 navigate('/')

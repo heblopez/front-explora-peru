@@ -16,7 +16,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Calendar } from '@/components/ui/calendar'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FormEvent, useRef, useState } from 'react'
 import {
   Popover,
@@ -35,6 +35,7 @@ export default function Register() {
   }
 
   const formRef = useRef<HTMLFormElement>(null)
+  const navigate = useNavigate()
 
   const RegistrationSchema = z.object({
     name: z
@@ -93,10 +94,32 @@ export default function Register() {
       password: formRef.current?.password.value,
       confirmPassword: formRef.current?.['confirm-password'].value
     }
-    console.log(registerForm)
+
     const isValidForm = RegistrationSchema.safeParse(registerForm)
+
     if (isValidForm.success) {
-      formRef.current?.reset()
+      delete registerForm.confirmPassword
+      fetch('http://localhost:3000/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(registerForm)
+      })
+        .then(res => res.json())
+        .then(user => {
+          const dataToStore = {
+            id: user.id,
+            name: user.name,
+            email: user.email
+          }
+          localStorage.setItem('user', JSON.stringify(dataToStore))
+          formRef.current?.reset()
+          setTimeout(() => {
+            navigate('/')
+          }, 1200)
+        })
+        .catch(err => console.error(err))
     }
   }
 
@@ -270,7 +293,7 @@ export default function Register() {
                   htmlFor='password'
                   className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                 >
-                  * Contraseña
+                  * Contraseña:
                 </label>
                 <Input id='password' type='password' />
               </div>
@@ -279,7 +302,7 @@ export default function Register() {
                   htmlFor='confirm-password'
                   className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                 >
-                  * Confirmar Contraseña
+                  * Confirmar Contraseña:
                 </label>
                 <Input id='confirm-password' type='password' />
               </div>

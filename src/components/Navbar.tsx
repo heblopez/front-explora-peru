@@ -31,7 +31,7 @@ function Navbar({
   const toggleMenu = () => setIsOpen(!isOpen)
 
   return (
-    <header className='bg-white shadow-sm'>
+    <header className='bg-white shadow-sm dark:bg-gray-800'>
       <div className='container mx-auto px-4 py-4 flex items-center justify-between'>
         <Link to='/' className='flex items-center'>
           <span className='text-h5 font-title font-bold text-primary'>
@@ -42,12 +42,12 @@ function Navbar({
         <Button
           variant='ghost'
           size='icon'
-          className='md:hidden text-gray-600 hover:text-primary hover:bg-gray-100'
+          className='md:hidden text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
           onClick={toggleMenu}
         >
           {isOpen ?
             <X className='h-6 w-6' />
-          : <Menu className='h-6 w-6' />}
+          : <Menu className='h-6 w-6 ' />}
         </Button>
 
         <nav className='hidden md:flex items-center space-x-4'>
@@ -55,7 +55,7 @@ function Navbar({
             <Button
               variant='ghost'
               size='sm'
-              className='font-content text-gray-600 hover:text-primary hover:bg-gray-100'
+              className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
             >
               <Building2 className='h-4 w-4 mr-1' />
               <span>Agencias</span>
@@ -70,12 +70,12 @@ function Navbar({
       </div>
 
       {isOpen && (
-        <nav className='md:hidden bg-white border-t border-gray-200'>
+        <nav className='md:hidden bg-white border-t border-gray-200 dark:bg-gray-800'>
           <ul className='px-2 pt-2 pb-3 space-y-1 sm:px-3'>
             <li className='px-3 py-2'>
               <Link
                 to='/agencies'
-                className='flex items-center space-x-2 px-3 py-2 rounded-md text-base font-content text-gray-600 hover:text-primary hover:bg-gray-100'
+                className='flex items-center space-x-2 px-3 py-2 rounded-md text-base font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
                 onClick={toggleMenu}
               >
                 <Building2 className='h-4 w-4' />
@@ -118,7 +118,7 @@ function LanguageDropdown() {
         <Button
           variant='ghost'
           size='sm'
-          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100'
+          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
         >
           <Globe className='h-4 w-4 mr-1' />
           <span>ES</span>
@@ -139,7 +139,7 @@ function CurrencyDropdown() {
         <Button
           variant='ghost'
           size='sm'
-          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100'
+          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
         >
           <DollarSign className='h-4 w-4 mr-1' />
           <span>PEN</span>
@@ -161,7 +161,7 @@ function LoginDropdown() {
         <Button
           variant='ghost'
           size='sm'
-          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100'
+          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
         >
           <LogIn className='h-4 w-4 mr-1' />
           <span>Iniciar Sesión</span>
@@ -200,7 +200,7 @@ function RegisterDropdown() {
         <Button
           variant='ghost'
           size='sm'
-          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100'
+          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
         >
           <UserPlus className='h-4 w-4 mr-1' />
           <span>Registrarse</span>

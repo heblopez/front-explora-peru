@@ -28,7 +28,7 @@ Users should be able to:
 
 ### Screenshot
 
-[screenshot]
+[Landing](./design/landing-explora-peru.jpeg)
 
 ## Our Process
 

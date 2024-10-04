@@ -29,7 +29,7 @@ export default function Login() {
     <main className='flex justify-center my-auto p-4'>
       <Card className='w-full max-w-md'>
         <CardHeader>
-          <CardTitle className='text-2xl font-bold text-center text-primary dark:text-slate-50'>
+          <CardTitle className='text-3xl font-bold text-center text-primary dark:text-primary-lighter'>
             Iniciar Sesión
           </CardTitle>
           <CardDescription className='text-center'>
@@ -64,9 +64,9 @@ export default function Login() {
               </div>
               <Button
                 type='submit'
-                className='w-full bg-primary dark:bg-primary-light hover:bg-primary-dark hover:dark:bg-primary-lighter'
+                className='w-full font-bold bg-primary dark:bg-primary-light hover:bg-primary-dark hover:dark:bg-primary-lighter'
               >
-                Iniciar Sesión
+                Entrar
               </Button>
             </div>
           </form>

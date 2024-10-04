@@ -25,8 +25,15 @@ body {
   min-height: 100vh;
 }
 
+* {
+  transition:
+    color 40ms,
+    background-color 250ms;
+  transition-timing-function: ease-in-out;
+}
+
 #root {
-  @apply min-h-screen flex flex-col flex-grow bg-gray-50;
+  @apply min-h-screen flex flex-col bg-gray-50;
 
   &.dark {
     background-color: hsl(226, 87%, 7%);
@@ -41,6 +48,12 @@ h4,
 h5,
 h6 {
   font-weight: 700;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
 }
 
 @layer base {

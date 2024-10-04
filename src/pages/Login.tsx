@@ -12,10 +12,23 @@ import { FormEvent, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { User, UserLogin } from '@/types/User'
 import { toast } from 'sonner'
+import { z } from 'zod'
 
 export default function Login() {
   const formRef = useRef<HTMLFormElement>(null)
   const navigate = useNavigate()
+
+  const LoginSchema = z.object({
+    email: z
+      .string()
+      .min(1, 'El correo electrónico es obligatorio')
+      .email('El correo electrónico debe ser válido'),
+    password: z
+      .string()
+      .min(1, 'La contraseña es obligatoria')
+      .min(7, 'La contraseña debe tener al menos 7 caracteres')
+      .max(24, 'La contraseña debe tener como máximo 24 caracteres')
+  })
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -25,8 +38,11 @@ export default function Login() {
       password: formRef.current?.password.value
     }
 
-    if (credentials.email && credentials.password) {
+    const isValidForm = LoginSchema.safeParse(credentials)
+
+    if (isValidForm.success) {
       const { email, password } = credentials
+
       const fetchUsers = async () => {
         try {
           const res = await fetch('http://localhost:3000/users')
@@ -71,6 +87,8 @@ export default function Login() {
           justifyContent: 'center'
         }
       })
+    } else {
+      isValidForm.error.errors.forEach(err => toast.error(err.message))
     }
   }
 
@@ -95,12 +113,7 @@ export default function Login() {
                 >
                   Correo Electrónico:
                 </label>
-                <Input
-                  id='email'
-                  type='email'
-                  placeholder='mail@example.com'
-                  required
-                />
+                <Input id='email' type='text' placeholder='mail@example.com' />
               </div>
               <div className='space-y-2'>
                 <label
@@ -109,7 +122,7 @@ export default function Login() {
                 >
                   Contraseña:
                 </label>
-                <Input id='password' type='password' required />
+                <Input id='password' type='password' />
               </div>
               <Button
                 type='submit'

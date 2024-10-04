@@ -49,8 +49,8 @@ export const ProgressCircle = ({
         textAnchor='middle' // Centra el texto horizontalmente
         dy='.3em' // Ajuste de la altura vertical
         fontSize='14px' // Tamaño de la fuente del porcentaje
-        fill='#fff' // Color blanco del texto
-        fontWeight='bold' // Fuente en negrita para mayor visibilidad
+        fontWeight='bold'
+        className='fill-primary dark:fill-white'
       >
         {`${currentStep} de ${totalSteps}`} {/* Muestra el valor de progreso */}
       </text>

@@ -84,7 +84,7 @@ export const RegisterTours = () => {
                 steps[currentStep]
               : 'Final Step: Review & Submit'}
             </h2>
-            <p className='text-gray-400'>
+            <p className='text-slate-800'>
               {' '}
               {currentStep < totalSteps ?
                 `Next: ${steps[currentStep + 1]}`

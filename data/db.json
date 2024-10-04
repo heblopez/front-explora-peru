@@ -1,18 +1,6 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "John Doe",
-      "email": "johndoe@mail.com",
-      "password": "123456"
-    },
-    {
-      "id": 2,
-      "name": "Jane Doe",
-      "email": "janedoe@mail.com",
-      "password": "123456"
-    },
-    {
       "name": "Testino",
       "lastName": "Probino",
       "documentType": "DNI",
@@ -37,6 +25,19 @@
       "email": "heblopez@mail.com",
       "password": "letmein",
       "id": 4
+    },
+    {
+      "name": "Juan",
+      "lastName": "Alva",
+      "documentType": "DNI",
+      "documentNumber": 76143397,
+      "birthdate": "2000-10-01",
+      "country": "Argentina",
+      "gender": "male",
+      "phone": "+51999888779",
+      "email": "juanalva@mail.com",
+      "password": "passsecret",
+      "id": 5
     }
   ],
   "posts": [

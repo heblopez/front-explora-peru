@@ -76,7 +76,7 @@ function Navbar({
             <Button
               variant='ghost'
               size='sm'
-              className='font-content text-gray-600 hover:text-primary hover:bg-gray-100'
+              className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
               onClick={removeUser}
             >
               <LogOut className='h-4 w-4 mr-1' />

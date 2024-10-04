@@ -1,50 +1,69 @@
-# React + TypeScript + Vite
+# Make It Real - ExploraPerú 🧳
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ExploraPerú is a web application designed to promote tourism across the diverse regions of Peru. It enables tourists to book tours from travel agencies certified by MINCETUR, ensuring trust and reliability. This project is the solution to the group assignment for the Make It Real bootcamp.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Overview](#overview)
+  - [The Challenge](#the-challenge)
+  - [Screenshot](#screenshot)
+- [Our Process](#our-process)
+- [Built With](#built-with)
+- [Authors](#authors)
+- [Acknowledgments](#acknowledgments)
 
-## Expanding the ESLint configuration
+## Overview
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### The Challenge
 
-- Configure the top-level `parserOptions` property like this:
+Users should be able to:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname
-    }
-  }
-})
-```
+- **User and agency registration and authentication:** Tourists can sign up to request more information, and travel agencies can register their profiles and tour offerings.
+- **Store information in a database:** Includes user and agency data, regional details, tour information, payments, and agency-user chats.
+- **Image upload and email notifications:** Users can upload profile pictures, receive notifications when creating an account, and get notified of pending messages after booking a tour.
+- The app must include at least one of the following features:
+  - **Payments:** Secure booking transactions, similar to platforms like Airbnb.
+  - **Tourist information map:** Display a map with pre-established tourist spots.
+  - **Real-time communication (WebSockets):** Implement a live chat feature for users to communicate with agencies.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Screenshot
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+[screenshot]
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules
-  }
-})
-```
+## Our Process
+
+- **Sprint 1:** Brainstorming ideas for the project, creating a visual sitemap using [Octopus.do](https://share.octopus.do/embed/ddn3ssxynzh), and setting up the product backlog in Jira.
+- **Sprint 2:** Designing the system (fonts, colors, icons with `lucide-react`), setting up the project with Vite and React using TypeScript + SWC, and configuring tools like Prettier, ESLint, Husky, lint-staged, commitlint, and pnpm. Additionally, setting up the GitHub repository with Gitflow, developing the initial components (some adapted from Shadcdn), and setting up page routing using React Router.
+- **Sprint 3:** Updating the README, mocking API requests using `json-server`, and improving UX (dark mode, form enhancements).
+
+## Built With
+
+**Frontend:**
+
+- Mobile-first workflow
+- Semantic HTML5 markup
+- Tailwind CSS
+- React with TypeScript
+
+**Backend:**
+
+- Node.js (Express) with TypeScript
+- PostgreSQL for database management
+
+**Operations:**
+
+- Deployed on Vercel
+- End-to-end testing with Cypress
+
+## Authors
+
+Full stack Developers:
+
+- Jaqueline Rocio - [@JaquelineRocio](https://github.com/JaquelineRocio)
+- Heberth López - [@heblopez](https://github.com/heblopez)
+- Victor Ramirez - [@Victormrl17](https://github.com/Victormrl17)
+- Juan Alva - [@jlac8](https://github.com/jlac8)
+
+## Acknowledgments
+
+A special thanks to Make it Real, especially [@khriztianmoreno](https://github.com/khriztianmoreno) for the valuable feedback during daily meetings and demos, and to [@nayruthCalla](https://github.com/nayruthCalla) for the support and review.

@@ -9,24 +9,47 @@ import {
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { FormEvent, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { User, UserLogin } from '@/types/User'
 
 export default function Login() {
   const formRef = useRef<HTMLFormElement>(null)
+  const navigate = useNavigate()
 
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const credentials = {
+
+    const credentials: UserLogin = {
       email: formRef.current?.email.value,
       password: formRef.current?.password.value
     }
 
-    console.log(credentials)
-    formRef.current?.reset()
+    if (credentials.email && credentials.password) {
+      const { email, password } = credentials
+      fetch('http://localhost:3000/users')
+        .then(res => res.json())
+        .then(users => {
+          users.forEach((user: User) => {
+            if (user.email === email && user.password === password) {
+              const dataToStore = {
+                id: user.id,
+                name: user.name,
+                email: user.email
+              }
+              localStorage.setItem('user', JSON.stringify(dataToStore))
+              formRef.current?.reset()
+              setTimeout(() => {
+                navigate('/')
+              }, 1000)
+            }
+          })
+        })
+        .catch(err => console.error(err))
+    }
   }
 
   return (
-    <main className='flex justify-center my-auto p-4'>
+    <main className='flex justify-center my-auto px-4 py-8'>
       <Card className='w-full max-w-md'>
         <CardHeader>
           <CardTitle className='text-3xl font-bold text-center text-primary dark:text-primary-lighter'>

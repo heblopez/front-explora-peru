@@ -11,12 +11,13 @@ import { Input } from '@/components/ui/input'
 import { FormEvent, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { User, UserLogin } from '@/types/User'
+import { toast } from 'sonner'
 
 export default function Login() {
   const formRef = useRef<HTMLFormElement>(null)
   const navigate = useNavigate()
 
-  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const credentials: UserLogin = {
@@ -26,25 +27,50 @@ export default function Login() {
 
     if (credentials.email && credentials.password) {
       const { email, password } = credentials
-      fetch('http://localhost:3000/users')
-        .then(res => res.json())
-        .then(users => {
-          users.forEach((user: User) => {
-            if (user.email === email && user.password === password) {
-              const dataToStore = {
-                id: user.id,
-                name: user.name,
-                email: user.email
+      const fetchUsers = async () => {
+        try {
+          const res = await fetch('http://localhost:3000/users')
+          return res.json()
+        } catch (error) {
+          toast.error('Error de servidor 😢 Por favor, inténtalo de nuevo')
+          console.error(error)
+          return []
+        }
+      }
+
+      const allUsers: User[] = await fetchUsers()
+      if (allUsers.length === 0) {
+        toast.error('Error al recuperar usuarios.')
+        return
+      }
+
+      const promise = () =>
+        new Promise<User>((resolve, reject) =>
+          setTimeout(() => {
+            allUsers.forEach(user => {
+              if (user.email === email && user.password === password) {
+                return resolve(user)
               }
-              localStorage.setItem('user', JSON.stringify(dataToStore))
-              formRef.current?.reset()
-              setTimeout(() => {
-                navigate('/')
-              }, 1000)
-            }
-          })
-        })
-        .catch(err => console.error(err))
+            })
+            return reject(
+              'Error! Las credenciales ingresadas son incorrectas 😟'
+            )
+          }, 2000)
+        )
+
+      toast.promise(promise, {
+        loading: 'Iniciando sesión...',
+        success: dataUser => {
+          formRef.current?.reset()
+          localStorage.setItem('user', JSON.stringify(dataUser))
+          navigate('/')
+          return `¡Bienvenido de vuelta, ${dataUser.name}! 🫡`
+        },
+        error: err => err,
+        style: {
+          justifyContent: 'center'
+        }
+      })
     }
   }
 

@@ -23,16 +23,29 @@ function Footer() {
                   Términos y Condiciones
                 </a>
               </li>
+              <li>
+                <a href='#' className='hover:text-gray-950 transition-colors'>
+                  Política de Privacidad
+                </a>
+              </li>
             </ul>
           </div>
           <div className='w-1/3 text-right'>
             <h3 className='font-semibold text-lg mb-4'>Síguenos</h3>
             <div className='flex justify-end space-x-4'>
-              <a href='#' className='hover:text-gray-950 transition-colors'>
+              <a
+                href='https://www.instagram.com/'
+                target='_blank'
+                className='hover:text-gray-950 transition-colors'
+              >
                 <Instagram size={24} />
                 <span className='sr-only'>Instagram</span>
               </a>
-              <a href='#' className='hover:text-gray-950 transition-colors'>
+              <a
+                href='https://www.youtube.com'
+                target='_blank'
+                className='hover:text-gray-950 transition-colors'
+              >
                 <Youtube size={24} />
                 <span className='sr-only'>YouTube</span>
               </a>

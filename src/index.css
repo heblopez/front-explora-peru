@@ -50,14 +50,8 @@ h6 {
   font-weight: 700;
 }
 
-@layer base {
-  :root {
-    --radius: 0.5rem;
-  }
-}
-
-@layer base {
-  :root {
-    --radius: 0.5rem;
-  }
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px hsl(217 91% 89%) inset;
+  -webkit-text-fill-color: hsla(1, 7%, 12%);
 }

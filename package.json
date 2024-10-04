@@ -11,7 +11,8 @@
     "format": "prettier --write --ignore-unknown .",
     "preview": "vite preview",
     "prepare": "husky install",
-    "test": "echo \"Error: no test specified\""
+    "test": "echo \"Error: no test specified\"",
+    "backend": "json-server --watch data/db.json --port 3000"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.1",
@@ -29,7 +30,8 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",

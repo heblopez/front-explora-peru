@@ -36,11 +36,6 @@ export default {
         h5: '1.65rem',
         h6: '1.375rem'
       },
-      borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
-      },
       width: {
         26: '6.5rem',
         27: '6.75rem',

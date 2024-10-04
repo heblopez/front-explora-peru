@@ -6,6 +6,7 @@ import Tours from './pages/Tours'
 import Navbar from './components/Navbar'
 import AgenciesLanding from './pages/AgenciesLanding'
 import Footer from './components/Footer'
+import { RegisterTours } from './pages/RegisterTours'
 import { useDarkMode } from './hooks/useDarkMode'
 import EditProfile from './pages/EditProfile'
 import { Toaster } from 'sonner'
@@ -30,6 +31,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/tours' element={<Tours />} />
+          <Route path='/register-tours' element={<RegisterTours />} />
           <Route path='/editprofile' element={<EditProfile />} />
         </Routes>
         <Footer />

@@ -8,14 +8,14 @@ interface ProgressCircleProps {
 
 export const ProgressCircle = ({
   value,
-  radius = 50, // Radio del círculo
-  stroke = 10, // Grosor de la línea del círculo
+  radius = 50,
+  stroke = 10,
   currentStep,
   totalSteps
 }: ProgressCircleProps) => {
-  const normalizedRadius = radius - stroke * 2 // Ajusta el radio para tener en cuenta el grosor del borde
-  const circumference = normalizedRadius * 2 * Math.PI // Calcula la circunferencia
-  const strokeDashoffset = circumference - (value / 100) * circumference // Calcula el desplazamiento del trazo
+  const normalizedRadius = radius - stroke * 2
+  const circumference = normalizedRadius * 2 * Math.PI
+  const strokeDashoffset = circumference - (value / 100) * circumference
 
   return (
     <svg height={radius * 2} width={radius * 2}>
@@ -30,7 +30,7 @@ export const ProgressCircle = ({
       />
       {/* Círculo de progreso */}
       <circle
-        stroke='#3e98c7' // Color azul del progreso
+        stroke='hsl(217, 91%, 50%)'
         fill='transparent'
         strokeWidth={stroke}
         strokeDasharray={`${circumference} ${circumference}`} // Patrón de línea continua

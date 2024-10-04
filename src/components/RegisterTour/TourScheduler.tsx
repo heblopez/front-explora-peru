@@ -41,7 +41,7 @@ export default function TourScheduler() {
         Programar Fechas y Horarios del Tour
       </h3>
       <div className='w-full'>
-        <div className='flex flex-col gap-6'>
+        <div className='flex flex-col md:flex-row md:items-center gap-6'>
           <div className='flex justify-center'>
             <Calendar
               mode='single'
@@ -53,7 +53,7 @@ export default function TourScheduler() {
               locale={es}
             />
           </div>
-          <div className='flex justify-around content-center'>
+          <div className='flex md:flex-col md:gap-8 justify-around content-center md:w-1/3 md:px-11'>
             <div>
               <label htmlFor='start-time'>Hora de inicio</label>
               <Input
@@ -73,7 +73,7 @@ export default function TourScheduler() {
               />
             </div>
           </div>{' '}
-          <Button onClick={addSchedule} className='w-full'>
+          <Button onClick={addSchedule} className='md:w-1/3 w-full'>
             Agregar Fecha y Horario
           </Button>
         </div>

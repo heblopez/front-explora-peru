@@ -37,7 +37,7 @@ export default function TourScheduler() {
   }
   return (
     <>
-      <h3 className='font-bold text-center mb-6'>
+      <h3 className=' font-bold text-center mb-6'>
         Programar Fechas y Horarios del Tour
       </h3>
       <div className='w-full'>
@@ -53,13 +53,14 @@ export default function TourScheduler() {
               locale={es}
             />
           </div>
-          <div className='flex md:flex-col md:gap-8 justify-around content-center md:w-1/3 md:px-11'>
+          <div className='flex md:flex-col md:gap-8 justify-around content-center md:w-1/3 md:px-24'>
             <div>
               <label htmlFor='start-time'>Hora de inicio</label>
               <Input
                 id='start-time'
                 type='time'
                 value={startTime}
+                className='text-primary-border-primary-light flex h-9 w-full rounded-md border border-primary-light bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-slate-950 placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950 disabled:cursor-not-allowed disabled:opacity-50 dark:border-primary-light dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300 justify-center'
                 onChange={e => setStartTime(e.target.value)}
               />
             </div>
@@ -69,6 +70,7 @@ export default function TourScheduler() {
                 id='end-time'
                 type='time'
                 value={endTime}
+                className='text-primary-border-primary-light flex h-9 w-full rounded-md border border-primary-light bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-slate-950 placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950 disabled:cursor-not-allowed disabled:opacity-50 dark:border-primary-light dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300 justify-center'
                 onChange={e => setEndTime(e.target.value)}
               />
             </div>
@@ -79,7 +81,7 @@ export default function TourScheduler() {
         </div>
         <div>
           <p className='m-2'>Fechas y Horarios Programados:</p>
-          <ScrollArea className='h-[100px] rounded-md border p-4'>
+          <ScrollArea className='h-[100px] rounded-md border p-4 border-primary-light dark:border-primary-light'>
             {schedules.map((schedule, index) => (
               <div
                 key={index}

@@ -10,12 +10,13 @@ import { RegisterTours } from './pages/RegisterTours'
 import { useDarkMode } from './hooks/useDarkMode'
 import EditProfile from './pages/EditProfile'
 import { Toaster } from 'sonner'
+import UserProvider from './context/UserContext'
 
 function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
 
   return (
-    <>
+    <UserProvider>
       <BrowserRouter>
         <Navbar isDark={isDarkMode} toggleTheme={toggleDarkMode} />
         <Toaster
@@ -36,7 +37,7 @@ function App() {
         </Routes>
         <Footer />
       </BrowserRouter>
-    </>
+    </UserProvider>
   )
 }
 

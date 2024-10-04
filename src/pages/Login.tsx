@@ -8,15 +8,17 @@ import {
   CardFooter
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { FormEvent, useRef } from 'react'
+import { FormEvent, useContext, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { User, UserLogin } from '@/types/User'
 import { toast } from 'sonner'
 import { z } from 'zod'
+import { UserContext } from '@/context/UserContext'
 
 export default function Login() {
   const formRef = useRef<HTMLFormElement>(null)
   const navigate = useNavigate()
+  const { saveUser } = useContext(UserContext)
 
   const LoginSchema = z.object({
     email: z
@@ -60,7 +62,7 @@ export default function Login() {
         return
       }
 
-      const promise = () =>
+      const loginPromise = () =>
         new Promise<User>((resolve, reject) =>
           setTimeout(() => {
             allUsers.forEach(user => {
@@ -74,18 +76,19 @@ export default function Login() {
           }, 2000)
         )
 
-      toast.promise(promise, {
+      toast.promise(loginPromise, {
         loading: 'Iniciando sesión...',
         success: dataUser => {
           formRef.current?.reset()
-          localStorage.setItem('user', JSON.stringify(dataUser))
+          saveUser(dataUser)
           navigate('/')
           return `¡Bienvenido de vuelta, ${dataUser.name}! 🫡`
         },
         error: err => err,
         style: {
           justifyContent: 'center'
-        }
+        },
+        position: 'top-center'
       })
     } else {
       isValidForm.error.errors.forEach(err => toast.error(err.message))

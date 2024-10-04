@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
@@ -16,9 +16,11 @@ import {
   Building2,
   LogIn,
   UserPlus,
-  User
+  User,
+  LogOut
 } from 'lucide-react'
 import { DarkModeBtn } from './DarkModeBtn'
+import { UserContext } from '@/context/UserContext'
 
 function Navbar({
   isDark,
@@ -29,6 +31,7 @@ function Navbar({
 }) {
   const [isOpen, setIsOpen] = useState(false)
   const toggleMenu = () => setIsOpen(!isOpen)
+  const { user, removeUser } = useContext(UserContext)
 
   return (
     <header className='bg-white shadow-sm'>
@@ -63,8 +66,23 @@ function Navbar({
           </Link>
           <LanguageDropdown />
           <CurrencyDropdown />
-          <LoginDropdown />
-          <RegisterDropdown />
+          {!user && (
+            <>
+              <LoginDropdown />
+              <RegisterDropdown />
+            </>
+          )}
+          {user && (
+            <Button
+              variant='ghost'
+              size='sm'
+              className='font-content text-gray-600 hover:text-primary hover:bg-gray-100'
+              onClick={removeUser}
+            >
+              <LogOut className='h-4 w-4 mr-1' />
+              <span>Cerrar Sesión</span>
+            </Button>
+          )}
           <DarkModeBtn isDark={isDark} toggleTheme={toggleTheme} />
         </nav>
       </div>

@@ -8,16 +8,9 @@ import {
   CardFooter
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { User } from 'lucide-react'
 import { FormEvent, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-
-interface User {
-  id: number
-  name: string
-  email: string
-  password: string
-}
+import { User, UserLogin } from '@/types/User'
 
 export default function Login() {
   const formRef = useRef<HTMLFormElement>(null)
@@ -26,14 +19,12 @@ export default function Login() {
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const credentials = {
+    const credentials: UserLogin = {
       email: formRef.current?.email.value,
       password: formRef.current?.password.value
     }
 
-    formRef.current?.reset()
-
-    if (credentials) {
+    if (credentials.email && credentials.password) {
       const { email, password } = credentials
       fetch('http://localhost:3000/users')
         .then(res => res.json())
@@ -47,6 +38,7 @@ export default function Login() {
               }
               localStorage.setItem('user', JSON.stringify(dataToStore))
               document.cookie = `user=${JSON.stringify(dataToStore)}`
+              formRef.current?.reset()
               setTimeout(() => {
                 navigate('/')
               }, 1000)

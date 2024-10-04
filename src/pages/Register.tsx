@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/select'
 import { Calendar } from '@/components/ui/calendar'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { FormEvent, useRef, useState } from 'react'
 import {
   Popover,
   PopoverContent,
@@ -26,11 +26,78 @@ import {
 import { CalendarIcon } from 'lucide-react'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
+import { z } from 'zod'
 
 export default function Register() {
   const [date, setDate] = useState<Date | undefined>()
   const formatDate = (date: Date) => {
     return format(date, 'dd MMMMMM yyyy', { locale: es })
+  }
+
+  const formRef = useRef<HTMLFormElement>(null)
+
+  const RegistrationSchema = z.object({
+    name: z
+      .string()
+      .min(2, 'El nombre es obligatorio y debe tener al menos 2 caracteres'),
+    lastName: z
+      .string()
+      .min(2, 'El apellido es obligatorio y debe tener al menos 2 caracteres'),
+    documentType: z.string().min(1, 'El tipo de documento es obligatorio'),
+    documentNumber: z
+      .number()
+      .min(8, 'El número de documento debe tener al menos 8 caracteres'),
+    birthdate: z.string().date('La fecha de nacimiento es incorrecta'),
+    country: z.string(),
+    gender: z.string(),
+    phone: z
+      .string()
+      .min(1, 'El número de celular es obligatorio')
+      .min(11, 'El número de celular debe tener al menos 11 caracteres'),
+    email: z
+      .string()
+      .min(1, 'El correo electrónico es obligatorio')
+      .email('El correo electrónico debe ser válido'),
+    password: z
+      .string()
+      .min(1, 'La contraseña es obligatoria')
+      .min(7, 'La contraseña debe tener al menos 7 caracteres')
+      .max(24, 'La contraseña debe tener como máximo 24 caracteres'),
+    confirmPassword: z
+      .string()
+      .min(1, 'La confirmación de la contraseña es obligatoria')
+      .refine(
+        value => value === formRef.current?.password.value,
+        'Las contraseñas no coinciden'
+      )
+  })
+
+  const handleRegister = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const registerForm = {
+      name: (formRef.current?.elements.namedItem('name') as HTMLInputElement)
+        .value,
+      lastName: formRef.current?.lastname.value,
+      documentType: (
+        formRef.current?.elements.namedItem(
+          'document-type'
+        ) as HTMLSelectElement
+      ).value,
+      documentNumber: parseInt(formRef.current?.['document-number'].value),
+      birthdate: date ? format(date as Date, 'yyyy-MM-dd') : '',
+      country: formRef.current?.country.value,
+      gender: formRef.current?.gender.value,
+      phone: formRef.current?.['phone-number'].value,
+      email: formRef.current?.email.value,
+      password: formRef.current?.password.value,
+      confirmPassword: formRef.current?.['confirm-password'].value
+    }
+    console.log(registerForm)
+    const isValidForm = RegistrationSchema.safeParse(registerForm)
+    if (isValidForm.success) {
+      formRef.current?.reset()
+    }
   }
 
   return (
@@ -45,8 +112,8 @@ export default function Register() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className='space-y-4'>
+          <form ref={formRef} onSubmit={handleRegister}>
+            <div className='flex flex-col gap-4'>
               <div className='space-y-2'>
                 <label
                   htmlFor='name'
@@ -54,7 +121,12 @@ export default function Register() {
                 >
                   * Nombres:
                 </label>
-                <Input id='name' type='text' placeholder='John' required />
+                <Input
+                  id='name'
+                  type='text'
+                  placeholder='John'
+                  autoComplete='name'
+                />
               </div>
               <div className='space-y-2'>
                 <label
@@ -63,25 +135,22 @@ export default function Register() {
                 >
                   * Apellidos:
                 </label>
-                <Input id='lastname' type='text' placeholder='Doe' required />
+                <Input id='lastname' type='text' placeholder='Doe' />
               </div>
               <div className='grid grid-cols-2 gap-4'>
                 <div className='space-y-2'>
-                  <label
-                    htmlFor='document-type'
-                    className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-                  >
+                  <label className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
                     * Tipo de Documento:
+                    <Select name='document-type'>
+                      <SelectTrigger className='mt-2'>
+                        <SelectValue placeholder='Seleccione:' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='DNI'>DNI</SelectItem>
+                        <SelectItem value='CE'>C.E.</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </label>
-                  <Select required>
-                    <SelectTrigger id='document-type'>
-                      <SelectValue placeholder='Seleccione:' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value='dni'>DNI</SelectItem>
-                      <SelectItem value='ce'>C.E.</SelectItem>
-                    </SelectContent>
-                  </Select>
                 </div>
                 <div className='space-y-2'>
                   <label
@@ -90,7 +159,7 @@ export default function Register() {
                   >
                     * Nº de documento:
                   </label>
-                  <Input id='document-number' type='text' required />
+                  <Input id='document-number' type='text' />
                 </div>
               </div>
               <div className='grid grid-cols-1 sm gap-4 min-[425px]:grid-cols-2'>
@@ -102,7 +171,7 @@ export default function Register() {
                     * Fecha de Nacimiento
                   </label>
                   <Popover>
-                    <PopoverTrigger asChild>
+                    <PopoverTrigger id='birthdate' asChild>
                       <Button
                         variant={'outline'}
                         className={`w-full justify-start text-left font-normal ${!date && 'text-muted-foreground'}`}
@@ -129,50 +198,44 @@ export default function Register() {
                   </Popover>
                 </div>
                 <div className='space-y-2'>
-                  <label
-                    htmlFor='country'
-                    className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-                  >
+                  <label className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
                     País:
+                    <Select name='country' autoComplete='country'>
+                      <SelectTrigger className='mt-2'>
+                        <SelectValue placeholder='Seleccione:' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='Peru'>🇵🇪 Perú</SelectItem>
+                        <SelectItem value='Argentina'>🇦🇷 Argentina</SelectItem>
+                        <SelectItem value='Brasil'>🇧🇷 Brasil</SelectItem>
+                        <SelectItem value='Bolivia'>🇧🇴 Bolivia</SelectItem>
+                        <SelectItem value='Chile'>🇨🇱 Chile</SelectItem>
+                        <SelectItem value='Colombia'> 🇨🇴 Colombia</SelectItem>
+                        <SelectItem value='Ecuador'>🇪🇨 Ecuador</SelectItem>
+                        <SelectItem value='Mexico'>🇲🇽 México</SelectItem>
+                        <SelectItem value='Paraguay'>🇵🇾 Paraguay</SelectItem>
+                        <SelectItem value='USA'>🇺🇸 United States</SelectItem>
+                        <SelectItem value='Uruguay'>🇺🇾 Uruguay</SelectItem>
+                        <SelectItem value='Venezuela'>🇻🇪 Venezuela</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </label>
-                  <Select>
-                    <SelectTrigger id='country'>
-                      <SelectValue placeholder='Seleccione:' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value='Peru'>🇵🇪 Perú</SelectItem>
-                      <SelectItem value='Argentina'>🇦🇷 Argentina</SelectItem>
-                      <SelectItem value='Brasil'>🇧🇷 Brasil</SelectItem>
-                      <SelectItem value='Bolivia'>🇧🇴 Bolivia</SelectItem>
-                      <SelectItem value='Chile'>🇨🇱 Chile</SelectItem>
-                      <SelectItem value='Colombia'> 🇨🇴 Colombia</SelectItem>
-                      <SelectItem value='Ecuador'>🇪🇨 Ecuador</SelectItem>
-                      <SelectItem value='Mexico'>🇲🇽 México</SelectItem>
-                      <SelectItem value='Paraguay'>🇵🇾 Paraguay</SelectItem>
-                      <SelectItem value='USA'>🇺🇸 United States</SelectItem>
-                      <SelectItem value='Uruguay'>🇺🇾 Uruguay</SelectItem>
-                      <SelectItem value='Venezuela'>🇻🇪 Venezuela</SelectItem>
-                    </SelectContent>
-                  </Select>
                 </div>
               </div>
               <div className='grid grid-cols-1 gap-4 min-[425px]:grid-cols-2'>
                 <div className='space-y-2'>
-                  <label
-                    htmlFor='gender'
-                    className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-                  >
+                  <label className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
                     Género:
+                    <Select name='gender'>
+                      <SelectTrigger className='mt-2'>
+                        <SelectValue placeholder='Seleccione:' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='male'>&#9794; Masculino</SelectItem>
+                        <SelectItem value='female'>&#9792; Femenino</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </label>
-                  <Select>
-                    <SelectTrigger id='gender'>
-                      <SelectValue placeholder='Seleccione:' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value='male'>&#9794; Masculino</SelectItem>
-                      <SelectItem value='female'>&#9792; Femenino</SelectItem>
-                    </SelectContent>
-                  </Select>
                 </div>
                 <div className='space-y-2'>
                   <label
@@ -185,7 +248,6 @@ export default function Register() {
                     id='phone-number'
                     type='text'
                     placeholder='(+51) 999-999-999'
-                    required
                   />
                 </div>
               </div>
@@ -198,9 +260,9 @@ export default function Register() {
                 </label>
                 <Input
                   id='email'
-                  type='email'
+                  type='text'
                   placeholder='mail@example.com'
-                  required
+                  autoComplete='email'
                 />
               </div>
               <div className='space-y-2'>
@@ -210,7 +272,7 @@ export default function Register() {
                 >
                   * Contraseña
                 </label>
-                <Input id='password' type='password' required />
+                <Input id='password' type='password' />
               </div>
               <div className='space-y-2'>
                 <label
@@ -219,15 +281,18 @@ export default function Register() {
                 >
                   * Confirmar Contraseña
                 </label>
-                <Input id='confirm-password' type='password' required />
+                <Input id='confirm-password' type='password' />
               </div>
+              <Button
+                type='submit'
+                className='w-full font-bold bg-primary dark:bg-primary-light hover:bg-primary-dark hover:dark:bg-primary-lighter mt-6'
+              >
+                Crear cuenta
+              </Button>
             </div>
           </form>
         </CardContent>
         <CardFooter className='flex flex-col space-y-4'>
-          <Button className='w-full font-bold bg-primary dark:bg-primary-light hover:bg-primary-dark hover:dark:bg-primary-lighter'>
-            Crear cuenta
-          </Button>
           <div className='text-sm text-center'>
             Al registrarte, aceptas nuestros{' '}
             <Link to='/terms' className='text-primary hover:underline'>

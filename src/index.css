@@ -52,7 +52,6 @@ h6 {
 
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
-  color: hsla(1, 7%, 12%) !important;
   -webkit-box-shadow: 0 0 0px 1000px hsl(217 91% 89%) inset;
   -webkit-text-fill-color: hsla(1, 7%, 12%);
 }

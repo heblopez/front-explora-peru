@@ -8,6 +8,7 @@ import AgenciesLanding from './pages/AgenciesLanding'
 import Footer from './components/Footer'
 import { useDarkMode } from './hooks/useDarkMode'
 import EditProfile from './pages/EditProfile'
+import { Toaster } from 'sonner'
 
 function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
@@ -16,6 +17,13 @@ function App() {
     <>
       <BrowserRouter>
         <Navbar isDark={isDarkMode} toggleTheme={toggleDarkMode} />
+        <Toaster
+          position='top-right'
+          closeButton
+          richColors
+          theme={isDarkMode ? 'dark' : 'light'}
+          visibleToasts={4}
+        />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/agencies' element={<AgenciesLanding />} />

@@ -27,9 +27,11 @@ import { CalendarIcon } from 'lucide-react'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { z } from 'zod'
+import { toast } from 'sonner'
 
 export default function Register() {
   const [date, setDate] = useState<Date | undefined>()
+  const [openCalendar, setOpenCalendar] = useState(false)
   const formatDate = (date: Date) => {
     return format(date, 'dd MMMMMM yyyy', { locale: es })
   }
@@ -108,18 +110,21 @@ export default function Register() {
       })
         .then(res => res.json())
         .then(user => {
-          const dataToStore = {
-            id: user.id,
-            name: user.name,
-            email: user.email
-          }
-          localStorage.setItem('user', JSON.stringify(dataToStore))
+          localStorage.setItem('user', JSON.stringify(user))
           formRef.current?.reset()
+          toast.success(`¡Registro exitoso! Bienvenido ${user.name} 🎉`)
           setTimeout(() => {
             navigate('/')
           }, 1200)
         })
-        .catch(err => console.error(err))
+        .catch(err => {
+          console.error(err)
+          toast.error(
+            'Error al registrar usuario 😢 Por favor, inténtalo de nuevo.'
+          )
+        })
+    } else {
+      isValidForm.error.errors.forEach(err => toast.error(err.message))
     }
   }
 
@@ -193,7 +198,7 @@ export default function Register() {
                   >
                     * Fecha de Nacimiento
                   </label>
-                  <Popover>
+                  <Popover open={openCalendar} onOpenChange={setOpenCalendar}>
                     <PopoverTrigger id='birthdate' asChild>
                       <Button
                         variant={'outline'}
@@ -209,7 +214,10 @@ export default function Register() {
                       <Calendar
                         mode='single'
                         selected={date}
-                        onSelect={setDate}
+                        onSelect={date => {
+                          setDate(date)
+                          setOpenCalendar(false)
+                        }}
                         initialFocus
                         captionLayout='dropdown-buttons'
                         fromYear={1970}

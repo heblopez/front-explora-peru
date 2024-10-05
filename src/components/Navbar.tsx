@@ -37,9 +37,9 @@ function Navbar({
     <header className='bg-white shadow-sm dark:bg-gray-800'>
       <div className='container mx-auto px-4 py-4 flex items-center justify-between'>
         <Link to='/' className='flex items-center'>
-          <span className='text-h5 font-title font-bold text-primary'>
+          <h1 className='text-3xl font-title font-bold text-primary dark:text-primary-lighter'>
             ExploraPerú
-          </span>
+          </h1>
         </Link>
 
         <Button
@@ -91,13 +91,15 @@ function Navbar({
         <nav className='md:hidden bg-white border-t border-gray-200 dark:bg-gray-800'>
           <ul className='px-2 pt-2 pb-3 space-y-1 sm:px-3'>
             <li className='px-3 py-2'>
-              <Link
-                to='/agencies'
-                className='flex items-center space-x-2 px-3 py-2 rounded-md text-base font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
-                onClick={toggleMenu}
-              >
-                <Building2 className='h-4 w-4' />
-                <span>Agencias</span>
+              <Link to='/agencies' onClick={toggleMenu}>
+                <Button
+                  variant='ghost'
+                  size='sm'
+                  className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
+                >
+                  <Building2 className='h-4 w-4 mr-1' />
+                  <span>Agencias</span>
+                </Button>
               </Link>
             </li>
             <li className='px-3 py-2'>
@@ -136,7 +138,7 @@ function LanguageDropdown() {
         <Button
           variant='ghost'
           size='sm'
-          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
+          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
         >
           <Globe className='h-4 w-4 mr-1' />
           <span>ES</span>
@@ -157,7 +159,7 @@ function CurrencyDropdown() {
         <Button
           variant='ghost'
           size='sm'
-          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
+          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
         >
           <DollarSign className='h-4 w-4 mr-1' />
           <span>PEN</span>
@@ -179,7 +181,7 @@ function LoginDropdown() {
         <Button
           variant='ghost'
           size='sm'
-          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
+          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
         >
           <LogIn className='h-4 w-4 mr-1' />
           <span>Iniciar Sesión</span>
@@ -218,7 +220,7 @@ function RegisterDropdown() {
         <Button
           variant='ghost'
           size='sm'
-          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
+          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
         >
           <UserPlus className='h-4 w-4 mr-1' />
           <span>Registrarse</span>

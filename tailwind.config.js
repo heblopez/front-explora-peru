@@ -17,7 +17,7 @@ export default {
         danger: 'hsl(0, 100%, 50%)'
       },
       fontFamily: {
-        title: ['Merriweather', 'serif'],
+        title: ['Pally-Variable'],
         content: ['Fira Sans', 'sans-serif']
       },
       fontSize: {

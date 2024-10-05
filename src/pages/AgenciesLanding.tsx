@@ -9,11 +9,11 @@ import { Link } from 'react-router-dom'
 
 export default function AgenciesLanding() {
   return (
-    <main className='space-y-16 bg-white dark:bg-gray-800'>
+    <main className='space-y-8 bg-white dark:bg-gray-800'>
       <section className='relative h-[70vh] flex flex-col justify-center items-center text-white text-center'>
         <div className="absolute inset-0 bg-[url('https://pangea.com.pe/wp-content/uploads/2022/02/tours-cusco-peru-waman-adventures-machupicchu-peru.jpg')] bg-cover bg-center"></div>
         <div className='absolute inset-0 bg-black opacity-60'></div>
-        <div className='relative z-10 flex flex-col items-center justify-center'>
+        <div className='px-8 relative z-10 flex flex-col items-center justify-center'>
           <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-secondary'>
             Únete a ExploraPerú y publica tus tours
           </h1>
@@ -30,13 +30,13 @@ export default function AgenciesLanding() {
         </div>
       </section>
 
-      <section className='py-8'>
+      <section className='p-8'>
         <div className='flex flex-col md:flex-row items-center justify-center'>
           <div className='md:w-1/2 flex flex-col text-center md:text-left mb-6 md:mb-0'>
-            <h1 className='text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4'>
+            <h2 className='text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4'>
               Podrías ganar <span className='text-blue-600'>$5,614 al mes</span>{' '}
               en Perú
-            </h1>
+            </h2>
             <p className='text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-4'>
               Publicar tu actividad es gratis y sencillo.
             </p>
@@ -83,7 +83,7 @@ export default function AgenciesLanding() {
         </div>
       </section>
 
-      <section className='py-8'>
+      <section className='px-8'>
         <h2 className='text-2xl md:text-3xl font-title text-center mb-12 text-primary dark:text-primary-light'>
           ¿Por qué trabajar con nosotros?
         </h2>
@@ -130,7 +130,7 @@ export default function AgenciesLanding() {
         </div>
       </section>
 
-      <section className='py-8'>
+      <section className='pt-16'>
         <h2 className='text-2xl md:text-3xl font-title text-center mb-12 text-primary dark:text-primary-light'>
           Nuestro panel de agencias mejorado
         </h2>
@@ -172,7 +172,7 @@ export default function AgenciesLanding() {
           </h2>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+        <div className='px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
           {[
             {
               imgSrc:
@@ -216,7 +216,7 @@ export default function AgenciesLanding() {
         </div>
       </section>
 
-      <section className='py-16 flex flex-col items-center bg-gray dark:bg-gray-800'>
+      <section className='p-16 flex flex-col items-center bg-gray dark:bg-gray-800'>
         <h2 className='text-3xl md:text-4xl font-title text-center mb-4 text-gray-900 dark:text-white'>
           ¡Empieza hoy mismo!
         </h2>

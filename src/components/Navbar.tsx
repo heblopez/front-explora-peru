@@ -21,6 +21,7 @@ import {
 } from 'lucide-react'
 import { DarkModeBtn } from './DarkModeBtn'
 import { UserContext } from '@/context/UserContext'
+import { useTranslation } from 'react-i18next'
 
 function Navbar({
   isDark,
@@ -37,7 +38,7 @@ function Navbar({
     <header className='bg-white shadow-sm dark:bg-gray-800'>
       <div className='container mx-auto px-4 py-4 flex items-center justify-between'>
         <Link to='/' className='flex items-center'>
-          <h1 className='text-3xl font-title font-bold text-primary dark:text-primary-lighter'>
+          <h1 className='text-3xl font-title font-bold web-name'>
             ExploraPerú
           </h1>
         </Link>
@@ -58,7 +59,7 @@ function Navbar({
             <Button
               variant='ghost'
               size='sm'
-              className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
+              className='text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
             >
               <Building2 className='h-4 w-4 mr-1' />
               <span>Agencias</span>
@@ -76,7 +77,7 @@ function Navbar({
             <Button
               variant='ghost'
               size='sm'
-              className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
+              className='text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
               onClick={removeUser}
             >
               <LogOut className='h-4 w-4 mr-1' />
@@ -95,7 +96,7 @@ function Navbar({
                 <Button
                   variant='ghost'
                   size='sm'
-                  className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
+                  className='text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
                 >
                   <Building2 className='h-4 w-4 mr-1' />
                   <span>Agencias</span>
@@ -132,21 +133,33 @@ function Navbar({
 export default Navbar
 
 function LanguageDropdown() {
+  const { i18n } = useTranslation()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant='ghost'
           size='sm'
-          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
+          className='text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
         >
           <Globe className='h-4 w-4 mr-1' />
           <span>ES</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem className='font-content'>Español</DropdownMenuItem>
-        <DropdownMenuItem className='font-content'>English</DropdownMenuItem>
+        <DropdownMenuItem
+          className='cursor-pointer'
+          onClick={() => i18n.changeLanguage('es')}
+        >
+          Español
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className='cursor-pointer'
+          onClick={() => i18n.changeLanguage('en')}
+        >
+          English
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
@@ -159,15 +172,15 @@ function CurrencyDropdown() {
         <Button
           variant='ghost'
           size='sm'
-          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
+          className='text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
         >
           <DollarSign className='h-4 w-4 mr-1' />
           <span>PEN</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem className='font-content'>PEN</DropdownMenuItem>
-        <DropdownMenuItem className='font-content'>USD</DropdownMenuItem>
+        <DropdownMenuItem>PEN</DropdownMenuItem>
+        <DropdownMenuItem>USD</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
@@ -181,7 +194,7 @@ function LoginDropdown() {
         <Button
           variant='ghost'
           size='sm'
-          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
+          className='text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
         >
           <LogIn className='h-4 w-4 mr-1' />
           <span>Iniciar Sesión</span>
@@ -191,7 +204,7 @@ function LoginDropdown() {
         <DropdownMenuItem>
           <Link
             to='/login'
-            className='flex items-center space-x-2 font-content'
+            className='flex items-center space-x-2'
             onClick={prev => setIsOpen(!prev)}
           >
             <User className='h-4 w-4' />
@@ -201,7 +214,7 @@ function LoginDropdown() {
         <DropdownMenuItem>
           <Link
             to='/login/'
-            className='flex items-center space-x-2 font-content'
+            className='flex items-center space-x-2'
             onClick={prev => setIsOpen(!prev)}
           >
             <Building2 className='h-4 w-4' />
@@ -220,7 +233,7 @@ function RegisterDropdown() {
         <Button
           variant='ghost'
           size='sm'
-          className='font-content text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
+          className='text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
         >
           <UserPlus className='h-4 w-4 mr-1' />
           <span>Registrarse</span>
@@ -228,19 +241,13 @@ function RegisterDropdown() {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>
-          <Link
-            to='/register/'
-            className='flex items-center space-x-2 font-content'
-          >
+          <Link to='/register/' className='flex items-center space-x-2'>
             <User className='h-4 w-4' />
             <span>Viajero</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link
-            to='/register/'
-            className='flex items-center space-x-2 font-content'
-          >
+          <Link to='/register/' className='flex items-center space-x-2'>
             <Building2 className='h-4 w-4' />
             <span>Agencia</span>
           </Link>

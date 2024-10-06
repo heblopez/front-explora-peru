@@ -1,0 +1,13 @@
+{
+  "login": {
+    "title": "Iniciar Sesión",
+    "subtitle": "Accede a tu cuenta con tus credenciales",
+    "email": "Correo Electrónico:",
+    "password": "Contraseña:",
+    "textBtn": "Entrar",
+    "forgetPassword": "¿Olvidaste tu contraseña?",
+    "recoverPassword": "Recupérala aquí",
+    "dontHaveAccount": "¿No tienes una cuenta?",
+    "register": "Regístrate"
+  }
+}

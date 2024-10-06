@@ -61,3 +61,23 @@ input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px hsl(217 91% 89%) inset;
   -webkit-text-fill-color: hsla(1, 7%, 12%);
 }
+
+h1.web-name {
+  background: border-box
+    linear-gradient(99deg, hsl(360, 84%, 57%), #edd9d9, hsl(360, 84%, 57%));
+  background-clip: text;
+  color: transparent;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+
+h1.web-name::before {
+  content: 'ExploraPerú';
+  position: absolute;
+  top: 1;
+  left: 1;
+  z-index: -1;
+  color: hsla(360, 84%, 57%, 0.1);
+  filter: blur(4px);
+}

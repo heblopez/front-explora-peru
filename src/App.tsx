@@ -11,6 +11,7 @@ import { useDarkMode } from './hooks/useDarkMode'
 import EditProfile from './pages/EditProfile'
 import { Toaster } from 'sonner'
 import UserProvider from './context/UserContext'
+import AboutExplora from './pages/AboutExplora'
 
 function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
@@ -34,6 +35,7 @@ function App() {
           <Route path='/tours' element={<Tours />} />
           <Route path='/register-tours' element={<RegisterTours />} />
           <Route path='/editprofile' element={<EditProfile />} />
+          <Route path='/about-us' element={<AboutExplora />} />
         </Routes>
         <Footer />
       </BrowserRouter>

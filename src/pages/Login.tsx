@@ -14,11 +14,14 @@ import { User, UserLogin } from '@/types/User'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { UserContext } from '@/context/UserContext'
+import { useTranslation } from 'react-i18next'
 
 export default function Login() {
   const formRef = useRef<HTMLFormElement>(null)
   const navigate = useNavigate()
   const { saveUser } = useContext(UserContext)
+
+  const { t } = useTranslation()
 
   const LoginSchema = z.object({
     email: z
@@ -100,10 +103,10 @@ export default function Login() {
       <Card className='w-full max-w-md'>
         <CardHeader>
           <CardTitle className='text-3xl font-bold text-center text-primary dark:text-primary-lighter'>
-            Iniciar Sesión
+            {t('login.title')}
           </CardTitle>
           <CardDescription className='text-center'>
-            Accede a tu cuenta con tus credenciales
+            {t('login.subtitle')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -114,7 +117,7 @@ export default function Login() {
                   htmlFor='email'
                   className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                 >
-                  Correo Electrónico:
+                  {t('login.email')}
                 </label>
                 <Input id='email' type='text' placeholder='mail@example.com' />
               </div>
@@ -123,7 +126,7 @@ export default function Login() {
                   htmlFor='password'
                   className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                 >
-                  Contraseña:
+                  {t('login.password')}
                 </label>
                 <Input id='password' type='password' />
               </div>
@@ -131,28 +134,28 @@ export default function Login() {
                 type='submit'
                 className='w-full font-bold bg-primary dark:bg-primary-light hover:bg-primary-dark hover:dark:bg-primary-lighter'
               >
-                Entrar
+                {t('login.textBtn')}
               </Button>
             </div>
           </form>
         </CardContent>
         <CardFooter className='flex flex-col space-y-4'>
           <div className='text-sm text-center'>
-            <p>¿Olvidaste tu contraseña?</p>
+            <p>{t('login.forgetPassword')}</p>
             <Link
               to='#'
               className='text-primary-dark font-bold hover:underline dark:text-primary-light'
             >
-              Recupérala aquí
+              {t('login.recoverPassword')}
             </Link>
           </div>
           <div className='text-sm text-center'>
-            <p>¿No tienes una cuenta?</p>
+            <p>{t('login.dontHaveAccount')}</p>
             <Link
               to='/register'
               className='text-primary-dark font-bold hover:underline dark:text-primary-light'
             >
-              Regístrate
+              {t('login.register')}
             </Link>
           </div>
         </CardFooter>

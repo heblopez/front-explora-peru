@@ -1,0 +1,50 @@
+{
+  "login": {
+    "title": "Iniciar Sesión",
+    "subtitle": "Accede a tu cuenta con tus credenciales",
+    "email": "Correo Electrónico:",
+    "password": "Contraseña:",
+    "textBtn": "Entrar",
+    "forgetPassword": "¿Olvidaste tu contraseña?",
+    "recoverPassword": "Recupérala aquí",
+    "dontHaveAccount": "¿No tienes una cuenta?",
+    "register": "Regístrate"
+  },
+  "header": {
+    "agencies": "Agencias",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "traveler": "Viajero",
+    "agency": "Agencia",
+    "theme": "Tema actual: {{theme}}",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "logout": "Cerrar Sesión"
+  },
+  "register": {
+    "title": "Registrarse",
+    "subtitle": "Crea una cuenta para acceder a todas las funciones de la web",
+    "name": "Nombres:",
+    "lastname": "Apellidos:",
+    "documentType": "Tipo de Documento:",
+    "select": "Seleccione:",
+    "documentNumber": "Nº de Documento:",
+    "birthdate": "Fecha de Nacimiento:",
+    "selectDate": "Seleccione una fecha:",
+    "country": "País:",
+    "gender": "Género:",
+    "male": "Masculino",
+    "female": "Femenino",
+    "phone": "Número de celular:",
+    "email": "Correo Electrónico:",
+    "password": "Contraseña:",
+    "confirmPassword": "Confirmar Contraseña:",
+    "textBtn": "Crear cuenta",
+    "byRegistering": "Al registrarte, aceptas nuestros ",
+    "termsLink": "Términos y Condiciones",
+    "and": " y ",
+    "policyLink": "Política de Privacidad",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta? ",
+    "loginLink": "Inicia Sesión"
+  }
+}

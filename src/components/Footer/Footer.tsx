@@ -2,7 +2,7 @@ import { Instagram, Youtube } from 'lucide-react'
 
 function Footer() {
   return (
-    <footer className='bg-white text-gray-600 py-8 dark:bg-gray-800 dark:text-white'>
+    <footer className='bg-white text-gray-600 py-8 dark:bg-dark-primary-foreground dark:text-white'>
       <div className='container mx-auto px-4'>
         <div className='flex flex-wrap justify-between items-start'>
           <div className='w-2/3 pr-4'>

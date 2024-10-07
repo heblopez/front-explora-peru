@@ -14,7 +14,10 @@ export default {
         secondary: 'hsl(0, 0%, 95%)',
         success: 'hsl(145, 63%, 49%)',
         warning: 'hsl(48, 89%, 50%)',
-        danger: 'hsl(0, 100%, 50%)'
+        danger: 'hsl(0, 100%, 50%)',
+        'dark-card': 'hsl(222.2 84% 4.9%)',
+        'dark-primary-foreground': 'hsl(222.2 47.4% 11.2%)',
+        'dark-secondary': 'hsl(217.2 32.6% 17.5%)'
       },
       fontFamily: {
         title: ['Pally-Variable'],
@@ -43,5 +46,5 @@ export default {
       }
     }
   },
-  plugins: [require('tailwindcss-animate')]
+  plugins: []
 }

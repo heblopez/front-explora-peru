@@ -63,13 +63,17 @@ input:-webkit-autofill:focus {
 }
 
 h1.web-name {
+  color: red;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.dark h1.web-name {
   background: border-box
     linear-gradient(99deg, hsl(360, 84%, 57%), #edd9d9, hsl(360, 84%, 57%));
   background-clip: text;
   color: transparent;
-  position: relative;
-  z-index: 1;
-  cursor: pointer;
 }
 
 h1.web-name::before {

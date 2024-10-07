@@ -59,7 +59,7 @@ function Navbar({
             <Button
               variant='ghost'
               size='sm'
-              className='text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
+              className='text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
             >
               <Building2 className='h-4 w-4 mr-1' />
               <span>Agencias</span>

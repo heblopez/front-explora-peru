@@ -25,9 +25,10 @@ import {
 } from '@/components/ui/popover'
 import { CalendarIcon } from 'lucide-react'
 import { format } from 'date-fns'
-import { es } from 'date-fns/locale'
+import { es, enUS } from 'date-fns/locale'
 import { z } from 'zod'
 import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
 
 export default function Register() {
   const [date, setDate] = useState<Date | undefined>()
@@ -128,15 +129,17 @@ export default function Register() {
     }
   }
 
+  const { t, i18n } = useTranslation()
+
   return (
     <main className='flex justify-center my-auto px-4 py-8'>
       <Card className='w-full max-w-md'>
         <CardHeader>
           <CardTitle className='text-3xl font-bold text-center text-primary dark:text-primary-lighter'>
-            Registrarse
+            {t('register.title')}
           </CardTitle>
           <CardDescription className='text-center'>
-            Crea una cuenta para acceder a todas las funciones de la web
+            {t('register.subtitle')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -147,7 +150,7 @@ export default function Register() {
                   htmlFor='name'
                   className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                 >
-                  * Nombres:
+                  * {t('register.name')}
                 </label>
                 <Input
                   id='name'
@@ -161,17 +164,17 @@ export default function Register() {
                   htmlFor='lastname'
                   className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                 >
-                  * Apellidos:
+                  * {t('register.lastname')}
                 </label>
                 <Input id='lastname' type='text' placeholder='Doe' />
               </div>
               <div className='grid grid-cols-2 gap-4'>
                 <div className='space-y-2'>
                   <label className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
-                    * Tipo de Documento:
+                    * {t('register.documentType')}
                     <Select name='document-type'>
                       <SelectTrigger className='mt-2'>
-                        <SelectValue placeholder='Seleccione:' />
+                        <SelectValue placeholder={t('register.select')} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value='DNI'>DNI</SelectItem>
@@ -185,7 +188,7 @@ export default function Register() {
                     htmlFor='document-number'
                     className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                   >
-                    * Nº de documento:
+                    * {t('register.documentNumber')}
                   </label>
                   <Input id='document-number' type='text' />
                 </div>
@@ -196,7 +199,7 @@ export default function Register() {
                     htmlFor='birthdate'
                     className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                   >
-                    * Fecha de Nacimiento
+                    * {t('register.birthdate')}
                   </label>
                   <Popover open={openCalendar} onOpenChange={setOpenCalendar}>
                     <PopoverTrigger id='birthdate' asChild>
@@ -206,7 +209,7 @@ export default function Register() {
                       >
                         <CalendarIcon className='mr-2 h-4 w-4' />
                         <span className='truncate'>
-                          {date ? formatDate(date) : 'Seleccione una fecha'}
+                          {date ? formatDate(date) : t('register.selectDate')}
                         </span>
                       </Button>
                     </PopoverTrigger>
@@ -223,17 +226,17 @@ export default function Register() {
                         fromYear={1970}
                         toMonth={new Date()}
                         disabled={[{ after: new Date() }]}
-                        locale={es}
+                        locale={i18n.language == 'en' ? enUS : es}
                       />
                     </PopoverContent>
                   </Popover>
                 </div>
                 <div className='space-y-2'>
                   <label className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
-                    País:
+                    {t('register.country')}
                     <Select name='country' autoComplete='country'>
                       <SelectTrigger className='mt-2'>
-                        <SelectValue placeholder='Seleccione:' />
+                        <SelectValue placeholder={t('register.select')} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value='Peru'>🇵🇪 Perú</SelectItem>
@@ -256,14 +259,18 @@ export default function Register() {
               <div className='grid grid-cols-1 gap-4 min-[425px]:grid-cols-2'>
                 <div className='space-y-2'>
                   <label className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
-                    Género:
+                    {t('register.gender')}
                     <Select name='gender'>
                       <SelectTrigger className='mt-2'>
-                        <SelectValue placeholder='Seleccione:' />
+                        <SelectValue placeholder={t('register.select')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value='male'>&#9794; Masculino</SelectItem>
-                        <SelectItem value='female'>&#9792; Femenino</SelectItem>
+                        <SelectItem value='male'>
+                          &#9794; {t('register.male')}
+                        </SelectItem>
+                        <SelectItem value='female'>
+                          &#9792; {t('register.female')}
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </label>
@@ -273,7 +280,7 @@ export default function Register() {
                     htmlFor='phone-number'
                     className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                   >
-                    * Número de celular:
+                    * {t('register.phone')}
                   </label>
                   <Input
                     id='phone-number'
@@ -287,7 +294,7 @@ export default function Register() {
                   htmlFor='email'
                   className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                 >
-                  * Correo Electrónico:
+                  * {t('register.email')}
                 </label>
                 <Input
                   id='email'
@@ -301,7 +308,7 @@ export default function Register() {
                   htmlFor='password'
                   className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                 >
-                  * Contraseña:
+                  * {t('register.password')}
                 </label>
                 <Input id='password' type='password' />
               </div>
@@ -310,7 +317,7 @@ export default function Register() {
                   htmlFor='confirm-password'
                   className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
                 >
-                  * Confirmar Contraseña:
+                  * {t('register.confirmPassword')}
                 </label>
                 <Input id='confirm-password' type='password' />
               </div>
@@ -318,26 +325,26 @@ export default function Register() {
                 type='submit'
                 className='w-full font-bold bg-primary dark:bg-primary-light hover:bg-primary-dark hover:dark:bg-primary-lighter mt-6'
               >
-                Crear cuenta
+                {t('register.textBtn')}
               </Button>
             </div>
           </form>
         </CardContent>
         <CardFooter className='flex flex-col space-y-4'>
           <div className='text-sm text-center'>
-            Al registrarte, aceptas nuestros{' '}
+            {t('register.byRegistering')}
             <Link to='/terms' className='text-primary hover:underline'>
-              Términos y Condiciones
-            </Link>{' '}
-            y{' '}
+              {t('register.termsLink')}
+            </Link>
+            {t('register.and')}
             <Link to='/privacy' className='text-primary hover:underline'>
-              Política de Privacidad
+              {t('register.policyLink')}
             </Link>
           </div>
           <div className='text-sm text-center'>
-            ¿Ya tienes una cuenta?{' '}
+            {t('register.alreadyHaveAccount')}
             <Link to='/login' className='text-primary hover:underline'>
-              Inicia sesión
+              {t('register.loginLink')}
             </Link>
           </div>
         </CardFooter>

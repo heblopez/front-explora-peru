@@ -1,0 +1,39 @@
+{
+  "login": {
+    "title": "Login",
+    "subtitle": "Login to your account with your credentials",
+    "email": "Email:",
+    "password": "Password:",
+    "textBtn": "Login",
+    "forgetPassword": "Did you forget your password?",
+    "recoverPassword": "Recover it here",
+    "dontHaveAccount": "Don't have an account?",
+    "register": "Sign up"
+  },
+  "register": {
+    "title": "Sign up",
+    "subtitle": "Create an account to access all features of the site",
+    "name": "Name:",
+    "lastname": "Lastname:",
+    "documentType": "Document Type:",
+    "select": "Select:",
+    "documentNumber": "Document Number:",
+    "birthdate": "Date of birth:",
+    "selectDate": "Select a date:",
+    "country": "Country:",
+    "gender": "Gender:",
+    "male": "Male",
+    "female": "Female",
+    "phone": "Phone number:",
+    "email": "Email:",
+    "password": "Password:",
+    "confirmPassword": "Confirm password:",
+    "textBtn": "Create account",
+    "byRegistering": "By registering, you agree to our ",
+    "termsLink": "Terms and Conditions",
+    "and": " and ",
+    "policyLink": "Privacy Policy",
+    "alreadyHaveAccount": "Already have an account? ",
+    "loginLink": "Login"
+  }
+}

@@ -1,4 +1,5 @@
 import { Instagram, Youtube } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 function Footer() {
   return (
@@ -9,9 +10,12 @@ function Footer() {
             <h3 className='font-semibold text-lg mb-4'>Enlaces útiles</h3>
             <ul className='space-y-2'>
               <li>
-                <a href='#' className='hover:text-gray-950 transition-colors'>
-                  Sobre Exploraperú
-                </a>
+                <Link
+                  to='/about-us/'
+                  className='hover:text-gray-950 transition-colors'
+                >
+                  <span>Sobre Exploraperú</span>
+                </Link>
               </li>
               <li>
                 <a href='#' className='hover:text-gray-950 transition-colors'>

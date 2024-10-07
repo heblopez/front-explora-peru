@@ -10,6 +10,17 @@
     "dontHaveAccount": "Don't have an account?",
     "register": "Sign up"
   },
+  "header": {
+    "agencies": "Agencies",
+    "login": "Login",
+    "register": "Register",
+    "traveler": "Traveler",
+    "agency": "Agency",
+    "theme": "Current theme: {{theme}}",
+    "light": "Light",
+    "dark": "Dark",
+    "logout": "Logout"
+  },
   "register": {
     "title": "Sign up",
     "subtitle": "Create an account to access all features of the site",

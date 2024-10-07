@@ -42,7 +42,7 @@ body {
   @apply min-h-screen flex flex-col bg-gray-50;
 
   &.dark {
-    background-color: hsl(226, 87%, 7%);
+    background-color: hsl(222.2 84% 4.9%);
     color: #fff;
   }
 }

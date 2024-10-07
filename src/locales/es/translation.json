@@ -10,8 +10,19 @@
     "dontHaveAccount": "¿No tienes una cuenta?",
     "register": "Regístrate"
   },
+  "header": {
+    "agencies": "Agencias",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "traveler": "Viajero",
+    "agency": "Agencia",
+    "theme": "Tema actual: {{theme}}",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "logout": "Cerrar Sesión"
+  },
   "register": {
-    "title": "Registro",
+    "title": "Registrarse",
     "subtitle": "Crea una cuenta para acceder a todas las funciones de la web",
     "name": "Nombres:",
     "lastname": "Apellidos:",

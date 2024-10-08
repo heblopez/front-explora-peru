@@ -12,9 +12,10 @@ import { FormEvent, useContext, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { User, UserLogin } from '@/types/User'
 import { toast } from 'sonner'
-import { z } from 'zod'
 import { UserContext } from '@/context/UserContext'
 import { useTranslation } from 'react-i18next'
+import { userLoginSchema } from '@/validations/userSchemas'
+import { getAllUsers } from '@/services/userServices'
 
 export default function Login() {
   const formRef = useRef<HTMLFormElement>(null)
@@ -22,18 +23,6 @@ export default function Login() {
   const { saveUser } = useContext(UserContext)
 
   const { t } = useTranslation()
-
-  const LoginSchema = z.object({
-    email: z
-      .string()
-      .min(1, 'El correo electrónico es obligatorio')
-      .email('El correo electrónico debe ser válido'),
-    password: z
-      .string()
-      .min(1, 'La contraseña es obligatoria')
-      .min(7, 'La contraseña debe tener al menos 7 caracteres')
-      .max(24, 'La contraseña debe tener como máximo 24 caracteres')
-  })
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -43,23 +32,12 @@ export default function Login() {
       password: formRef.current?.password.value
     }
 
-    const isValidForm = LoginSchema.safeParse(credentials)
+    const isValidForm = userLoginSchema.safeParse(credentials)
 
     if (isValidForm.success) {
       const { email, password } = credentials
 
-      const fetchUsers = async () => {
-        try {
-          const res = await fetch('http://localhost:3000/users')
-          return res.json()
-        } catch (error) {
-          toast.error('Error de servidor 😢 Por favor, inténtalo de nuevo')
-          console.error(error)
-          return []
-        }
-      }
-
-      const allUsers: User[] = await fetchUsers()
+      const allUsers: User[] = await getAllUsers()
       if (allUsers.length === 0) {
         toast.error('Error al recuperar usuarios.')
         return

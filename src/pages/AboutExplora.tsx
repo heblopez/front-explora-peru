@@ -156,7 +156,11 @@ function AboutExplora() {
             </div>
             <h3 className='text-xl font-semibold mb-2'>Make It Real</h3>
             <p>Bootcamp de desarrollo web</p>
-            <a href='#' className='text-primary'>
+            <a
+              target='_blank'
+              href='https://makeitreal.camp/programa-becas-de-bootcamp-proinnovate-2024'
+              className='text-primary'
+            >
               Make it real camp
             </a>
           </div>
@@ -170,8 +174,12 @@ function AboutExplora() {
             </div>
             <h3 className='text-xl font-semibold mb-2'>Proinnovate</h3>
             <p>Otorgamiento de Beca </p>
-            <a href='#' className='text-primary'>
-              Calendario de Becas
+            <a
+              target='_blank'
+              href='https://inngenius.proinnovate.gob.pe/login'
+              className='text-primary'
+            >
+              Plataforma
             </a>
           </div>
         </div>

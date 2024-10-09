@@ -12,7 +12,7 @@ export const getAllUsers = async () => {
   }
 }
 
-export const registerUser = async (newUser: UserRegister) => {
+export const addUser = async (newUser: UserRegister) => {
   try {
     const res = await fetch('http://localhost:3000/users', {
       method: 'POST',

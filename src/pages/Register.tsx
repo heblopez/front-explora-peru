@@ -29,7 +29,7 @@ import { es, enUS } from 'date-fns/locale'
 import { toast } from 'sonner'
 import { useTranslation } from 'react-i18next'
 import { userRegisterSchema } from '@/validations/userSchemas'
-import { registerUser } from '@/services/userService'
+import { addUser } from '@/services/userService'
 import CountriesSelect from '@/components/Register/CountriesList'
 
 export default function Register() {
@@ -70,7 +70,7 @@ export default function Register() {
 
     if (isValidForm.success) {
       delete registerForm.confirmPassword
-      registerUser(registerForm)
+      addUser(registerForm)
         .then(user => {
           localStorage.setItem('user', JSON.stringify(user))
           formRef.current?.reset()
@@ -113,12 +113,7 @@ export default function Register() {
                 >
                   * {t('register.name')}
                 </label>
-                <Input
-                  id='name'
-                  type='text'
-                  placeholder='John'
-                  autoComplete='name'
-                />
+                <Input id='name' type='text' placeholder='John' />
               </div>
               <div className='space-y-2'>
                 <label
@@ -241,12 +236,7 @@ export default function Register() {
                 >
                   * {t('register.email')}
                 </label>
-                <Input
-                  id='email'
-                  type='text'
-                  placeholder='mail@example.com'
-                  autoComplete='email'
-                />
+                <Input id='email' type='text' placeholder='mail@example.com' />
               </div>
               <div className='space-y-2'>
                 <label

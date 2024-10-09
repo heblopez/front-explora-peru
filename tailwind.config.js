@@ -20,8 +20,7 @@ export default {
         'dark-secondary': 'hsl(217.2 32.6% 17.5%)'
       },
       fontFamily: {
-        title: ['Pally-Variable'],
-        content: ['Fira Sans', 'sans-serif']
+        title: ['Pally-Variable']
       },
       fontSize: {
         h1: '3.5rem',

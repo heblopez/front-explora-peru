@@ -1,3 +1,4 @@
+import TeamMember from '@/components/AboutExplora/TeamMember'
 import { Button } from '@/components/ui/button'
 import { Map, MessageCircle, CreditCard, Search } from 'lucide-react'
 import { Link } from 'react-router-dom'
@@ -68,120 +69,54 @@ function AboutExplora() {
           Conoce nuestro equipo
         </h2>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5'>
-          <div className='text-center p-6'>
-            <div className='flex justify-center items-center h-24 w-24 rounded-full shadow-2xl mx-auto mb-6'>
-              <img
-                src='/public/assets/team/juan.jpeg'
-                alt='Juan Alva'
-                className='rounded-full h-24 w-24 object-cover'
-              />
-            </div>
-            <h3 className='text-xl font-semibold mb-2'>Juan Alva</h3>
-            <p>Desarrollador Full Stack</p>
-            <a
-              target='_blank'
-              href='https://github.com/jlac8'
-              className='text-primary'
-            >
-              @jlac8
-            </a>
-          </div>
-          <div className='text-center p-6'>
-            <div className='flex justify-center items-center h-24 w-24 rounded-full shadow-2xl mx-auto mb-6'>
-              <img
-                src='/public/assets/team/jaqueline.png'
-                alt='Jaqueline Ramos'
-                className='rounded-full h-24 w-24 object-cover'
-              />
-            </div>
-            <h3 className='text-xl font-semibold mb-2'>Jaqueline Ramos</h3>
-            <p>Desarrollador Full Stack</p>
-            <a
-              target='_blank'
-              href='https://github.com/JaquelineRocio'
-              className='text-primary'
-            >
-              @JaquelineRocio
-            </a>
-          </div>
-          <div className='text-center p-6'>
-            <div className='flex justify-center items-center h-24 w-24 rounded-full shadow-2xl mx-auto mb-6'>
-              <img
-                src='/public/assets/team/hebert.jpeg'
-                alt='Hebert López'
-                className='rounded-full h-24 w-24 object-cover'
-              />
-            </div>
-            <h3 className='text-xl font-semibold mb-2'>Hebert López</h3>
-            <p>Desarrollador Full Stack</p>
-            <a
-              target='_blank'
-              href='https://github.com/heblopez'
-              className='text-primary'
-            >
-              @heblopez
-            </a>
-          </div>
-          <div className='text-center p-6'>
-            <div className='flex justify-center items-center h-24 w-24 rounded-full shadow-2xl mx-auto mb-6'>
-              <img
-                src='/public/assets/team/victor.jpeg'
-                alt='Victor Ramirez'
-                className='rounded-full h-24 w-24 object-cover'
-              />
-            </div>
-            <h3 className='text-xl font-semibold mb-2'>Victor Ramirez</h3>
-            <p>Desarrollador Full Stack</p>
-            <a
-              target='_blank'
-              href='https://github.com/Victormrl17'
-              className='text-primary'
-            >
-              @Victormrl17
-            </a>
-          </div>
+          <TeamMember
+            imagePath='/public/assets/team/juan.jpeg'
+            name='Juan Alva'
+            role='Desarrollador Full Stack'
+            url='https://github.com/jlac8'
+            urlDescription='@jlac8'
+          />
+          <TeamMember
+            imagePath='/public/assets/team/jaqueline.png'
+            name='Jaqueline Ramos'
+            role='Desarrollador Full Stack'
+            url='https://github.com/JaquelineRocio'
+            urlDescription='@JaquelineRocio'
+          />
+          <TeamMember
+            imagePath='/public/assets/team/hebert.jpeg'
+            name='Hebert López'
+            role='Desarrollador Full Stack'
+            url='https://github.com/heblopez'
+            urlDescription='@heblopez'
+          />
+          <TeamMember
+            imagePath='/public/assets/team/victor.jpeg'
+            name='Victor Ramirez'
+            role='Desarrollador Full Stack'
+            url='https://github.com/Victormrl17'
+            urlDescription='@Victormrl17'
+          />
         </div>
 
         <h2 className='text-2xl font-bold text-center mt-12 mb-8 text-primary'>
           Y nuestros inversores
         </h2>
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-10'>
-          <div className='text-center p-6'>
-            <div className='flex justify-center items-center h-24 w-24 bg-gray-200 rounded-full mx-auto mb-4'>
-              <img
-                src='/public/assets/investors/mir.jpeg'
-                alt='Make It Real'
-                className='rounded-full h-24 w-24 object-cover'
-              />
-            </div>
-            <h3 className='text-xl font-semibold mb-2'>Make It Real</h3>
-            <p>Bootcamp de desarrollo web</p>
-            <a
-              target='_blank'
-              href='https://makeitreal.camp/programa-becas-de-bootcamp-proinnovate-2024'
-              className='text-primary'
-            >
-              Make it real camp
-            </a>
-          </div>
-          <div className='text-center p-6'>
-            <div className='flex justify-center items-center h-24 w-24 bg-gray-200 rounded-full mx-auto mb-4'>
-              <img
-                src='/public/assets/investors/proinnovate.png'
-                alt='Proinnovate'
-                className='rounded-full h-24 w-24 object-cover'
-              />
-            </div>
-            <h3 className='text-xl font-semibold mb-2'>Proinnovate</h3>
-            <p>Otorgamiento de Beca </p>
-            <a
-              target='_blank'
-              href='https://inngenius.proinnovate.gob.pe/login'
-              className='text-primary'
-            >
-              Plataforma
-            </a>
-          </div>
+          <TeamMember
+            imagePath='/public/assets/investors/mir.jpeg'
+            name='Make It Real'
+            role='Bootcamp de desarrollo web'
+            url='https://makeitreal.camp/programa-becas-de-bootcamp-proinnovate-2024'
+            urlDescription='Make it real camp'
+          />
+          <TeamMember
+            imagePath='/public/assets/investors/proinnovate.png'
+            name='Proinnovate'
+            role='Financiamento de Beca'
+            url='https://www.gob.pe/institucion/proinnovate/campa%C3%B1as/49409-concurso-de-becas-para-programas-de-bootcamps-de-codigo-etapa-2'
+            urlDescription='Concurso'
+          />
         </div>
       </section>
 

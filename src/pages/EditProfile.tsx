@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -8,23 +8,44 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { toast } from 'sonner'
 
-type FormFields = 'username' | 'email' | 'phone' | 'address'
+type FormFields = 'username' | 'lastname' | 'email' | 'phone' | 'password'
 
 const EditProfile: React.FC = () => {
   const [formData, setFormData] = useState<Record<FormFields, string>>({
     username: '',
+    lastname: '',
     email: '',
     phone: '',
-    address: ''
+    password: ''
   })
 
+  const [userData, setUserData] = useState<any>(null)
   const [errors, setErrors] = useState<Record<FormFields, string>>({
     username: '',
+    lastname: '',
     email: '',
     phone: '',
-    address: ''
+    password: ''
   })
+
+  const [showPassword, setShowPassword] = useState(false)
+
+  useEffect(() => {
+    const storedUserData = localStorage.getItem('user')
+    if (storedUserData) {
+      const user = JSON.parse(storedUserData)
+      setUserData(user)
+      setFormData({
+        username: user.name || '',
+        lastname: user.lastName || '',
+        email: user.email || '',
+        phone: user.phone || '',
+        password: ''
+      })
+    }
+  }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -35,13 +56,19 @@ const EditProfile: React.FC = () => {
     let isValid = true
     const newErrors: Record<FormFields, string> = {
       username: '',
+      lastname: '',
       email: '',
       phone: '',
-      address: ''
+      password: ''
     }
 
     if (!/^[A-Za-z]+$/.test(formData.username.trim())) {
       newErrors.username = 'El nombre de usuario solo puede contener letras.'
+      isValid = false
+    }
+
+    if (!/^[A-Za-z]+$/.test(formData.lastname.trim())) {
+      newErrors.lastname = 'El apellido solo puede contener letras.'
       isValid = false
     }
 
@@ -50,13 +77,8 @@ const EditProfile: React.FC = () => {
       isValid = false
     }
 
-    if (!/^\d{9}$/.test(formData.phone)) {
-      newErrors.phone = 'El número de teléfono debe contener 9 dígitos.'
-      isValid = false
-    }
-
-    if (!formData.address.trim()) {
-      newErrors.address = 'La dirección no puede estar vacía.'
+    if (formData.password && formData.password.length < 6) {
+      newErrors.password = 'La contraseña debe tener al menos 6 caracteres.'
       isValid = false
     }
 
@@ -64,11 +86,53 @@ const EditProfile: React.FC = () => {
     return isValid
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (validateForm()) {
-      console.log('Información actualizada:', formData)
-      setFormData({ username: '', email: '', phone: '', address: '' })
+      const updatedData = {
+        ...userData,
+        name: formData.username,
+        lastName: formData.lastname,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password ? formData.password : userData.password
+      }
+
+      const saveData = async () => {
+        const response = await fetch(
+          `http://localhost:3000/users/${userData.id}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedData)
+          }
+        )
+
+        if (!response.ok) {
+          throw new Error('Error al guardar los cambios')
+        }
+
+        return updatedData
+      }
+
+      toast.promise(saveData, {
+        loading: 'Guardando cambios...',
+        success: () => {
+          localStorage.setItem('user', JSON.stringify(updatedData))
+          setFormData({
+            username: '',
+            lastname: '',
+            email: '',
+            phone: '',
+            password: ''
+          })
+          return 'Tus datos han sido cambiados ✅'
+        },
+        error: err => err.message,
+        position: 'top-center'
+      })
     }
   }
 
@@ -86,38 +150,71 @@ const EditProfile: React.FC = () => {
         <CardContent>
           <form onSubmit={handleSubmit}>
             <div className='space-y-4'>
-              {(['username', 'email', 'phone', 'address'] as FormFields[]).map(
-                field => (
-                  <div key={field} className='space-y-2'>
-                    <label
-                      htmlFor={field}
-                      className='text-sm font-medium leading-none'
-                    >
-                      {field === 'username' && 'Nombre de Usuario:'}
-                      {field === 'email' && 'Correo Electrónico:'}
-                      {field === 'phone' && 'Número de Teléfono:'}
-                      {field === 'address' && 'Dirección:'}
-                    </label>
-                    <Input
-                      id={field}
-                      type={
-                        field === 'email' ? 'email'
-                        : field === 'phone' ?
-                          'tel'
-                        : 'text'
-                      }
-                      name={field}
-                      value={formData[field]}
-                      onChange={handleInputChange}
-                      placeholder={`Tu ${field === 'username' ? 'nombre de usuario' : field}`}
-                      required
-                    />
-                    {errors[field] && (
-                      <p className='text-red-500'>{errors[field]}</p>
-                    )}
-                  </div>
-                )
-              )}
+              {(
+                [
+                  'username',
+                  'lastname',
+                  'email',
+                  'phone',
+                  'password'
+                ] as FormFields[]
+              ).map(field => (
+                <div key={field} className='space-y-2'>
+                  <label
+                    htmlFor={field}
+                    className='text-sm font-medium leading-none'
+                  >
+                    {field === 'username' && 'Nombre del Usuario:'}
+                    {field === 'lastname' && 'Apellido del Usuario:'}
+                    {field === 'email' && 'Correo Electrónico:'}
+                    {field === 'phone' && 'Número de Teléfono:'}
+                    {field === 'password' && 'Nueva Contraseña:'}
+                  </label>
+                  <Input
+                    id={field}
+                    type={
+                      field === 'password' ?
+                        showPassword ?
+                          'text'
+                        : 'password'
+                      : field === 'email' ?
+                        'email'
+                      : field === 'phone' ?
+                        'tel'
+                      : 'text'
+                    }
+                    name={field}
+                    value={formData[field]}
+                    onChange={handleInputChange}
+                    placeholder={`Tu ${
+                      field === 'username' ? 'nombre de usuario'
+                      : field === 'lastname' ? 'apellido de usuario'
+                      : field === 'password' ? 'nueva contraseña'
+                      : field
+                    }`}
+                    required={
+                      field !== 'password' || formData.password.length > 0
+                    }
+                  />
+                  {field === 'password' && (
+                    <div className='flex items-center mt-2'>
+                      <input
+                        type='checkbox'
+                        id='showPassword'
+                        checked={showPassword}
+                        onChange={() => setShowPassword(!showPassword)}
+                        className='mr-2'
+                      />
+                      <label htmlFor='showPassword' className='text-sm'>
+                        Mostrar Contraseña
+                      </label>
+                    </div>
+                  )}
+                  {errors[field] && (
+                    <p className='text-red-500'>{errors[field]}</p>
+                  )}
+                </div>
+              ))}
               <Button
                 type='submit'
                 className='w-full font-bold bg-primary dark:bg-primary-light hover:bg-primary-dark hover:dark:bg-primary-lighter'

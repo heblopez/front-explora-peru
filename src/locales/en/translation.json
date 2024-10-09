@@ -47,6 +47,15 @@
     "alreadyHaveAccount": "Already have an account? ",
     "loginLink": "Login"
   },
+  "footer": {
+    "usefulLinks": "Useful links",
+    "aboutExploraPeru": "About ExploraPerú",
+    "contact": "Contact",
+    "termsConditions": "Terms and Conditions",
+    "privacyPolicy": "Privacy Policy",
+    "followUs": "Follow us",
+    "copyright": "ExploraPerú. All rights reserved."
+  },
   "aboutExplora": {
     "title": "The new way to explore",
     "peru": " Peru",
@@ -54,7 +63,7 @@
     "mincetur": " certified by MINCETUR",
     "offer": "What we offer",
     "searchTour": "Tour search",
-    "findToursDescription": "Find the tour that best fits what you're looking for",
+    "searchTourDescription": "Find the tour that best fits with what you are looking for",
     "securePayment": "Secure payments",
     "securePaymentDescription": "Book tours with the peace of mind that the payment is safe and reliable",
     "routeMap": "Route map",

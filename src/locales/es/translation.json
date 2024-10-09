@@ -47,6 +47,15 @@
     "alreadyHaveAccount": "¿Ya tienes una cuenta? ",
     "loginLink": "Inicia Sesión"
   },
+  "footer": {
+    "usefulLinks": "Enlaces Útiles",
+    "aboutExploraPeru": "Sobre Exploraperú",
+    "contact": "Contacto",
+    "termsConditions": "Terminos y Condiciones",
+    "privacyPolicy": "Política de Privacidad",
+    "followUs": "Síguenos",
+    "copyright": "Exploraperú. Todos los derechos reservados."
+  },
   "aboutExplora": {
     "title": "La nueva forma de explorar el",
     "peru": " Perú",
@@ -54,7 +63,7 @@
     "mincetur": " certificadas por MINCETUR",
     "offer": "Lo que ofrecemos",
     "searchTour": "Búsqueda de tours",
-    "findToursDescription": "Encuentra el tour que más se adapte a lo que estás buscando",
+    "searchTourDescription": "Encuentra el tour que más se adapte a lo que estás buscando",
     "securePayment": "Pagos seguros",
     "securePaymentDescription": "Reserva tours con la tranquilidad de que el pago es seguro y confiable",
     "routeMap": "Mapa de ruta",

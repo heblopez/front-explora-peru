@@ -35,6 +35,7 @@ import CountriesSelect from '@/components/Register/CountriesList'
 export default function Register() {
   const [date, setDate] = useState<Date | undefined>()
   const [openCalendar, setOpenCalendar] = useState(false)
+  const [country, setCountry] = useState<string>('')
 
   const formatDate = (date: Date) => {
     return format(date, 'dd MMMMMM yyyy', { locale: es })
@@ -57,7 +58,7 @@ export default function Register() {
       ).value,
       documentNumber: parseInt(formRef.current?.['document-number'].value),
       birthdate: date ? format(date as Date, 'yyyy-MM-dd') : '',
-      country: formRef.current?.country.value,
+      country: country ? country.split(' ')[1] : '',
       gender: formRef.current?.gender.value,
       phone: formRef.current?.['phone-number'].value,
       email: formRef.current?.email.value,
@@ -194,7 +195,9 @@ export default function Register() {
                 <div className='space-y-2'>
                   <label className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
                     {t('register.country')}
-                    <CountriesSelect />
+                    <CountriesSelect
+                      onCountry={country => setCountry(country)}
+                    />
                   </label>
                 </div>
               </div>

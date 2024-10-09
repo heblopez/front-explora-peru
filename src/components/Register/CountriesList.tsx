@@ -14,7 +14,11 @@ import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { useTranslation } from 'react-i18next'
 
-export default function CountriesSelect() {
+type CountriesSelectProps = {
+  onCountry: (country: string) => void
+}
+
+export default function CountriesSelect(props: CountriesSelectProps) {
   const [countryUser, setCountryUser] = useState<CountrySelect | null>(null)
   const [countriesList, setCountriesList] = useState<
     CountrySelect[] | undefined
@@ -28,6 +32,7 @@ export default function CountriesSelect() {
       if (data) {
         setCountryUser(data.userSelectValue)
         setCountriesList(data.countries)
+        props.onCountry(data.userSelectValue.label)
       }
     })
   }, [])
@@ -60,6 +65,7 @@ export default function CountriesSelect() {
                       currentValue === countryUser?.label ? null : country
                     )
                     setOpen(false)
+                    props.onCountry(currentValue)
                   }}
                 >
                   <Check

@@ -27,7 +27,6 @@
     "clsx": "^2.1.1",
     "cmdk": "1.0.0",
     "date-fns": "^3.6.0",
-    "front-explora-peru": "file:",
     "i18next": "^23.15.2",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.446.0",
@@ -39,7 +38,6 @@
     "react-router-dom": "^6.26.2",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
   },
   "devDependencies": {

@@ -22,8 +22,8 @@ export const userRegisterSchema = z
       .min(2, 'El apellido es obligatorio y debe tener al menos 2 caracteres'),
     documentType: z.string().min(1, 'El tipo de documento es obligatorio'),
     documentNumber: z
-      .number()
-      .min(8, 'El número de documento debe tener al menos 8 caracteres'),
+      .number({ invalid_type_error: 'El número de documento es incorrecto' })
+      .min(8, 'El número de documento debe tener al menos 8 digitos'),
     birthdate: z.string().date('La fecha de nacimiento es incorrecta'),
     country: z.string(),
     gender: z.string(),

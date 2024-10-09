@@ -15,7 +15,7 @@ import { toast } from 'sonner'
 import { UserContext } from '@/context/UserContext'
 import { useTranslation } from 'react-i18next'
 import { userLoginSchema } from '@/validations/userSchemas'
-import { getAllUsers } from '@/services/userServices'
+import { getAllUsers } from '@/services/userService'
 
 export default function Login() {
   const formRef = useRef<HTMLFormElement>(null)

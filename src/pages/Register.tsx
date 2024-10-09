@@ -29,11 +29,13 @@ import { es, enUS } from 'date-fns/locale'
 import { toast } from 'sonner'
 import { useTranslation } from 'react-i18next'
 import { userRegisterSchema } from '@/validations/userSchemas'
-import { registerUser } from '@/services/userServices'
+import { registerUser } from '@/services/userService'
+import CountriesSelect from '@/components/Register/CountriesList'
 
 export default function Register() {
   const [date, setDate] = useState<Date | undefined>()
   const [openCalendar, setOpenCalendar] = useState(false)
+
   const formatDate = (date: Date) => {
     return format(date, 'dd MMMMMM yyyy', { locale: es })
   }
@@ -192,25 +194,7 @@ export default function Register() {
                 <div className='space-y-2'>
                   <label className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
                     {t('register.country')}
-                    <Select name='country' autoComplete='country'>
-                      <SelectTrigger className='mt-2'>
-                        <SelectValue placeholder={t('register.select')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value='Peru'>🇵🇪 Perú</SelectItem>
-                        <SelectItem value='Argentina'>🇦🇷 Argentina</SelectItem>
-                        <SelectItem value='Brasil'>🇧🇷 Brasil</SelectItem>
-                        <SelectItem value='Bolivia'>🇧🇴 Bolivia</SelectItem>
-                        <SelectItem value='Chile'>🇨🇱 Chile</SelectItem>
-                        <SelectItem value='Colombia'> 🇨🇴 Colombia</SelectItem>
-                        <SelectItem value='Ecuador'>🇪🇨 Ecuador</SelectItem>
-                        <SelectItem value='Mexico'>🇲🇽 México</SelectItem>
-                        <SelectItem value='Paraguay'>🇵🇾 Paraguay</SelectItem>
-                        <SelectItem value='USA'>🇺🇸 United States</SelectItem>
-                        <SelectItem value='Uruguay'>🇺🇾 Uruguay</SelectItem>
-                        <SelectItem value='Venezuela'>🇻🇪 Venezuela</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <CountriesSelect />
                   </label>
                 </div>
               </div>

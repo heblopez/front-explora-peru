@@ -34,7 +34,7 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/tours' element={<Tours />} />
           <Route path='/register-tours' element={<RegisterTours />} />
-          <Route path='/editprofile' element={<EditProfile />} />
+          <Route path='/edit-profile' element={<EditProfile />} />
           <Route path='/about-us' element={<AboutExplora />} />
         </Routes>
         <Footer />

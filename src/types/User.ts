@@ -12,5 +12,5 @@ export interface User {
   password: string
 }
 
-export type UserRegister = Omit<User, 'id'> & { confirmPassword: string }
+export type UserRegister = Omit<User, 'id'>
 export type UserLogin = Pick<User, 'email' | 'password'>

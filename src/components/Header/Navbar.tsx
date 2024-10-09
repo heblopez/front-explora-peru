@@ -9,14 +9,14 @@ import CurrencyDropdown from './CurrencyDropdown'
 import LoginDropdown from './LoginDropdown'
 import RegisterDropdown from './RegisterDropdown'
 import { useTranslation } from 'react-i18next'
+import MyAccountDropdown from './MyAccountDropdown'
 
-function Navbar({
-  isDark,
-  toggleTheme
-}: {
+interface NavbarProps {
   isDark: boolean
   toggleTheme: () => void
-}) {
+}
+
+function Navbar({ isDark, toggleTheme }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false)
   const toggleMenu = () => setIsOpen(!isOpen)
   const { user, removeUser } = useContext(UserContext)
@@ -56,23 +56,24 @@ function Navbar({
           </Link>
           <LanguageDropdown />
           <CurrencyDropdown />
-          {!user && (
+          {!user ?
             <>
               <LoginDropdown />
               <RegisterDropdown />
             </>
-          )}
-          {user && (
-            <Button
-              variant='ghost'
-              size='sm'
-              className='text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
-              onClick={removeUser}
-            >
-              <LogOut className='h-4 w-4 mr-1' />
-              <span>{t('header.logout')}</span>
-            </Button>
-          )}
+          : <>
+              <MyAccountDropdown />
+              <Button
+                variant='ghost'
+                size='sm'
+                className='text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white'
+                onClick={removeUser}
+              >
+                <LogOut className='h-4 w-4 mr-1' />
+                <span>{t('header.logout')}</span>
+              </Button>
+            </>
+          }
           <DarkModeBtn isDark={isDark} toggleTheme={toggleTheme} />
         </nav>
       </div>
@@ -98,12 +99,33 @@ function Navbar({
             <li className='px-3 py-2'>
               <CurrencyDropdown />
             </li>
-            <li className='px-3 py-2'>
-              <LoginDropdown />
-            </li>
-            <li className='px-3 py-2'>
-              <RegisterDropdown />
-            </li>
+            {!user ?
+              <>
+                <li className='px-3 py-2'>
+                  <LoginDropdown />
+                </li>
+                <li className='px-3 py-2'>
+                  <RegisterDropdown />
+                </li>
+              </>
+            : <>
+                <li className='px-3 py-2'>
+                  <Button
+                    variant='ghost'
+                    size='sm'
+                    className='text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
+                    onClick={removeUser}
+                  >
+                    <LogOut className='h-4 w-4 mr-1' />
+                    <span>{t('header.logout')}</span>
+                  </Button>
+                </li>
+                <li className='px-3 py-2'>
+                  <MyAccountDropdown />
+                </li>
+              </>
+            }
+
             <li className='pl-4 py-2 flex gap-2 items-center text-xs text-slate-600 dark:text-slate-100'>
               <DarkModeBtn
                 isDark={isDark}

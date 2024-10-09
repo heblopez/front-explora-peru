@@ -63,7 +63,7 @@ input:-webkit-autofill:focus {
 }
 
 h1.web-name {
-  color: red;
+  color: hsl(360, 84%, 57%);
   position: relative;
   z-index: 1;
   cursor: pointer;

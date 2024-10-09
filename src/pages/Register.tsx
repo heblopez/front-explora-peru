@@ -26,55 +26,23 @@ import {
 import { CalendarIcon } from 'lucide-react'
 import { format } from 'date-fns'
 import { es, enUS } from 'date-fns/locale'
-import { z } from 'zod'
 import { toast } from 'sonner'
 import { useTranslation } from 'react-i18next'
+import { userRegisterSchema } from '@/validations/userSchemas'
+import { addUser } from '@/services/userService'
+import CountriesSelect from '@/components/Register/CountriesList'
 
 export default function Register() {
   const [date, setDate] = useState<Date | undefined>()
   const [openCalendar, setOpenCalendar] = useState(false)
+  const [country, setCountry] = useState<string>('')
+
   const formatDate = (date: Date) => {
     return format(date, 'dd MMMMMM yyyy', { locale: es })
   }
 
   const formRef = useRef<HTMLFormElement>(null)
   const navigate = useNavigate()
-
-  const RegistrationSchema = z.object({
-    name: z
-      .string()
-      .min(2, 'El nombre es obligatorio y debe tener al menos 2 caracteres'),
-    lastName: z
-      .string()
-      .min(2, 'El apellido es obligatorio y debe tener al menos 2 caracteres'),
-    documentType: z.string().min(1, 'El tipo de documento es obligatorio'),
-    documentNumber: z
-      .number()
-      .min(8, 'El número de documento debe tener al menos 8 caracteres'),
-    birthdate: z.string().date('La fecha de nacimiento es incorrecta'),
-    country: z.string(),
-    gender: z.string(),
-    phone: z
-      .string()
-      .min(1, 'El número de celular es obligatorio')
-      .min(11, 'El número de celular debe tener al menos 11 caracteres'),
-    email: z
-      .string()
-      .min(1, 'El correo electrónico es obligatorio')
-      .email('El correo electrónico debe ser válido'),
-    password: z
-      .string()
-      .min(1, 'La contraseña es obligatoria')
-      .min(7, 'La contraseña debe tener al menos 7 caracteres')
-      .max(24, 'La contraseña debe tener como máximo 24 caracteres'),
-    confirmPassword: z
-      .string()
-      .min(1, 'La confirmación de la contraseña es obligatoria')
-      .refine(
-        value => value === formRef.current?.password.value,
-        'Las contraseñas no coinciden'
-      )
-  })
 
   const handleRegister = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -90,7 +58,7 @@ export default function Register() {
       ).value,
       documentNumber: parseInt(formRef.current?.['document-number'].value),
       birthdate: date ? format(date as Date, 'yyyy-MM-dd') : '',
-      country: formRef.current?.country.value,
+      country: country ? country.split(' ')[1] : '',
       gender: formRef.current?.gender.value,
       phone: formRef.current?.['phone-number'].value,
       email: formRef.current?.email.value,
@@ -98,18 +66,11 @@ export default function Register() {
       confirmPassword: formRef.current?.['confirm-password'].value
     }
 
-    const isValidForm = RegistrationSchema.safeParse(registerForm)
+    const isValidForm = userRegisterSchema.safeParse(registerForm)
 
     if (isValidForm.success) {
       delete registerForm.confirmPassword
-      fetch('http://localhost:3000/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(registerForm)
-      })
-        .then(res => res.json())
+      addUser(registerForm)
         .then(user => {
           localStorage.setItem('user', JSON.stringify(user))
           formRef.current?.reset()
@@ -152,12 +113,7 @@ export default function Register() {
                 >
                   * {t('register.name')}
                 </label>
-                <Input
-                  id='name'
-                  type='text'
-                  placeholder='John'
-                  autoComplete='name'
-                />
+                <Input id='name' type='text' placeholder='John' />
               </div>
               <div className='space-y-2'>
                 <label
@@ -234,25 +190,9 @@ export default function Register() {
                 <div className='space-y-2'>
                   <label className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
                     {t('register.country')}
-                    <Select name='country' autoComplete='country'>
-                      <SelectTrigger className='mt-2'>
-                        <SelectValue placeholder={t('register.select')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value='Peru'>🇵🇪 Perú</SelectItem>
-                        <SelectItem value='Argentina'>🇦🇷 Argentina</SelectItem>
-                        <SelectItem value='Brasil'>🇧🇷 Brasil</SelectItem>
-                        <SelectItem value='Bolivia'>🇧🇴 Bolivia</SelectItem>
-                        <SelectItem value='Chile'>🇨🇱 Chile</SelectItem>
-                        <SelectItem value='Colombia'> 🇨🇴 Colombia</SelectItem>
-                        <SelectItem value='Ecuador'>🇪🇨 Ecuador</SelectItem>
-                        <SelectItem value='Mexico'>🇲🇽 México</SelectItem>
-                        <SelectItem value='Paraguay'>🇵🇾 Paraguay</SelectItem>
-                        <SelectItem value='USA'>🇺🇸 United States</SelectItem>
-                        <SelectItem value='Uruguay'>🇺🇾 Uruguay</SelectItem>
-                        <SelectItem value='Venezuela'>🇻🇪 Venezuela</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <CountriesSelect
+                      onCountry={country => setCountry(country)}
+                    />
                   </label>
                 </div>
               </div>
@@ -296,12 +236,7 @@ export default function Register() {
                 >
                   * {t('register.email')}
                 </label>
-                <Input
-                  id='email'
-                  type='text'
-                  placeholder='mail@example.com'
-                  autoComplete='email'
-                />
+                <Input id='email' type='text' placeholder='mail@example.com' />
               </div>
               <div className='space-y-2'>
                 <label

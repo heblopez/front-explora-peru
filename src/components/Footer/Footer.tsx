@@ -13,6 +13,7 @@ function Footer() {
                 <Link
                   to='/about-us/'
                   className='hover:text-gray-950 transition-colors'
+                  onClick={() => window.scrollTo(0, 0)}
                 >
                   <span>Sobre Exploraperú</span>
                 </Link>

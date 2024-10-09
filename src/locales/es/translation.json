@@ -46,5 +46,39 @@
     "policyLink": "Política de Privacidad",
     "alreadyHaveAccount": "¿Ya tienes una cuenta? ",
     "loginLink": "Inicia Sesión"
+  },
+  "footer": {
+    "usefulLinks": "Enlaces Útiles",
+    "aboutExploraPeru": "Sobre Exploraperú",
+    "contact": "Contacto",
+    "termsConditions": "Terminos y Condiciones",
+    "privacyPolicy": "Política de Privacidad",
+    "followUs": "Síguenos",
+    "copyright": "Exploraperú. Todos los derechos reservados."
+  },
+  "aboutExplora": {
+    "title": "La nueva forma de explorar el",
+    "peru": " Perú",
+    "subtitle": "Explora los tours disponibles en todas las regiones y agenda tus favoritos con la confianza de que todas las agencias de viajes están",
+    "mincetur": " certificadas por MINCETUR",
+    "offer": "Lo que ofrecemos",
+    "searchTour": "Búsqueda de tours",
+    "searchTourDescription": "Encuentra el tour que más se adapte a lo que estás buscando",
+    "securePayment": "Pagos seguros",
+    "securePaymentDescription": "Reserva tours con la tranquilidad de que el pago es seguro y confiable",
+    "routeMap": "Mapa de ruta",
+    "routeMapDescription": "Conoce la ruta de tus tours y sus horarios con nuestro mapa interactivo",
+    "chat": "Chat con agencia",
+    "chatDescription": "Comunícate directamente con la agencia de viajes para cualquier consulta",
+    "team": "Conoce nuestro equipo",
+    "teamRole": "Desarrollador Full Stack",
+    "investors": "Y nuestros inversores",
+    "mir": "Bootcamp de desarrollo web",
+    "proinnovate": "Financiamento de Beca",
+    "proinnovateUrl": "Reglas del Concurso",
+    "start": "Esto recién comienza",
+    "joinUs": " ¿Te Unes?",
+    "travelButton": "Registro de Viajero",
+    "agencyButton": "Registro de Agencia"
   }
 }

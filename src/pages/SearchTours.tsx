@@ -16,64 +16,21 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { Tour } from '@/types/Tour'
 import { StarFilledIcon } from '@radix-ui/react-icons'
 import { LucideClock, MapPin, Search } from 'lucide-react'
-import { FormEvent, useState } from 'react'
-
-const tours = [
-  {
-    id: 1,
-    name: 'Machu Picchu Adventure',
-    region: 'Cusco',
-    price: 1200,
-    rating: 4.8,
-    duration: 12
-  },
-  {
-    id: 2,
-    name: 'Amazon Rainforest Expedition',
-    region: 'Loreto',
-    price: 1500,
-    rating: 4.6,
-    duration: 7
-  },
-  {
-    id: 3,
-    name: 'Colca Canyon Trek',
-    region: 'Arequipa',
-    price: 800,
-    rating: 4.7,
-    duration: 9
-  },
-  {
-    id: 4,
-    name: 'Lake Titicaca Cultural Tour',
-    region: 'Puno',
-    price: 950,
-    rating: 4.5,
-    duration: 5
-  },
-  {
-    id: 5,
-    name: 'Nazca Lines Flyover',
-    region: 'Ica',
-    price: 350,
-    rating: 4.4,
-    duration: 3
-  },
-  {
-    id: 6,
-    name: 'Huacachina Oasis Adventure',
-    region: 'Ica',
-    price: 250,
-    rating: 4.3,
-    duration: 6
-  }
-]
+import { FormEvent, useEffect, useState } from 'react'
 
 export default function SearchTours() {
   const [searchTerm, setSearchTerm] = useState('')
   const [priceRange, setPriceRange] = useState([70, 120])
+  const [tours, setTours] = useState<Tour[]>([])
+
+  useEffect(() => {
+    fetch('http://localhost:3000/tours')
+      .then(res => res.json())
+      .then(data => setTours(data))
+  }, [])
 
   function handleSearch(ev: FormEvent<HTMLFormElement>) {
     ev.preventDefault()
@@ -84,7 +41,7 @@ export default function SearchTours() {
     <main className='flex flex-col'>
       <section className='bg-gradient-to-r from-blue-500 to-purple-600 py-12 w-full dark:from-primary-darker dark:to-purple-950'>
         <div className='container mx-auto px-4'>
-          <h1 className='text-4xl text-white font-bold mb-6 text-center'>
+          <h1 className='text-4xl text-white font-bold mb-6 text-center font-title'>
             Descubre Tours Increíbles
           </h1>
           <div className='max-w-4xl mx-auto space-y-6'>

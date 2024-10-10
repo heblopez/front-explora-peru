@@ -6,8 +6,9 @@ export default {
     extend: {
       colors: {
         primary: 'hsl(217, 91%, 50%)',
+        'primary-lightest': 'hsl(217, 91%, 89%)',
         'primary-lighter': 'hsl(217, 91%, 77%)',
-        'primary-light': 'hsl(217, 91%, 67%)',
+        'primary-light': 'hsl(217, 91%, 59%)',
         'primary-dark': 'hsl(217, 91%, 40%)',
         'primary-darker': 'hsl(217, 91%, 30%)',
         accent: 'hsl(37, 91%, 60%)',
@@ -15,9 +16,9 @@ export default {
         success: 'hsl(145, 63%, 49%)',
         warning: 'hsl(48, 89%, 50%)',
         danger: 'hsl(0, 100%, 50%)',
-        'dark-card': 'hsl(222.2 84% 4.9%)',
+        'dark-secondary': 'hsl(217.2 32.6% 17.5%)',
         'dark-primary-foreground': 'hsl(222.2 47.4% 11.2%)',
-        'dark-secondary': 'hsl(217.2 32.6% 17.5%)'
+        'dark-card': 'hsl(222.2 84% 4.9%)'
       },
       fontFamily: {
         title: ['Pally-Variable']

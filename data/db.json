@@ -40,11 +40,54 @@
       "id": 5
     }
   ],
-  "posts": [
+  "tours": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "name": "Machu Picchu Adventure",
+      "region": "Cusco",
+      "price": 1200,
+      "rating": 4.8,
+      "duration": 12
+    },
+    {
+      "id": 2,
+      "name": "Amazon Rainforest Expedition",
+      "region": "Loreto",
+      "price": 1500,
+      "rating": 4.6,
+      "duration": 7
+    },
+    {
+      "id": 3,
+      "name": "Colca Canyon Trek",
+      "region": "Arequipa",
+      "price": 800,
+      "rating": 4.7,
+      "duration": 9
+    },
+    {
+      "id": 4,
+      "name": "Lake Titicaca Cultural Tour",
+      "region": "Puno",
+      "price": 950,
+      "rating": 4.5,
+      "duration": 5
+    },
+    {
+      "id": 5,
+      "name": "Nazca Lines Flyover",
+      "region": "Ica",
+      "price": 350,
+      "rating": 4.4,
+      "duration": 3
+    },
+    {
+      "id": 6,
+      "name": "Huacachina Oasis Adventure",
+      "region": "Ica",
+      "price": 250,
+      "rating": 4.5,
+      "duration": 6
     }
   ],
   "comments": [

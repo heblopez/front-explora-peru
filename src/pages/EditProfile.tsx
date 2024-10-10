@@ -9,10 +9,12 @@ import {
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
 
 type FormFields = 'username' | 'lastname' | 'email' | 'phone' | 'password'
 
 const EditProfile: React.FC = () => {
+  const { t } = useTranslation() // Hook de traducción
   const [formData, setFormData] = useState<Record<FormFields, string>>({
     username: '',
     lastname: '',
@@ -63,22 +65,22 @@ const EditProfile: React.FC = () => {
     }
 
     if (!/^[A-Za-z]+$/.test(formData.username.trim())) {
-      newErrors.username = 'El nombre de usuario solo puede contener letras.'
+      newErrors.username = t('profile.username_error')
       isValid = false
     }
 
     if (!/^[A-Za-z]+$/.test(formData.lastname.trim())) {
-      newErrors.lastname = 'El apellido solo puede contener letras.'
+      newErrors.lastname = t('profile.lastname_error')
       isValid = false
     }
 
     if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Por favor, introduce un correo electrónico válido.'
+      newErrors.email = t('profile.email_error')
       isValid = false
     }
 
     if (formData.password && formData.password.length < 6) {
-      newErrors.password = 'La contraseña debe tener al menos 6 caracteres.'
+      newErrors.password = t('profile.password_error')
       isValid = false
     }
 
@@ -111,14 +113,14 @@ const EditProfile: React.FC = () => {
         )
 
         if (!response.ok) {
-          throw new Error('Error al guardar los cambios')
+          throw new Error(t('profile.save_error'))
         }
 
         return updatedData
       }
 
       toast.promise(saveData, {
-        loading: 'Guardando cambios...',
+        loading: t('profile.saving_changes'),
         success: () => {
           localStorage.setItem('user', JSON.stringify(updatedData))
           setFormData({
@@ -128,7 +130,7 @@ const EditProfile: React.FC = () => {
             phone: '',
             password: ''
           })
-          return 'Tus datos han sido cambiados ✅'
+          return t('profile.save_success')
         },
         error: err => err.message,
         position: 'top-center'
@@ -141,10 +143,10 @@ const EditProfile: React.FC = () => {
       <Card className='w-full max-w-md'>
         <CardHeader>
           <CardTitle className='text-3xl font-bold text-center text-primary dark:text-primary-lighter'>
-            Actualizar Información Personal
+            {t('profile.update_info')}
           </CardTitle>
           <CardDescription className='text-center'>
-            Completa los campos a continuación
+            {t('profile.complete_fields')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -164,11 +166,11 @@ const EditProfile: React.FC = () => {
                     htmlFor={field}
                     className='text-sm font-medium leading-none'
                   >
-                    {field === 'username' && 'Nombre del Usuario:'}
-                    {field === 'lastname' && 'Apellido del Usuario:'}
-                    {field === 'email' && 'Correo Electrónico:'}
-                    {field === 'phone' && 'Número de Teléfono:'}
-                    {field === 'password' && 'Nueva Contraseña:'}
+                    {field === 'username' && t('profile.username')}
+                    {field === 'lastname' && t('profile.lastname')}
+                    {field === 'email' && t('profile.email')}
+                    {field === 'phone' && t('profile.phone')}
+                    {field === 'password' && t('profile.password')}
                   </label>
                   <Input
                     id={field}
@@ -186,12 +188,7 @@ const EditProfile: React.FC = () => {
                     name={field}
                     value={formData[field]}
                     onChange={handleInputChange}
-                    placeholder={`Tu ${
-                      field === 'username' ? 'nombre de usuario'
-                      : field === 'lastname' ? 'apellido de usuario'
-                      : field === 'password' ? 'nueva contraseña'
-                      : field
-                    }`}
+                    placeholder={t(`profile.placeholder_${field}`)}
                     required={
                       field !== 'password' || formData.password.length > 0
                     }
@@ -206,7 +203,7 @@ const EditProfile: React.FC = () => {
                         className='mr-2'
                       />
                       <label htmlFor='showPassword' className='text-sm'>
-                        Mostrar Contraseña
+                        {t('profile.show_password')}
                       </label>
                     </div>
                   )}
@@ -219,7 +216,7 @@ const EditProfile: React.FC = () => {
                 type='submit'
                 className='w-full font-bold bg-primary dark:bg-primary-light hover:bg-primary-dark hover:dark:bg-primary-lighter'
               >
-                Guardar Cambios
+                {t('profile.save_changes')}
               </Button>
             </div>
           </form>

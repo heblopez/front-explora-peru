@@ -1,4 +1,12 @@
-import { BookHeartIcon, LuggageIcon, UserCheck, UserPen } from 'lucide-react'
+import {
+  BookHeartIcon,
+  CircleUserIcon,
+  CircleUserRoundIcon,
+  CogIcon,
+  LuggageIcon,
+  UserCheck,
+  UserPen
+} from 'lucide-react'
 import { Button } from '../ui/button'
 import {
   DropdownMenu,
@@ -54,6 +62,16 @@ export default function MyAccountDropdown() {
           >
             <LuggageIcon className='h-4 w-4' />
             <span>{t('header.myBookings')}</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link
+            to='/edit-profile'
+            className='flex items-center space-x-2'
+            onClick={prev => setIsOpen(!prev)}
+          >
+            <CircleUserRoundIcon className='h-4 w-4' />
+            <span>{t('header.editProfile')}</span>
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>

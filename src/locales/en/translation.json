@@ -53,5 +53,39 @@
     "policyLink": "Privacy Policy",
     "alreadyHaveAccount": "Already have an account? ",
     "loginLink": "Login"
+  },
+  "footer": {
+    "usefulLinks": "Useful links",
+    "aboutExploraPeru": "About ExploraPerú",
+    "contact": "Contact",
+    "termsConditions": "Terms and Conditions",
+    "privacyPolicy": "Privacy Policy",
+    "followUs": "Follow us",
+    "copyright": "ExploraPerú. All rights reserved."
+  },
+  "aboutExplora": {
+    "title": "The new way to explore",
+    "peru": " Peru",
+    "subtitle": "Explore the available tours in all regions and book your favorites with confidence, knowing that all travel agencies are",
+    "mincetur": " certified by MINCETUR",
+    "offer": "What we offer",
+    "searchTour": "Tour search",
+    "searchTourDescription": "Find the tour that best fits with what you are looking for",
+    "securePayment": "Secure payments",
+    "securePaymentDescription": "Book tours with the peace of mind that the payment is safe and reliable",
+    "routeMap": "Route map",
+    "routeMapDescription": "Get to know the route of your tours and their schedules with our interactive map",
+    "chat": "Chat with agency",
+    "chatDescription": "Communicate directly with the travel agency for any inquiries",
+    "team": "Meet our team",
+    "teamRole": "Full Stack Developer",
+    "investors": "And our investors",
+    "mir": "Web Development Bootcamp",
+    "proinnovate": "Scholarship Funding",
+    "proinnovateUrl": "Contest Rules",
+    "start": "This is just the beginning",
+    "joinUs": ", Will you join us?",
+    "travelButton": "Traveler Registration",
+    "agencyButton": "Agency Registration"
   }
 }

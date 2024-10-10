@@ -1,13 +1,30 @@
-import { useEffect, useState } from 'react'
-import { Marker, Polyline, useMap } from 'react-leaflet'
+import { useEffect, useState, ChangeEvent } from 'react'
+import { Marker, Polyline, Popup, useMap } from 'react-leaflet'
 import L, { LatLngExpression } from 'leaflet'
 import '@elfalem/leaflet-curve'
 
-const MarkersRandom = () => {
-  const [markerList, setMarkerList] = useState<LatLngExpression[]>([])
-  const map = useMap()
+interface MarkerData {
+  position: LatLngExpression
+  info: string
+}
 
-  // Obtener la ubicación actual del usuario al montar el componente
+const MarkersRandom = () => {
+  const [markerList, setMarkerList] = useState<MarkerData[]>([])
+  const map = useMap()
+  const [name, setName] = useState('')
+  const [file, setFile] = useState<File | null>(null)
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFile(e.target.files[0])
+    }
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Handle form submission logic here
+    console.log('Form submitted', { name, file })
+  }
   useEffect(() => {
     const getCurrentLocation = () => {
       if (navigator.geolocation) {
@@ -15,9 +32,12 @@ const MarkersRandom = () => {
           position => {
             const { latitude, longitude } = position.coords
             const userLocation: LatLngExpression = [latitude, longitude]
-            // Establecer la ubicación actual del usuario como el primer marcador
-            setMarkerList(prevMarkerList => [userLocation, ...prevMarkerList])
-            // Mover el mapa a la ubicación del usuario
+
+            setMarkerList(prevMarkerList => [
+              { position: userLocation, info: '' },
+              ...prevMarkerList
+            ])
+
             map.setView(userLocation, map.getZoom())
           },
           error => {
@@ -33,23 +53,30 @@ const MarkersRandom = () => {
   }, [map])
 
   useEffect(() => {
-    // Agregar el evento de clic en el mapa
     const onMapClick = (e: L.LeafletMouseEvent) => {
-      const newMarker: LatLngExpression = [e.latlng.lat, e.latlng.lng]
+      const newMarker: MarkerData = {
+        position: [e.latlng.lat, e.latlng.lng],
+        info: ''
+      }
       setMarkerList(prevMarkerList => [...prevMarkerList, newMarker])
     }
 
-    // Agrega el listener del clic en el mapa
     map.on('click', onMapClick)
 
-    // Limpieza para eliminar el listener cuando el componente se desmonte
     return () => {
       map.off('click', onMapClick)
     }
   }, [map])
 
-  // Función para manejar el clic en un marcador y eliminarlo
-  const handleMarkerClick = (index: number) => {
+  const handleMarkerInfoChange = (index: number, newInfo: string) => {
+    setMarkerList(prevMarkerList =>
+      prevMarkerList.map((marker, i) =>
+        i === index ? { ...marker, info: newInfo } : marker
+      )
+    )
+  }
+
+  const handleMarkerRightClick = (index: number) => {
     setMarkerList(prevMarkerList =>
       prevMarkerList.filter((_, i) => i !== index)
     )
@@ -58,7 +85,7 @@ const MarkersRandom = () => {
   return (
     <>
       {markerList.length !== 0 &&
-        markerList.map((position, index) => {
+        markerList.map((marker, index) => {
           const iconPerson = new L.Icon({
             iconUrl:
               'https://unpkg.com/leaflet@1.8.0/dist/images/marker-icon.png',
@@ -68,18 +95,64 @@ const MarkersRandom = () => {
           return (
             <Marker
               key={index}
-              position={position}
+              position={marker.position}
               icon={iconPerson}
               eventHandlers={{
-                click: () => handleMarkerClick(index)
+                contextmenu: () => handleMarkerRightClick(index)
               }}
-            />
+            >
+              <Popup>
+                <div className='w-[200px] max-w-md mx-auto'>
+                  <form onSubmit={handleSubmit} className='space-y-6'>
+                    <div>
+                      <label
+                        htmlFor='name'
+                        className='block text-sm font-medium text-gray-700'
+                      >
+                        Nombre:
+                      </label>
+                      <input
+                        id='name'
+                        type='text'
+                        placeholder='Nombre del lugar turístico'
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        className='mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-light focus:border-primary-light'
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor='image'
+                        className='block text-sm font-medium text-gray-700'
+                      >
+                        Cargar imagen:
+                      </label>
+                      <input
+                        id='image'
+                        type='file'
+                        accept='image/*'
+                        onChange={handleFileChange}
+                        className='mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-light focus:border-primary-light file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-primary-darker hover:file:bg-purple-100'
+                      />
+                    </div>
+                    <button
+                      type='submit'
+                      className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-darker hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
+                    >
+                      Guardar
+                    </button>
+                  </form>
+                </div>
+              </Popup>
+            </Marker>
           )
         })}
 
-      {/* Dibujar la ruta con Polyline si hay más de un marcador */}
       {markerList.length > 1 && (
-        <Polyline positions={markerList} color='blue' />
+        <Polyline
+          positions={markerList.map(marker => marker.position)}
+          color='blue'
+        />
       )}
     </>
   )

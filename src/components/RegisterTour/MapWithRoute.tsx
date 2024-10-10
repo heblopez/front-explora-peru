@@ -1,29 +1,26 @@
-import React from 'react'
-import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css'
+import { MapContainer, TileLayer } from 'react-leaflet'
 
-interface MapWithRouteProps {
-  route: Array<[number, number]>
-}
+import { LatLngExpression } from 'leaflet'
+import '@elfalem/leaflet-curve'
+import MarkersRandom from './MarkersRandom'
 
-const MapWithRoute: React.FC<MapWithRouteProps> = ({ route }) => {
-  const centerPosition: [number, number] = route[0]
-
+export default function Map() {
+  const position: LatLngExpression = [35.376307, 5.918474]
+  const zoom = 4.75
   return (
     <MapContainer
-      center={centerPosition}
-      zoom={13}
-      style={{ height: '500px', width: '100%' }}
+      center={position}
+      zoom={zoom}
+      maxZoom={20}
+      scrollWheelZoom={false}
+      style={{ height: '90vh', width: '90vw' }}
     >
       <TileLayer
-        url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
-
-      <Marker position={route[0]} />
-
-      <Polyline positions={route} color='blue' />
+      <MarkersRandom />
     </MapContainer>
   )
 }
-
-export default MapWithRoute

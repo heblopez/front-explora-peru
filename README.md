@@ -121,6 +121,22 @@ This request retrieves all comments from the server.
 GET http://localhost:3000/comments
 ```
 
+### This request creates a new tour in the system.
+
+This request retrieves all available tours based on criteria like region or price.
+
+```bash
+POST http://localhost:3000/tours
+Content-Type: application/json
+{
+  "name": "Machu Picchu Adventure",
+  "region": "Cusco",
+  "price": 1200,
+  "rating": 4.8,
+  "duration": 12
+}
+```
+
 ### Search Tours (GET)
 
 This request retrieves all available tours based on criteria like region or price.

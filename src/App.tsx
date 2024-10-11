@@ -13,6 +13,7 @@ import { Toaster } from 'sonner'
 import UserProvider from './context/UserContext'
 import SearchTours from './pages/SearchTours'
 import AboutExplora from './pages/AboutExplora'
+import AdminTours from './pages/AdminTours'
 
 function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
@@ -38,6 +39,7 @@ function App() {
           <Route path='/edit-profile' element={<EditProfile />} />
           <Route path='/search-tours' element={<SearchTours />} />
           <Route path='/about-us' element={<AboutExplora />} />
+          <Route path='/admin-tours' element={<AdminTours />} />
         </Routes>
         <Footer />
       </BrowserRouter>

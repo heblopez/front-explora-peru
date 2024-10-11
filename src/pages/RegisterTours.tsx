@@ -1,14 +1,27 @@
 import { useState } from 'react'
 import { ProgressCircle } from '../components/RegisterTour/ProgressCircleProps'
-import TourScheduler from '@/components/RegisterTour/TourScheduler'
+
 import MapWithRoute from '@/components/RegisterTour/MapWithRoute'
-import VideoUpload from '@/components/RegisterTour/VideoUpload'
 import Stepper from '@/components/RegisterTour/Stepper'
 import FileUploadTemplate from '@/components/RegisterTour/FileUploadTemplate'
+import TourDetails from '@/components/RegisterTour/TourDetails'
 export const RegisterTours = () => {
-  // Estado para manejar el paso actual (por ejemplo, 2 de 4)
   const [currentStep, setCurrentStep] = useState(1)
-
+  const [formData, setFormData] = useState({
+    tourDetails: {
+      name: '',
+      region: '',
+      price: '',
+      rating: '',
+      duration: '',
+      days: [],
+      startTime: '',
+      endTime: ''
+    },
+    routeSelection: {},
+    videoUpload: {},
+    extraDetails: {}
+  })
   const steps = [
     '',
     'Detalles del Tour',
@@ -17,10 +30,8 @@ export const RegisterTours = () => {
     'Detalles extras'
   ]
 
-  // Número total de pasos
   const totalSteps = steps.length
 
-  // Funciones para avanzar y retroceder entre los pasos
   const handleNext = () => {
     if (currentStep < totalSteps) setCurrentStep(currentStep + 1)
   }
@@ -28,30 +39,57 @@ export const RegisterTours = () => {
   const handleBack = () => {
     if (currentStep > 1) setCurrentStep(currentStep - 1)
   }
-  const route: Array<[number, number]> = [
-    [37.7749, -122.4194],
-    [37.7849, -122.4094],
-    [37.7949, -122.3994]
-  ]
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/tours', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
 
+      if (!response.ok) {
+        throw new Error('Error al enviar los datos')
+      }
+
+      alert('Datos enviados con éxito')
+    } catch (error) {
+      console.error(error)
+      alert('Hubo un problema al enviar los datos')
+    }
+  }
+  const updateStepData = (step: string, data: any) => {
+    setFormData(prevData => ({
+      ...prevData,
+      [step]: data
+    }))
+  }
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
         return (
           <>
-            <TourScheduler />
+            <TourDetails
+              formData={formData.tourDetails}
+              onUpdate={data => updateStepData('tourDetails', data)}
+            />
           </>
         )
       case 2:
         return (
           <>
-            <MapWithRoute route={route} />
+            <MapWithRoute
+              onUpdate={data => updateStepData('routeSelection', data)}
+            />
           </>
         )
       case 3:
         return (
           <>
-            <FileUploadTemplate />
+            <FileUploadTemplate
+              onUpdate={data => updateStepData('videoUpload', data)}
+            />
           </>
         )
       case 4:
@@ -104,7 +142,7 @@ export const RegisterTours = () => {
             Back
           </button>
           <button
-            onClick={handleNext}
+            onClick={handleSubmit}
             disabled={currentStep === totalSteps}
             className='px-4 py-2 text-base border-none rounded bg-[#2975ba] text-white cursor-pointer disabled:bg-[#999999] disabled:cursor-not-allowed'
           >

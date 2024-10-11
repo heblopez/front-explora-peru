@@ -11,7 +11,7 @@
       "phone": "+51999888789",
       "email": "testino@mail.com",
       "password": "letmein",
-      "id": 3
+      "id": "3"
     },
     {
       "name": "Heberth",
@@ -24,7 +24,7 @@
       "phone": "+51987888789",
       "email": "heblopez@mail.com",
       "password": "letmein",
-      "id": 4
+      "id": "4"
     },
     {
       "name": "Juan",
@@ -37,62 +37,151 @@
       "phone": "+51999888779",
       "email": "juanalva@mail.com",
       "password": "passsecret",
-      "id": 5
+      "id": "5"
     }
   ],
   "tours": [
     {
-      "id": 1,
-      "name": "Machu Picchu Adventure",
-      "region": "Cusco",
-      "price": 1200,
-      "rating": 4.8,
-      "duration": 12
-    },
-    {
-      "id": 2,
+      "id": "2",
       "name": "Amazon Rainforest Expedition",
       "region": "Loreto",
-      "price": 1500,
+      "price": "500",
       "rating": 4.6,
-      "duration": 7
+      "duration": 7,
+      "days": ["Lunes", "Martes"],
+      "startTime": "18:00",
+      "routeSelection": [
+        [-15.836539180575949, -70.03015585152183],
+        [-15.836539180575949, -70.03015585152183],
+        [-12.5619122728206, -76.49748273975706],
+        [-9.454374970418087, -74.7399259779968],
+        [-7.8022946048742865, -78.69442869195737]
+      ]
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Colca Canyon Trek",
       "region": "Arequipa",
       "price": 800,
       "rating": 4.7,
-      "duration": 9
+      "duration": 9,
+      "days": ["Lunes", "Martes"],
+      "startTime": "18:00",
+      "routeSelection": [
+        [-15.836539180575949, -70.03015585152183],
+        [-15.836539180575949, -70.03015585152183],
+        [-12.5619122728206, -76.49748273975706],
+        [-9.454374970418087, -74.7399259779968],
+        [-7.8022946048742865, -78.69442869195737]
+      ]
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Lake Titicaca Cultural Tour",
       "region": "Puno",
       "price": 950,
       "rating": 4.5,
-      "duration": 5
+      "duration": 5,
+      "days": ["Lunes", "Miercoles"],
+      "startTime": "18:00",
+      "routeSelection": [
+        [-15.836539180575949, -70.03015585152183],
+        [-15.836539180575949, -70.03015585152183],
+        [-12.5619122728206, -76.49748273975706],
+        [-9.454374970418087, -74.7399259779968],
+        [-7.8022946048742865, -78.69442869195737]
+      ]
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Nazca Lines Flyover",
       "region": "Ica",
       "price": 350,
       "rating": 4.4,
-      "duration": 3
+      "duration": 3,
+      "days": ["Sábado", "Lunes"],
+      "startTime": "18:00",
+      "routeSelection": [
+        [-15.836539180575949, -70.03015585152183],
+        [-15.836539180575949, -70.03015585152183],
+        [-12.5619122728206, -76.49748273975706],
+        [-9.454374970418087, -74.7399259779968],
+        [-7.8022946048742865, -78.69442869195737]
+      ]
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Huacachina Oasis Adventure",
       "region": "Ica",
       "price": 250,
       "rating": 4.5,
-      "duration": 6
+      "duration": 6,
+      "days": ["Martes", "Jueves"],
+      "startTime": "18:00"
+    },
+    {
+      "id": "df05",
+      "name": "Expedicion 1",
+      "region": "Puno",
+      "price": "100",
+      "rating": "",
+      "duration": "1",
+      "days": ["Lunes", "Miercoles", "Viernes"],
+      "startTime": "16:20",
+      "endTime": "16:23",
+      "routeSelection": [
+        [-15.836539180575949, -70.03015585152183],
+        [-15.836539180575949, -70.03015585152183],
+        [-12.5619122728206, -76.49748273975706],
+        [-9.454374970418087, -74.7399259779968],
+        [-7.8022946048742865, -78.69442869195737]
+      ],
+      "videoUpload": [{}],
+      "extraDetails": {}
+    },
+    {
+      "id": "c87f",
+      "name": "Expedicion 1",
+      "region": "Puno",
+      "price": "100",
+      "rating": "",
+      "duration": "1",
+      "days": ["Lunes"],
+      "startTime": "18:29",
+      "endTime": "21:34",
+      "routeSelection": [
+        [-15.836507550512598, -70.0301691874497],
+        [-15.836507550512598, -70.0301691874497],
+        [-13.204986962601211, -74.9156113261569],
+        [-9.411053210707616, -75.398939435641]
+      ],
+      "videoUpload": [{}],
+      "extraDetails": {}
+    },
+    {
+      "id": "5955",
+      "name": "Expedicion 1",
+      "region": "Puno",
+      "price": "100",
+      "rating": "",
+      "duration": "1",
+      "days": ["Lunes", "Miércoles"],
+      "startTime": "20:08",
+      "endTime": "22:03",
+      "routeSelection": [
+        [-15.836555722713413, -70.03015045182514],
+        [-15.836555722713413, -70.03015045182514],
+        [-13.29059657436299, -72.63078753586858],
+        [-11.745178390641462, -75.26712267850895],
+        [-8.281321028040102, -76.2777178165211]
+      ],
+      "videoUpload": [{}],
+      "extraDetails": {}
     }
   ],
   "comments": [
     {
-      "id": 1,
+      "id": "1",
       "body": "some comment",
       "postId": 1
     }

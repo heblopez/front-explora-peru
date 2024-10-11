@@ -1,10 +1,16 @@
-import React from 'react'
 import FileUploadForm from './FileUploadForm'
-
-const FileUploadTemplate: React.FC = () => (
-  <div className='flex content-center justify-center'>
-    <FileUploadForm />
-  </div>
-)
-
-export default FileUploadTemplate
+interface FileUploadTemplateProps {
+  onUpdate: (data: File[] | null) => void
+}
+export default function FileUploadTemplate({
+  onUpdate
+}: FileUploadTemplateProps) {
+  const handleFilesChange = (files: File[]) => {
+    onUpdate(files)
+  }
+  return (
+    <div className='flex content-center justify-center'>
+      <FileUploadForm onFilesChange={handleFilesChange} />
+    </div>
+  )
+}

@@ -8,18 +8,14 @@ export const uploadFileToServer = async (file: File) => {
     console.log(pair[0], pair[1])
   }
 
-  const response = await axios.post(
-    'http://localhost:8080/files/upload',
-    formData,
-    {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    }
-  )
+  const response = await axios.post('http://localhost:3000/tours', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
 
   return response.data
 }
 export const getUploadedFiles = async () => {
-  const response = await axios.get('http://localhost:8080/files')
+  const response = await axios.get('http://localhost:3000/tours/videos')
   console.log(response.data)
   return response.data
 }

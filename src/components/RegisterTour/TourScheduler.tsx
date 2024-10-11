@@ -1,20 +1,20 @@
-'use client'
-
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Calendar } from '@/components/ui/calendar'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 import { es } from 'date-fns/locale'
-import { format } from 'date-fns'
+
 type ScheduleItem = {
   date: Date
   startTime: string
   endTime: string
 }
-
-export default function TourScheduler() {
+interface TourSchedulerProps {
+  onUpdate: (data: ScheduleItem[]) => void
+}
+export default function TourScheduler({ onUpdate }: TourSchedulerProps) {
   const [schedules, setSchedules] = useState<ScheduleItem[]>([])
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
   const [startTime, setStartTime] = useState('')
@@ -31,10 +31,17 @@ export default function TourScheduler() {
   const removeSchedule = (index: number) => {
     setSchedules(schedules.filter((_, i) => i !== index))
   }
+  useEffect(() => {
+    if (typeof onUpdate !== 'function') {
+      console.log(onUpdate)
+      console.error('onUpdate no es una función:', onUpdate)
+      return
+    }
+    onUpdate(schedules)
+  }, [schedules, onUpdate])
+
   const [date, setDate] = useState<Date | undefined>()
-  const formatDate = (date: Date) => {
-    return format(date, 'dd MMMMMM yyyy', { locale: es })
-  }
+
   return (
     <>
       <h3 className=' font-bold text-center mb-6'>

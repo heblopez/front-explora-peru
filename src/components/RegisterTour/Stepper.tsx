@@ -1,29 +1,62 @@
-'use client'
-
 import { useState } from 'react'
 import { CheckCircle2 } from 'lucide-react'
-import TourScheduler from './TourScheduler'
 import MapWithRoute from './MapWithRoute'
-import VideoUpload from './VideoUpload'
 import FileUploadTemplate from './FileUploadTemplate'
-const route: Array<[number, number]> = [
-  [37.7749, -122.4194], // Punto A: San Francisco
-  [37.7849, -122.4094], // Punto intermedio
-  [37.7949, -122.3994] // Punto B: Otro punto en San Francisco
-]
+import { useNavigate } from 'react-router-dom'
+import TourDetails from './TourDetails'
+
 export default function Stepper() {
+  const navigate = useNavigate()
+
   const [activeStep, setActiveStep] = useState(0)
+  const [formData, setFormData] = useState({
+    tourDetails: {
+      name: '',
+      region: '',
+      price: '',
+      rating: '',
+      duration: '',
+      days: [],
+      startTime: '',
+      endTime: ''
+    },
+    routeSelection: {},
+    videoUpload: {},
+    extraDetails: {}
+  })
+  const updateStepData = (step: string, data: any) => {
+    setFormData(prevData => ({
+      ...prevData,
+      [step]: data
+    }))
+  }
 
   const steps = [
     {
       name: 'Detalles del Tour',
-      content: <TourScheduler />
+      content: (
+        <TourDetails
+          formData={formData.tourDetails}
+          onUpdate={data => updateStepData('tourDetails', data)}
+        />
+      )
     },
     {
       name: 'Seleccionar rutas',
-      content: <MapWithRoute route={route} />
+      content: (
+        <MapWithRoute
+          onUpdate={data => updateStepData('routeSelection', data)}
+        />
+      )
     },
-    { name: 'Subir video', content: <FileUploadTemplate /> },
+    {
+      name: 'Subir video',
+      content: (
+        <FileUploadTemplate
+          onUpdate={data => updateStepData('videoUpload', data)}
+        />
+      )
+    },
 
     {
       name: 'Detalles extras',
@@ -48,6 +81,36 @@ export default function Stepper() {
   const handleBack = () => {
     if (activeStep > 0) setActiveStep(activeStep - 1)
   }
+
+  const handleSubmit = async () => {
+    const dataToSubmit = {
+      ...formData.tourDetails,
+      routeSelection: formData.routeSelection,
+      videoUpload: formData.videoUpload,
+      extraDetails: formData.extraDetails
+    }
+
+    try {
+      const response = await fetch('http://localhost:3000/tours', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataToSubmit)
+      })
+
+      if (!response.ok) {
+        throw new Error('Error al enviar los datos')
+      }
+
+      alert('Datos enviados con éxito')
+      navigate('/admin-tours')
+    } catch (error) {
+      console.error(error)
+      alert('Hubo un problema al enviar los datos')
+    }
+  }
+
   return (
     <div className='w-full mx-11 '>
       <h2 className='text-2xl font-semibold mb-6'>Registrar Tour</h2>
@@ -106,8 +169,8 @@ export default function Stepper() {
         >
           {' '}
           <button
-            onClick={handleNextClick}
-            disabled={activeStep === steps.length - 1}
+            onClick={handleSubmit}
+            disabled={activeStep === steps.length}
             className='px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-darker focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
           >
             Submit

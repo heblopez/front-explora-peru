@@ -1,49 +1,24 @@
 import React, { useState } from 'react'
 
-const VideoUpload: React.FC = () => {
+interface VideoUploadProps {
+  onUpdate: (file: File) => void
+}
+
+const VideoUpload: React.FC<VideoUploadProps> = ({ onUpdate }) => {
   const [selectedVideo, setSelectedVideo] = useState<File | null>(null)
 
-  // Función para manejar el cambio cuando el usuario selecciona un archivo
-  const handleVideoUpload = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    const file = event.target.files?.[0] // El archivo puede ser undefined, por eso se usa el operador ?.
+  const handleVideoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
     if (file) {
       setSelectedVideo(file)
-    }
-  }
-
-  // Función para enviar el archivo (enviar el video al backend o procesarlo)
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault()
-    if (selectedVideo) {
-      // Aquí puedes manejar la subida del video al servidor con fetch o axios
-      console.log('Video seleccionado:', selectedVideo)
-
-      // Ejemplo de subida con fetch o axios
-      const formData = new FormData()
-      formData.append('video', selectedVideo)
-
-      fetch('/upload-video-endpoint', {
-        method: 'POST',
-        body: formData
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Video subido exitosamente:', data)
-        })
-        .catch(error => {
-          console.error('Error al subir el video:', error)
-        })
-    } else {
-      alert('Por favor selecciona un video primero.')
+      onUpdate(file)
     }
   }
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor='video-upload'></label>
+      <form>
+        <label htmlFor='video-upload'>Subir Video</label>
         <input
           type='file'
           accept='video/*'

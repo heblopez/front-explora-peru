@@ -8,12 +8,18 @@ interface MarkerData {
   info: string
 }
 
-const MarkersRandom = () => {
+interface MarkersRandomProps {
+  onMarkersChange: (markers: LatLngExpression[]) => void
+}
+const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
   const [markerList, setMarkerList] = useState<MarkerData[]>([])
   const map = useMap()
   const [name, setName] = useState('')
   const [file, setFile] = useState<File | null>(null)
-
+  useEffect(() => {
+    // Notificar cambios al componente padre
+    onMarkersChange(markerList.map(marker => marker.position))
+  }, [markerList, onMarkersChange])
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0])

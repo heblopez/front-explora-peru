@@ -4,10 +4,15 @@ import { MapContainer, TileLayer } from 'react-leaflet'
 import { LatLngExpression } from 'leaflet'
 import '@elfalem/leaflet-curve'
 import MarkersRandom from './MarkersRandom'
-
-export default function Map() {
+interface MapWithRouteProps {
+  onUpdate: (data: LatLngExpression[]) => void
+}
+export default function MapWithRoute({ onUpdate }: MapWithRouteProps) {
   const position: LatLngExpression = [35.376307, 5.918474]
   const zoom = 4.75
+  const handleMarkersUpdate = (markers: LatLngExpression[]) => {
+    onUpdate(markers) // Llama a `onUpdate` para actualizar el paso en el componente `Stepper`
+  }
   return (
     <MapContainer
       center={position}
@@ -20,7 +25,7 @@ export default function Map() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
-      <MarkersRandom />
+      <MarkersRandom onMarkersChange={handleMarkersUpdate} />
     </MapContainer>
   )
 }

@@ -29,7 +29,7 @@ Users should be able to:
 
 ### Screenshot
 
-[Landing](./design/landing-explora-peru.jpeg)
+![Landing](./design/landing-explora-peru.jpeg)
 
 ## Our Process
 
@@ -121,6 +121,16 @@ This request retrieves all comments from the server.
 GET http://localhost:3000/comments
 ```
 
+### Search Tours (GET)
+
+This request retrieves all available tours based on criteria like region or price.
+
+```bash
+GET http://localhost:3000/tours
+```
+
+### Create a New Tour (POST)
+
 ### This request creates a new tour in the system.
 
 This request retrieves all available tours based on criteria like region or price.
@@ -137,12 +147,30 @@ Content-Type: application/json
 }
 ```
 
-### Search Tours (GET)
+### Update a Tour (PUT)
+
+### This request updates an existing tour.
 
 This request retrieves all available tours based on criteria like region or price.
 
 ```bash
-GET http://localhost:3000/tours
+PUT http://localhost:3000/tours/{id}
+Content-Type: application/json
+{
+  "name": "Amazon Rainforest Expedition",
+  "region": "Loreto",
+  "price": 1500,
+  "rating": 4.9,
+  "duration": 7
+}
+```
+
+### Delete a Tour (DELETE)
+
+This request deletes a tour from the system.
+
+```bash
+DELETE http://localhost:3000/tours/{id}
 ```
 
 ## Authors

@@ -29,7 +29,9 @@ Users should be able to:
 
 ### Screenshot
 
-![Landing](./design/landing-explora-peru.jpeg)
+<div align="center">
+  <img src="./design/landing-explora-peru.jpeg" alt="Landing" />
+</div>
 
 ## Our Process
 

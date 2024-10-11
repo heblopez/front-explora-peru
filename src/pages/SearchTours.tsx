@@ -143,7 +143,7 @@ export default function SearchTours() {
                   <div className='flex justify-between items-center mb-2'>
                     <div className='flex items-center'>
                       <StarFilledIcon className='h-4 w-4 text-yellow-400 mr-1' />
-                      <span>{tour.rating.toFixed(1)}</span>
+                      <span>{tour.rating}</span>
                     </div>
                     <div className='text-sm text-gray-700 dark:text-inherit'>
                       <LucideClock className='h-4 w-4 inline mr-1' />

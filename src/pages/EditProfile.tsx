@@ -104,7 +104,7 @@ const EditProfile: React.FC = () => {
         const response = await fetch(
           `http://localhost:3000/users/${userData.id}`,
           {
-            method: 'PUT',
+            method: 'PATCH',
             headers: {
               'Content-Type': 'application/json'
             },

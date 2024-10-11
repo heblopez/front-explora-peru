@@ -9,6 +9,7 @@ ExploraPerú is a web application designed to promote tourism across the diverse
   - [Screenshot](#screenshot)
 - [Our Process](#our-process)
 - [Built With](#built-with)
+- [API Usage](#api-usage)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgments)
 
@@ -54,6 +55,95 @@ Users should be able to:
 
 - Deployed on Vercel
 - End-to-end testing with Cypress
+
+## API Usage
+
+Here are some examples of how to interact with the ExploraPerú API for various operations:
+
+### Get All Users (GET)
+
+This request retrieves all registered users.
+
+```bash
+GET http://localhost:3000/users
+```
+
+### User Registration (POST)
+
+This request registers a new user in the system.
+
+```bash
+POST http://localhost:3000/users
+Content-Type: application/json
+{
+  "name": "Jose",
+  "lastName": "Campos",
+  "documentType": "DNI",
+  "documentNumber": 12345678,
+  "birthdate": "1990-05-01",
+  "country": "Peru",
+  "gender": "male",
+  "phone": "+51987654321",
+  "password": "securepassword",
+  "email": "jose@example.com"
+}
+```
+
+### Update User (PATCH)
+
+This request updates an existing user's information.
+
+```bash
+PATCH http://localhost:3000/users/{id}
+Content-Type: application/json
+{
+  "name": "Luis",
+  "lastName": "Flores",
+  "phone": "+51987654321",
+  "password": "newsecurepassword",
+  "email": "jose.r@example.com"
+}
+```
+
+### Delete User (DELETE)
+
+This request deletes a user from the system.
+
+```bash
+DELETE http://localhost:3000/users/{id}
+```
+
+### Get Comments (GET)
+
+This request retrieves all comments from the server.
+
+```bash
+GET http://localhost:3000/comments
+```
+
+### This request creates a new tour in the system.
+
+This request retrieves all available tours based on criteria like region or price.
+
+```bash
+POST http://localhost:3000/tours
+Content-Type: application/json
+{
+  "name": "Machu Picchu Adventure",
+  "region": "Cusco",
+  "price": 1200,
+  "rating": 4.8,
+  "duration": 12
+}
+```
+
+### Search Tours (GET)
+
+This request retrieves all available tours based on criteria like region or price.
+
+```bash
+GET http://localhost:3000/tours
+```
 
 ## Authors
 

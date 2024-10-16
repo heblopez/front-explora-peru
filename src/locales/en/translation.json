@@ -89,6 +89,11 @@
     "travelButton": "Traveler Registration",
     "agencyButton": "Agency Registration"
   },
+  "contactUs": {
+    "title": "Contact Us!",
+    "description": "Click on the link below to chat with us",
+    "link": "Chat on WhatsApp"
+  },
   "agenciesLanding": {
     "joinTitle": "Join ExploraPerú and publish your tours",
     "joinDescription": "Register as an agency and start showcasing your tours to thousands of travelers worldwide.",

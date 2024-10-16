@@ -1,9 +1,21 @@
 import { Instagram, Youtube } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import ContactPopup from './ContactPopup'
 
 function Footer() {
   const { t } = useTranslation()
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
+
+  const openPopup = () => {
+    setIsPopupOpen(true)
+  }
+
+  const closePopup = () => {
+    setIsPopupOpen(false)
+  }
 
   return (
     <footer className='bg-white text-gray-600 py-8 dark:bg-dark-primary-foreground dark:text-white'>
@@ -24,7 +36,14 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <a href='#' className='hover:text-gray-950 transition-colors'>
+                <a
+                  href='#'
+                  className='hover:text-gray-950 transition-colors'
+                  onClick={e => {
+                    e.preventDefault()
+                    openPopup()
+                  }}
+                >
                   {t('footer.contact')}
                 </a>
               </li>
@@ -69,6 +88,7 @@ function Footer() {
           <p>&copy; 2024 {t('footer.copyright')}</p>
         </div>
       </div>
+      {isPopupOpen && <ContactPopup onClose={closePopup} />}
     </footer>
   )
 }

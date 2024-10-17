@@ -107,6 +107,23 @@
     "contactUs": "ContactUs",
     "contactUsDescription": "If you have questions about this privacy policy, feel free to contact us through our social networks."
   },
+  "termsAndConditions": {
+    "title": "Terms and Conditions",
+    "aboutUs": "About Us",
+    "aboutUsDescription": "We are ExploraPerú, a platform that allows certified tourism agencies to offer their tours, and users to book them. We act as intermediaries between the agencies and travelers.",
+    "scope": "Scope",
+    "scopeDescription": "These terms and conditions apply to all users of ExploraPerú. By using our platform, you agree to abide by these terms.",
+    "services": "Services",
+    "servicesDescription": "ExploraPerú does not organize tours. The services are provided by independent certified agencies.",
+    "payments": "Prices and Payments",
+    "paymentsDescription": "Prices include applicable taxes. Payments are processed securely through our platform.",
+    "cancellations": "Cancellations and Changes",
+    "cancellationsDescription": "Cancellations and changes are subject to the policies of the agency offering the tour.",
+    "privacy": "Privacy and Data",
+    "privacyDescription": "We respect your privacy and handle your data in accordance with our Privacy Policy.",
+    "contact": "Contact Us",
+    "contactDescription": "If you have any questions about these terms, please contact us via social media or email."
+  },
   "agenciesLanding": {
     "joinTitle": "Join ExploraPerú and publish your tours",
     "joinDescription": "Register as an agency and start showcasing your tours to thousands of travelers worldwide.",

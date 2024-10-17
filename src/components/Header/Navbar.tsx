@@ -5,7 +5,9 @@ import { Menu, X, Building2, LogOut } from 'lucide-react'
 import { DarkModeBtn } from './DarkModeBtn'
 import { UserContext } from '@/context/UserContext'
 import LanguageDropdown from './LanguageDropdown'
-import CurrencyDropdown from './CurrencyDropdown'
+{
+  /*import CurrencyDropdown from './CurrencyDropdown'*/
+}
 import LoginDropdown from './LoginDropdown'
 import RegisterDropdown from './RegisterDropdown'
 import { useTranslation } from 'react-i18next'

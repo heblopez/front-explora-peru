@@ -5,4 +5,7 @@ export interface Tour {
   price: number
   rating: number
   duration: number
+  days: string[]
+  startTime: string
+  routeSelection: [number, number][]
 }

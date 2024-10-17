@@ -20,6 +20,7 @@ import { Tour } from '@/types/Tour'
 import { StarFilledIcon } from '@radix-ui/react-icons'
 import { LucideClock, MapPin, Search } from 'lucide-react'
 import { FormEvent, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function SearchTours() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -125,7 +126,7 @@ export default function SearchTours() {
       <section className='py-12 bg-gray-100 dark:bg-dark-primary-foreground'>
         <div className='container mx-auto px-4'>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {tours.map((tour: any) => (
+            {tours.map((tour: Tour) => (
               <Card
                 key={tour.id}
                 className='flex flex-col dark:bg-dark-secondary'
@@ -153,9 +154,11 @@ export default function SearchTours() {
                   <p className='text-2xl font-bold'>${tour.price}</p>
                 </CardContent>
                 <CardFooter>
-                  <Button className='w-full bg-primary hover:bg-primary-light dark:bg-primary-darker dark:hover:bg-primary-dark dark:text-inherit'>
-                    Ver detalles
-                  </Button>
+                  <Link to={`/tours/${tour.id}`}>
+                    <Button className='w-full bg-primary hover:bg-primary-light dark:bg-primary-darker dark:hover:bg-primary-dark dark:text-inherit'>
+                      Ver detalles
+                    </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             ))}

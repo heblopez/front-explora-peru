@@ -55,7 +55,7 @@ function Navbar({ isDark, toggleTheme }: NavbarProps) {
             </Button>
           </Link>
           <LanguageDropdown />
-          <CurrencyDropdown />
+          {/*<CurrencyDropdown />*/}
           {!user ?
             <>
               <LoginDropdown />
@@ -96,9 +96,9 @@ function Navbar({ isDark, toggleTheme }: NavbarProps) {
             <li className='px-3 py-2'>
               <LanguageDropdown />
             </li>
-            <li className='px-3 py-2'>
+            {/*<li className='px-3 py-2'>
               <CurrencyDropdown />
-            </li>
+            </li>*/}
             {!user ?
               <>
                 <li className='px-3 py-2'>

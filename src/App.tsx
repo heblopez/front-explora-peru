@@ -15,6 +15,7 @@ import SearchTours from './pages/SearchTours'
 import AboutExplora from './pages/AboutExplora'
 import AdminTours from './pages/AdminTours'
 import TourDetailPage from './pages/TourDetailsPage'
+import PrivacyPolicy from './pages/PrivacyPolicy'
 
 function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
@@ -40,6 +41,7 @@ function App() {
           <Route path='/edit-profile' element={<EditProfile />} />
           <Route path='/search-tours' element={<SearchTours />} />
           <Route path='/about-us' element={<AboutExplora />} />
+          <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route path='/admin-tours' element={<AdminTours />} />
           <Route path='/tours/:id' element={<TourDetailPage />} />
         </Routes>

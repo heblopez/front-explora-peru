@@ -94,6 +94,19 @@
     "description": "Click below to chat with us",
     "link": "Chat on WhatsApp"
   },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "introduction": "At ExploraPeru, we value your privacy and are committed to protecting your personal data. This policy describes how we collect, use and protect your information.",
+    "dataCollection": "DataCollection",
+    "dataCollectionDescription": "We collect personal data such as your name, email and phone number when you create an account or book a tour. We also collect information automatically, such as your IP address and browsing preferences.",
+    "useOfData": "Data Usage",
+    "yourRights": "Your Rights",
+    "yourRightsDescription": "You have the right to access, correct or delete your personal data at any time. You can contact us to make these requests.",
+    "security": "Security",
+    "securityDescription": "We take security measures to protect your information, including the use of technologies such as SSL to secure data transmission.",
+    "contactUs": "ContactUs",
+    "contactUsDescription": "If you have questions about this privacy policy, feel free to contact us through our social networks."
+  },
   "agenciesLanding": {
     "joinTitle": "Join ExploraPerú and publish your tours",
     "joinDescription": "Register as an agency and start showcasing your tours to thousands of travelers worldwide.",

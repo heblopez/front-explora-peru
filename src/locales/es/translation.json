@@ -94,6 +94,20 @@
     "description": "Haz clic para chatear con nosotros",
     "link": "Chatear en WhatsApp"
   },
+  "privacyPolicy": {
+    "title": "Política de Privacidad",
+    "introduction": "En ExploraPerú, valoramos tu privacidad y estamos comprometidos a proteger tus datos personales. Esta política describe cómo recopilamos, usamos y protegemos tu información.",
+    "dataCollection": "Recopilación de Datos",
+    "dataCollectionDescription": "Recopilamos datos personales como tu nombre, correo electrónico y número de teléfono cuando creas una cuenta o reservas un tour. También recopilamos información automáticamente, como tu dirección IP y preferencias de navegación.",
+    "useOfData": "Uso de los Datos",
+    "useOfDataDescription": "Usamos tus datos para gestionar tus reservas, mejorar nuestra plataforma y personalizar tu experiencia. No compartimos tus datos con terceros sin tu consentimiento, salvo cuando sea necesario para completar una reserva.",
+    "yourRights": "Tus Derechos",
+    "yourRightsDescription": "Tienes el derecho de acceder, corregir o eliminar tus datos personales en cualquier momento. Puedes contactarnos para realizar estas solicitudes.",
+    "security": "Seguridad",
+    "securityDescription": "Tomamos medidas de seguridad para proteger tu información, incluyendo el uso de tecnologías como SSL para asegurar la transmisión de datos.",
+    "contactUs": "Contáctanos",
+    "contactUsDescription": "Si tienes preguntas sobre esta política de privacidad, no dudes en contactarnos a través de nuestras redes sociales."
+  },
   "agenciesLanding": {
     "joinTitle": "Únete a ExploraPerú y publica tus tours",
     "joinDescription": "Regístrate como agencia y empieza a mostrar tus tours a miles de viajeros en todo el mundo.",

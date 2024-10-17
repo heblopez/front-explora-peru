@@ -53,9 +53,13 @@ function Footer() {
                 </a>
               </li>
               <li>
-                <a href='#' className='hover:text-gray-950 transition-colors'>
-                  {t('footer.privacyPolicy')}
-                </a>
+                <Link
+                  to='/privacy-policy/'
+                  className='hover:text-gray-950 transition-colors'
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  <span>{t('footer.privacyPolicy')}</span>
+                </Link>
               </li>
             </ul>
           </div>

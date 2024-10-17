@@ -14,6 +14,7 @@ import UserProvider from './context/UserContext'
 import SearchTours from './pages/SearchTours'
 import AboutExplora from './pages/AboutExplora'
 import AdminTours from './pages/AdminTours'
+import TourDetailPage from './pages/TourDetailsPage'
 
 function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
@@ -40,6 +41,7 @@ function App() {
           <Route path='/search-tours' element={<SearchTours />} />
           <Route path='/about-us' element={<AboutExplora />} />
           <Route path='/admin-tours' element={<AdminTours />} />
+          <Route path='/tours/:id' element={<TourDetailPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

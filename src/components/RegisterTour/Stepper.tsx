@@ -12,13 +12,20 @@ export default function Stepper() {
   const [formData, setFormData] = useState({
     tourDetails: {
       name: '',
+      description: '',
       region: '',
       price: '',
       rating: '',
       duration: '',
-      days: [],
+      image: '',
+      days: [''],
       startTime: '',
-      endTime: ''
+      endTime: '',
+      places: {
+        name: '',
+        image: '',
+        coordinates: ['']
+      }
     },
     routeSelection: {},
     videoUpload: {},

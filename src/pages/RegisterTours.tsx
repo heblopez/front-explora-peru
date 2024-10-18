@@ -10,13 +10,19 @@ export const RegisterTours = () => {
   const [formData, setFormData] = useState({
     tourDetails: {
       name: '',
+      description: '',
       region: '',
       price: '',
-      rating: '',
       duration: '',
+      image: '',
       days: [],
       startTime: '',
-      endTime: ''
+      endTime: '',
+      places: {
+        name: '',
+        image: '',
+        coordinates: ['']
+      }
     },
     routeSelection: {},
     videoUpload: {},
@@ -31,10 +37,6 @@ export const RegisterTours = () => {
   ]
 
   const totalSteps = steps.length
-
-  const handleNext = () => {
-    if (currentStep < totalSteps) setCurrentStep(currentStep + 1)
-  }
 
   const handleBack = () => {
     if (currentStep > 1) setCurrentStep(currentStep - 1)

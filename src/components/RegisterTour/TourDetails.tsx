@@ -11,16 +11,50 @@ const daysOfWeek = [
   { id: 'Domingo', label: 'Domingo' }
 ]
 
+const regionesPeru = [
+  { id: 'Amazonas', label: 'Amazonas' },
+  { id: 'Áncash', label: 'Áncash' },
+  { id: 'Apurímac', label: 'Apurímac' },
+  { id: 'Arequipa', label: 'Arequipa' },
+  { id: 'Ayacucho', label: 'Ayacucho' },
+  { id: 'Cajamarca', label: 'Cajamarca' },
+  { id: 'Callao', label: 'Callao' },
+  { id: 'Cusco', label: 'Cusco' },
+  { id: 'Huancavelica', label: 'Huancavelica' },
+  { id: 'Huánuco', label: 'Huánuco' },
+  { id: 'Ica', label: 'Ica' },
+  { id: 'Junín', label: 'Junín' },
+  { id: 'La Libertad', label: 'La Libertad' },
+  { id: 'Lambayeque', label: 'Lambayeque' },
+  { id: 'Lima', label: 'Lima' },
+  { id: 'Loreto', label: 'Loreto' },
+  { id: 'Madre de Dios', label: 'Madre de Dios' },
+  { id: 'Moquegua', label: 'Moquegua' },
+  { id: 'Pasco', label: 'Pasco' },
+  { id: 'Piura', label: 'Piura' },
+  { id: 'Puno', label: 'Puno' },
+  { id: 'San Martín', label: 'San Martín' },
+  { id: 'Tacna', label: 'Tacna' },
+  { id: 'Tumbes', label: 'Tumbes' },
+  { id: 'Ucayali', label: 'Ucayali' }
+]
+
 interface TourDetailsProps {
   formData: {
     name: string
+    description: string
     region: string
     price: string
-    rating: string
     duration: string
+    image: string
     days: string[]
     startTime: string
     endTime: string
+    places: {
+      name: string
+      image: string
+      coordinates: string[]
+    }
   }
   onUpdate: (data: any) => void
 }
@@ -32,7 +66,9 @@ export default function TourDetails({ formData, onUpdate }: TourDetailsProps) {
     setLocalFormData(formData)
   }, [formData])
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target
     const updatedData = { ...localFormData, [name]: value }
     setLocalFormData(updatedData)
@@ -66,9 +102,9 @@ export default function TourDetails({ formData, onUpdate }: TourDetailsProps) {
             <div>
               <label
                 htmlFor='name'
-                className='block text-sm font-medium text-primary dark:text-primary-lighter mb-1'
+                className='text-sm font-medium text-primary dark:text-primary-lighter mb-1'
               >
-                Nombre de la Expedición
+                Nombre
               </label>
               <input
                 id='name'
@@ -82,17 +118,16 @@ export default function TourDetails({ formData, onUpdate }: TourDetailsProps) {
             </div>
             <div>
               <label
-                htmlFor='region'
-                className='block text-sm font-medium text-primary dark:text-primary-lighter mb-1 flex items-center'
+                htmlFor='description'
+                className='text-sm font-medium text-primary dark:text-primary-lighter mb-1'
               >
-                <MapPin className='w-4 h-4 mr-2 text-primary dark:text-primary-lighter' />
-                Región
+                Descripción
               </label>
               <input
-                id='region'
-                name='region'
+                id='description'
+                name='description'
                 type='text'
-                value={formData.region}
+                value={localFormData.description}
                 onChange={handleChange}
                 required
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500'
@@ -101,8 +136,35 @@ export default function TourDetails({ formData, onUpdate }: TourDetailsProps) {
 
             <div>
               <label
+                htmlFor='region'
+                className='text-sm font-medium text-primary dark:text-primary-lighter mb-1 flex items-center'
+              >
+                <MapPin className='w-4 h-4 mr-2 text-primary dark:text-primary-lighter' />
+                Región
+              </label>
+              <select
+                id='region'
+                name='region'
+                value={formData.region}
+                onChange={handleChange}
+                required
+                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500'
+              >
+                <option value='' disabled></option>
+                {regionesPeru.map(region => {
+                  return (
+                    <option key={region.id} value={region.label}>
+                      {region.label}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
+
+            <div className='flex'>
+              <label
                 htmlFor='price'
-                className='block text-sm font-medium text-primary dark:text-primary-lighter mb-1 flex items-center'
+                className='text-sm font-medium text-primary dark:text-primary-lighter mb-1 flex items-center'
               >
                 <DollarSign className='w-4 h-4 mr-2 text-primary dark:text-primary-lighter' />
                 Precio
@@ -118,12 +180,10 @@ export default function TourDetails({ formData, onUpdate }: TourDetailsProps) {
                 required
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500'
               />
-            </div>
 
-            <div>
               <label
                 htmlFor='duration'
-                className='block text-sm font-medium text-primary dark:text-primary-lighter mb-1 flex items-center'
+                className=' text-sm font-medium text-primary dark:text-primary-lighter mb-1 flex items-center'
               >
                 <Clock className='w-4 h-4 mr-2 text-primary dark:text-primary-lighter' />
                 Duración (días)

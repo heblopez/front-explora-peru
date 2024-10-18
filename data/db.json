@@ -42,98 +42,92 @@
   ],
   "tours": [
     {
-      "id": "2",
-      "name": "Amazon Rainforest Expedition",
-      "region": "Loreto",
-      "price": "500",
-      "rating": 4.6,
-      "duration": 7,
-      "days": ["Lunes", "Martes"],
-      "startTime": "18:00",
-      "routeSelection": [
-        [-15.836539180575949, -70.03015585152183],
-        [-15.836539180575949, -70.03015585152183],
-        [-12.5619122728206, -76.49748273975706],
-        [-9.454374970418087, -74.7399259779968],
-        [-7.8022946048742865, -78.69442869195737]
-      ]
-    },
-    {
-      "id": "3",
-      "name": "Colca Canyon Trek",
-      "region": "Arequipa",
-      "price": 800,
-      "rating": 4.7,
-      "duration": 9,
-      "days": ["Lunes", "Martes"],
-      "startTime": "18:00",
-      "routeSelection": [
-        [-15.836539180575949, -70.03015585152183],
-        [-15.836539180575949, -70.03015585152183],
-        [-12.5619122728206, -76.49748273975706],
-        [-9.454374970418087, -74.7399259779968],
-        [-7.8022946048742865, -78.69442869195737]
-      ]
-    },
-    {
-      "id": "4",
-      "name": "Lake Titicaca Cultural Tour",
-      "region": "Puno",
-      "price": 950,
-      "rating": 4.5,
-      "duration": 5,
+      "id": 2,
+      "tourName": "Amazon Rainforest Expedition",
+      "tourDescription": "Explore the Amazon Rainforest",
+      "regions": ["Loreto"],
+      "price": 500,
+      "duration": "7",
       "days": ["Lunes", "Miercoles"],
-      "startTime": "18:00",
-      "routeSelection": [
-        [-15.836539180575949, -70.03015585152183],
-        [-15.836539180575949, -70.03015585152183],
-        [-12.5619122728206, -76.49748273975706],
-        [-9.454374970418087, -74.7399259779968],
-        [-7.8022946048742865, -78.69442869195737]
-      ]
-    },
-    {
-      "id": "5",
-      "name": "Nazca Lines Flyover",
-      "region": "Ica",
-      "price": 350,
-      "rating": 4.4,
-      "duration": 3,
-      "days": ["Sábado", "Lunes"],
-      "startTime": "18:00",
-      "routeSelection": [
-        [-15.836539180575949, -70.03015585152183],
-        [-15.836539180575949, -70.03015585152183],
-        [-12.5619122728206, -76.49748273975706],
-        [-9.454374970418087, -74.7399259779968],
-        [-7.8022946048742865, -78.69442869195737]
-      ]
-    },
-    {
-      "id": "6",
-      "name": "Huacachina Oasis Adventure",
-      "region": "Ica",
-      "price": 250,
-      "rating": 4.5,
-      "duration": 6,
-      "days": ["Martes", "Jueves"],
-      "startTime": "18:00"
-    },
-    {
-      "tourName": "tour1",
-      "tourDescription": "aaaaaa",
-      "regions": "Lima",
-      "price": "1",
-      "duration": "1",
-      "days": ["", "Lunes", "Miércoles", "Viernes"],
-      "maxGroupSize": "",
       "places": [
         {
-          "coordinates": [-15.836553767328933, -70.03014521113148],
+          "coordinates": [-15.836539180575949, -70.03015585152183],
           "description": "",
-          "name": "Puno, 05151, Perú",
+          "name": "Amazon",
           "photoUrl": null
-        },
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "tourName": "Colca Canyon Trek",
+      "tourDescription": "Trek through the Colca Canyon",
+      "regions": ["Arequipa"],
+      "price": 800,
+      "duration": "9",
+      "days": ["Lunes", "Martes"],
+      "places": [
+        {
+          "coordinates": [-15.836539180575949, -70.03015585152183],
+          "description": "",
+          "name": "Colca",
+          "photoUrl": null
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "tourName": "Lake Titicaca Cultural Tour",
+      "tourDescription": "Experience the culture of Lake Titicaca",
+      "regions": ["Puno"],
+      "price": 950,
+      "duration": "5",
+      "days": ["Lunes", "Miércoles"],
+      "places": [
+        {
+          "coordinates": [-15.836539180575949, -70.03015585152183],
+          "description": "",
+          "name": "Lake Titicaca",
+          "photoUrl": null
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "tourName": "Nazca Lines Flyover",
+      "tourDescription": "Fly over the Nazca Lines",
+      "regions": ["Ica"],
+      "price": 350,
+      "duration": "3",
+      "days": ["Sábado", "Lunes"],
+      "places": [
+        {
+          "coordinates": [-15.836539180575949, -70.03015585152183],
+          "description": "",
+          "name": "Nazca Lines",
+          "photoUrl": null
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "tourName": "Huacachina Oasis Adventure",
+      "tourDescription": "Sandboarding and adventure in Huacachina",
+      "regions": ["Ica"],
+      "price": 250,
+      "duration": "6",
+      "days": ["Martes", "Jueves"],
+      "places": []
+    },
+    {
+      "id": 7,
+      "tourName": "tour1",
+      "tourDescription": "aaaaaa",
+      "regions": ["Lima"],
+      "price": 1,
+      "duration": "1",
+      "days": ["Lunes", "Miércoles", "Viernes"],
+      "places": [
         {
           "coordinates": [-15.836553767328933, -70.03014521113148],
           "description": "",
@@ -145,51 +139,98 @@
           "description": "",
           "name": "Puno, 05151, Perú",
           "photoUrl": null
-        },
-        {
-          "coordinates": [-12.441230056794815, -74.3762708951244],
-          "description": "",
-          "name": "Ayahuanco, Huanta, Ayacucho, Perú",
-          "photoUrl": null
-        },
-        {
-          "coordinates": [-11.968438885239866, -72.26659783393593],
-          "description": "",
-          "name": "Fitzcarrald, Manu, Madre de Dios, Perú",
-          "photoUrl": null
         }
-      ],
-      "id": "Y8nwnTZ"
+      ]
     },
     {
       "tourName": "tour1",
       "tourDescription": "aaaaaa",
-      "regions": "Lima",
-      "price": "58",
+      "regions": ["Lima"],
+      "price": 0,
       "duration": "1",
-      "days": ["", "Lunes", "Miércoles", "Viernes"],
-      "maxGroupSize": "",
+      "days": ["", "Lunes"],
+      "maxGroupSize": 0,
       "places": [
         {
-          "coordinates": [-15.836493121226042, -70.03016816756902],
+          "coordinates": [-15.83655846045527, -70.03014709787425],
           "description": "",
           "name": "Puno, 05151, Perú",
           "photoUrl": null
         },
         {
-          "coordinates": [-15.836493121226042, -70.03016816756902],
+          "coordinates": [-15.83655846045527, -70.03014709787425],
           "description": "",
           "name": "Puno, 05151, Perú",
           "photoUrl": null
         },
         {
-          "coordinates": [-15.833150404803744, -70.06495527109685],
+          "coordinates": [-15.830340846152545, -70.08366900511943],
           "description": "",
           "name": "Puno, 05151, Perú",
           "photoUrl": null
         }
       ],
-      "id": "PZsZANR"
+      "id": 8
+    },
+    {
+      "tourName": "tour1",
+      "tourDescription": "aaaaaa",
+      "regions": ["Lima"],
+      "price": 123,
+      "duration": "1",
+      "days": ["", "Martes"],
+      "maxGroupSize": 0,
+      "places": [
+        {
+          "coordinates": [-15.836548560369728, -70.03018286101583],
+          "description": "",
+          "name": "Puno, 05151, Perú",
+          "photoUrl": null
+        },
+        {
+          "coordinates": [-15.836548560369728, -70.03018286101583],
+          "description": "",
+          "name": "Puno, 05151, Perú",
+          "photoUrl": null
+        },
+        {
+          "coordinates": [-15.837281761436426, -70.08368477490998],
+          "description": "",
+          "name": "Puno, 05151, Perú",
+          "photoUrl": null
+        }
+      ],
+      "id": 9
+    },
+    {
+      "tourName": "tour1",
+      "tourDescription": "aaaaaa",
+      "regions": ["Lima"],
+      "price": 123,
+      "duration": "1",
+      "days": ["Miércoles", "Martes"],
+      "maxGroupSize": 0,
+      "places": [
+        {
+          "coordinates": [-15.836491848209487, -70.03016298585126],
+          "description": "",
+          "name": "Puno, 05151, Perú",
+          "photoUrl": null
+        },
+        {
+          "coordinates": [-15.836491848209487, -70.03016298585126],
+          "description": "",
+          "name": "Puno, 05151, Perú",
+          "photoUrl": null
+        },
+        {
+          "coordinates": [-15.837777644060754, -70.08660259375273],
+          "description": "",
+          "name": "Puno, 05151, Perú",
+          "photoUrl": null
+        }
+      ],
+      "id": 10
     }
   ],
   "comments": [

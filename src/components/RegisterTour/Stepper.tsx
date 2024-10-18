@@ -12,7 +12,7 @@ export default function RegisterTour() {
     regions: '',
     price: 0,
     duration: '',
-    days: [''],
+    days: [],
     maxGroupSize: '',
     places: [] as {
       name: string
@@ -35,20 +35,18 @@ export default function RegisterTour() {
     const dataToSubmit = {
       ...formData,
       price: Number(formData.price),
+      maxGroupSize: Number(formData.maxGroupSize),
       regions:
         Array.isArray(formData.regions) ? formData.regions : [formData.regions]
     }
     try {
-      const response = await fetch(
-        'http://back-explora-peru-production.up.railway.app/api/tours',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(dataToSubmit)
-        }
-      )
+      const response = await fetch('http://localhost:3000/tours', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataToSubmit)
+      })
 
       if (!response.ok) {
         throw new Error('Error al enviar los datos')

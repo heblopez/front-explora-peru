@@ -8,7 +8,7 @@ interface MarkerData {
   name: string
   description: string
   photoUrl: File | null
-  coordinates: [number, number] // Cambiado de 'position' a 'coordinates'
+  coordinates: [number, number]
 }
 
 interface MapWithRouteProps {
@@ -20,7 +20,7 @@ export default function MapWithRoute({ onUpdate }: MapWithRouteProps) {
   const zoom = 4.75
 
   const handleMarkersUpdate = (markers: MarkerData[]) => {
-    onUpdate(markers) // Pasamos los marcadores al componente padre
+    onUpdate(markers)
   }
 
   return (

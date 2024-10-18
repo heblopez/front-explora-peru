@@ -5,7 +5,9 @@ import { Menu, X, Building2, LogOut } from 'lucide-react'
 import { DarkModeBtn } from './DarkModeBtn'
 import { UserContext } from '@/context/UserContext'
 import LanguageDropdown from './LanguageDropdown'
-import CurrencyDropdown from './CurrencyDropdown'
+{
+  /*import CurrencyDropdown from './CurrencyDropdown'*/
+}
 import LoginDropdown from './LoginDropdown'
 import RegisterDropdown from './RegisterDropdown'
 import { useTranslation } from 'react-i18next'
@@ -55,7 +57,7 @@ function Navbar({ isDark, toggleTheme }: NavbarProps) {
             </Button>
           </Link>
           <LanguageDropdown />
-          <CurrencyDropdown />
+          {/*<CurrencyDropdown />*/}
           {!user ?
             <>
               <LoginDropdown />
@@ -96,9 +98,9 @@ function Navbar({ isDark, toggleTheme }: NavbarProps) {
             <li className='px-3 py-2'>
               <LanguageDropdown />
             </li>
-            <li className='px-3 py-2'>
+            {/*<li className='px-3 py-2'>
               <CurrencyDropdown />
-            </li>
+            </li>*/}
             {!user ?
               <>
                 <li className='px-3 py-2'>

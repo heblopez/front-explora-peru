@@ -94,6 +94,23 @@
     "description": "Haz clic para chatear con nosotros",
     "link": "Chatear en WhatsApp"
   },
+  "termsAndConditions": {
+    "title": "Términos y Condiciones",
+    "aboutUs": "Sobre Nosotros",
+    "aboutUsDescription": "Somos ExploraPerú, una plataforma que permite a agencias de turismo certificadas ofrecer sus tours, y a los usuarios reservarlos. Actuamos como intermediarios entre las agencias y los viajeros.",
+    "scope": "Alcance",
+    "scopeDescription": "Estos términos y condiciones se aplican a todos los usuarios de ExploraPerú. Al utilizar nuestra plataforma, aceptas cumplir con estos términos.",
+    "services": "Servicios",
+    "servicesDescription": "ExploraPerú no organiza tours. Los servicios son proporcionados por agencias certificadas e independientes.",
+    "payments": "Precios y Pagos",
+    "paymentsDescription": "Los precios incluyen impuestos aplicables. Los pagos se procesan de forma segura a través de nuestra plataforma.",
+    "cancellations": "Cancelaciones y Cambios",
+    "cancellationsDescription": "Las cancelaciones y cambios están sujetos a las políticas de la agencia que ofrece el tour.",
+    "privacy": "Privacidad y Datos",
+    "privacyDescription": "Respetamos tu privacidad y manejamos tus datos de acuerdo con nuestra Política de ",
+    "contact": "Contáctanos",
+    "contactDescription": "Si tienes alguna pregunta sobre estos términos, contáctanos a través de redes sociales o correo electrónico."
+  },
   "privacyPolicy": {
     "title": "Política de Privacidad",
     "introduction": "En ExploraPerú, valoramos tu privacidad y estamos comprometidos a proteger tus datos personales. Esta política describe cómo recopilamos, usamos y protegemos tu información.",

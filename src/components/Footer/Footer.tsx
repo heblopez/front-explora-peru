@@ -48,9 +48,13 @@ function Footer() {
                 </a>
               </li>
               <li>
-                <a href='#' className='hover:text-gray-950 transition-colors'>
-                  {t('footer.termsConditions')}
-                </a>
+                <Link
+                  to='/terms-and-conditions/'
+                  className='hover:text-gray-950 transition-colors'
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  <span>{t('footer.termsConditions')}</span>
+                </Link>
               </li>
               <li>
                 <Link

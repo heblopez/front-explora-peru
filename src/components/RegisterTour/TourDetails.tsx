@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { MapPin, DollarSign, Star, Clock, Calendar } from 'lucide-react'
+import { MapPin, DollarSign, Clock, Calendar } from 'lucide-react'
 
 const daysOfWeek = [
   { id: 'Lunes', label: 'Lunes' },
@@ -11,16 +11,48 @@ const daysOfWeek = [
   { id: 'Domingo', label: 'Domingo' }
 ]
 
+const regionesPeru = [
+  { id: 'Amazonas', label: 'Amazonas' },
+  { id: 'Áncash', label: 'Áncash' },
+  { id: 'Apurímac', label: 'Apurímac' },
+  { id: 'Arequipa', label: 'Arequipa' },
+  { id: 'Ayacucho', label: 'Ayacucho' },
+  { id: 'Cajamarca', label: 'Cajamarca' },
+  { id: 'Callao', label: 'Callao' },
+  { id: 'Cusco', label: 'Cusco' },
+  { id: 'Huancavelica', label: 'Huancavelica' },
+  { id: 'Huánuco', label: 'Huánuco' },
+  { id: 'Ica', label: 'Ica' },
+  { id: 'Junín', label: 'Junín' },
+  { id: 'La Libertad', label: 'La Libertad' },
+  { id: 'Lambayeque', label: 'Lambayeque' },
+  { id: 'Lima', label: 'Lima' },
+  { id: 'Loreto', label: 'Loreto' },
+  { id: 'Madre de Dios', label: 'Madre de Dios' },
+  { id: 'Moquegua', label: 'Moquegua' },
+  { id: 'Pasco', label: 'Pasco' },
+  { id: 'Piura', label: 'Piura' },
+  { id: 'Puno', label: 'Puno' },
+  { id: 'San Martín', label: 'San Martín' },
+  { id: 'Tacna', label: 'Tacna' },
+  { id: 'Tumbes', label: 'Tumbes' },
+  { id: 'Ucayali', label: 'Ucayali' }
+]
+
 interface TourDetailsProps {
   formData: {
-    name: string
-    region: string
-    price: string
-    rating: string
+    tourName: string
+    tourDescription: string
+    regions: string
+    price: number
     duration: string
     days: string[]
-    startTime: string
-    endTime: string
+    places: {
+      name: string
+      description: string
+      photoUrl: File | null
+      coordinates: [number, number]
+    }[]
   }
   onUpdate: (data: any) => void
 }
@@ -32,7 +64,9 @@ export default function TourDetails({ formData, onUpdate }: TourDetailsProps) {
     setLocalFormData(formData)
   }, [formData])
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target
     const updatedData = { ...localFormData, [name]: value }
     setLocalFormData(updatedData)
@@ -57,24 +91,21 @@ export default function TourDetails({ formData, onUpdate }: TourDetailsProps) {
 
   return (
     <div>
-      <form
-        onSubmit={handleSubmit}
-        className=' rounded-lg shadow-xl p-8 w-full'
-      >
+      <form onSubmit={handleSubmit} className='rounded-lg shadow-xl p-8 w-full'>
         <section className='flex w-full justify-around'>
           <div className='space-y-6'>
             <div>
               <label
-                htmlFor='name'
-                className='block text-sm font-medium text-primary dark:text-primary-lighter mb-1'
+                htmlFor='tourName'
+                className='text-sm font-medium text-primary dark:text-primary-lighter mb-1'
               >
-                Nombre de la Expedición
+                Nombre del Tour
               </label>
               <input
-                id='name'
-                name='name'
+                id='tourName'
+                name='tourName'
                 type='text'
-                value={localFormData.name}
+                value={localFormData.tourName}
                 onChange={handleChange}
                 required
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500'
@@ -82,17 +113,16 @@ export default function TourDetails({ formData, onUpdate }: TourDetailsProps) {
             </div>
             <div>
               <label
-                htmlFor='region'
-                className='block text-sm font-medium text-primary dark:text-primary-lighter mb-1 flex items-center'
+                htmlFor='tourDescription'
+                className='text-sm font-medium text-primary dark:text-primary-lighter mb-1'
               >
-                <MapPin className='w-4 h-4 mr-2 text-primary dark:text-primary-lighter' />
-                Región
+                Descripción del Tour
               </label>
               <input
-                id='region'
-                name='region'
+                id='tourDescription'
+                name='tourDescription'
                 type='text'
-                value={formData.region}
+                value={localFormData.tourDescription}
                 onChange={handleChange}
                 required
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500'
@@ -101,8 +131,35 @@ export default function TourDetails({ formData, onUpdate }: TourDetailsProps) {
 
             <div>
               <label
+                htmlFor='regions'
+                className='text-sm font-medium text-primary dark:text-primary-lighter mb-1 flex items-center'
+              >
+                <MapPin className='w-4 h-4 mr-2 text-primary dark:text-primary-lighter' />
+                Región
+              </label>
+              <select
+                id='regions'
+                name='regions'
+                value={localFormData.regions}
+                onChange={handleChange}
+                required
+                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500'
+              >
+                <option value='' disabled></option>
+                {regionesPeru.map(region => {
+                  return (
+                    <option key={region.id} value={region.label}>
+                      {region.label}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
+
+            <div className='flex'>
+              <label
                 htmlFor='price'
-                className='block text-sm font-medium text-primary dark:text-primary-lighter mb-1 flex items-center'
+                className='text-sm font-medium text-primary dark:text-primary-lighter mb-1 flex items-center'
               >
                 <DollarSign className='w-4 h-4 mr-2 text-primary dark:text-primary-lighter' />
                 Precio
@@ -111,19 +168,17 @@ export default function TourDetails({ formData, onUpdate }: TourDetailsProps) {
                 id='price'
                 name='price'
                 type='number'
-                value={formData.price}
+                value={localFormData.price}
                 onChange={handleChange}
                 min='0'
                 step='0.01'
                 required
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500'
               />
-            </div>
 
-            <div>
               <label
                 htmlFor='duration'
-                className='block text-sm font-medium text-primary dark:text-primary-lighter mb-1 flex items-center'
+                className=' text-sm font-medium text-primary dark:text-primary-lighter mb-1 flex items-center'
               >
                 <Clock className='w-4 h-4 mr-2 text-primary dark:text-primary-lighter' />
                 Duración (días)
@@ -132,7 +187,7 @@ export default function TourDetails({ formData, onUpdate }: TourDetailsProps) {
                 id='duration'
                 name='duration'
                 type='number'
-                value={formData.duration}
+                value={localFormData.duration}
                 onChange={handleChange}
                 min='1'
                 required
@@ -152,7 +207,7 @@ export default function TourDetails({ formData, onUpdate }: TourDetailsProps) {
                     <input
                       type='checkbox'
                       id={day.id}
-                      checked={formData.days.includes(day.id)}
+                      checked={localFormData.days.includes(day.id)}
                       onChange={() => handleDayChange(day.id)}
                       className='rounded border-gray-300 text-primary dark:text-primary-lighter focus:ring-green-500 h-4 w-4'
                     />
@@ -161,45 +216,6 @@ export default function TourDetails({ formData, onUpdate }: TourDetailsProps) {
                     </span>
                   </label>
                 ))}
-              </div>
-            </div>
-
-            <div className='flex flex-col space-y-8 items-center'>
-              <div className='w-full'>
-                <label
-                  htmlFor='startTime'
-                  className='text-sm font-medium text-primary dark:text-primary-lighter mb-1 flex items-center'
-                >
-                  <Clock className='w-4 h-4 mr-2 text-primary dark:text-primary-lighter' />
-                  Hora de inicio
-                </label>
-                <input
-                  id='startTime'
-                  name='startTime'
-                  type='time'
-                  value={formData.startTime}
-                  onChange={handleChange}
-                  required
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500'
-                />
-              </div>
-              <div className='w-full'>
-                <label
-                  htmlFor='endTime'
-                  className='text-sm font-medium text-primary dark:text-primary-lighter mb-1 flex items-center'
-                >
-                  <Clock className='w-4 h-4 mr-2 text-primary dark:text-primary-lighter' />
-                  Hora de fin
-                </label>
-                <input
-                  id='endTime'
-                  name='endTime'
-                  type='time'
-                  value={formData.endTime}
-                  onChange={handleChange}
-                  required
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500'
-                />
               </div>
             </div>
           </div>

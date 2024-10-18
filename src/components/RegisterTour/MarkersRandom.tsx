@@ -1,68 +1,128 @@
-import { useEffect, useState, ChangeEvent } from 'react'
+import { useEffect, useState, ChangeEvent, useCallback } from 'react'
 import { Marker, Polyline, Popup, useMap } from 'react-leaflet'
-import L, { LatLngExpression } from 'leaflet'
+import L, { LatLngExpression, LatLngTuple } from 'leaflet'
 import '@elfalem/leaflet-curve'
+import { debounce } from 'lodash'
 
 interface MarkerData {
-  position: LatLngExpression
-  info: string
+  name: string
+  description: string
+  photoUrl: File | null
+  coordinates: [number, number] // Ajustamos aquí para que se llame 'coordinates'
 }
 
 interface MarkersRandomProps {
-  onMarkersChange: (markers: LatLngExpression[]) => void
+  onMarkersChange: (markers: MarkerData[]) => void
 }
+
+const reverseGeocode = async (lat: number, lng: number) => {
+  const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=10&addressdetails=1`
+
+  try {
+    const response = await fetch(url)
+    const data = await response.json()
+
+    if (data && data.address) {
+      return data.display_name
+    }
+  } catch (error) {
+    console.error('Error en la geocodificación inversa:', error)
+  }
+
+  return `Lugar en [${lat.toFixed(4)}, ${lng.toFixed(4)}]`
+}
+
 const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
   const [markerList, setMarkerList] = useState<MarkerData[]>([])
   const map = useMap()
-  const [name, setName] = useState('')
-  const [file, setFile] = useState<File | null>(null)
+  const [currentName, setCurrentName] = useState('')
+  const [currentFile, setCurrentFile] = useState<File | null>(null)
+  const [currentMarkerIndex, setCurrentMarkerIndex] = useState<number | null>(
+    null
+  )
+  const [popupRef, setPopupRef] = useState<L.Popup | null>(null)
+
+  const debouncedOnMarkersChange = useCallback(
+    debounce((markers: MarkerData[]) => {
+      onMarkersChange(markers)
+    }, 300),
+    [onMarkersChange]
+  )
+
   useEffect(() => {
-    // Notificar cambios al componente padre
-    onMarkersChange(markerList.map(marker => marker.position))
-  }, [markerList, onMarkersChange])
+    debouncedOnMarkersChange(markerList)
+  }, [markerList, debouncedOnMarkersChange])
+
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setFile(e.target.files[0])
+      setCurrentFile(e.target.files[0])
     }
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    console.log('Form submitted', { name, file })
-  }
-  useEffect(() => {
-    const getCurrentLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          position => {
-            const { latitude, longitude } = position.coords
-            const userLocation: LatLngExpression = [latitude, longitude]
-
-            setMarkerList(prevMarkerList => [
-              { position: userLocation, info: '' },
-              ...prevMarkerList
-            ])
-
-            map.setView(userLocation, map.getZoom())
-          },
-          error => {
-            console.error('Error obteniendo la ubicación:', error)
-          }
+    if (currentMarkerIndex !== null) {
+      setMarkerList(prevMarkerList =>
+        prevMarkerList.map((marker, index) =>
+          index === currentMarkerIndex ?
+            { ...marker, name: currentName, photoUrl: currentFile }
+          : marker
         )
-      } else {
-        console.error('La geolocalización no es compatible con este navegador.')
+      )
+      setCurrentMarkerIndex(null)
+      setCurrentName('')
+      setCurrentFile(null)
+
+      if (popupRef) {
+        popupRef.removeFrom(map)
       }
     }
+  }
 
-    getCurrentLocation()
+  useEffect(() => {
+    const addDefaultMarker = async (latitude: number, longitude: number) => {
+      const placeName = await reverseGeocode(latitude, longitude)
+
+      const userLocation: LatLngExpression = [latitude, longitude]
+      const newMarker: MarkerData = {
+        coordinates: [userLocation[0], userLocation[1]], // Ajustado a 'coordinates'
+        description: '',
+        name: placeName,
+        photoUrl: null
+      }
+
+      setMarkerList(prevMarkerList => [newMarker, ...prevMarkerList])
+      map.setView(userLocation, 13)
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const { latitude, longitude } = position.coords
+          addDefaultMarker(latitude, longitude)
+        },
+        error => {
+          console.error('Error obteniendo la ubicación:', error)
+        }
+      )
+    } else {
+      console.error('La geolocalización no es compatible con este navegador.')
+    }
   }, [map])
 
   useEffect(() => {
-    const onMapClick = (e: L.LeafletMouseEvent) => {
+    const onMapClick = async (e: L.LeafletMouseEvent) => {
+      const lat = e.latlng.lat
+      const lng = e.latlng.lng
+
+      const placeName = await reverseGeocode(lat, lng)
+
       const newMarker: MarkerData = {
-        position: [e.latlng.lat, e.latlng.lng],
-        info: ''
+        coordinates: [lat, lng], // Ajustado a 'coordinates'
+        description: '',
+        name: placeName,
+        photoUrl: null
       }
       setMarkerList(prevMarkerList => [...prevMarkerList, newMarker])
     }
@@ -74,18 +134,17 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
     }
   }, [map])
 
-  const handleMarkerInfoChange = (index: number, newInfo: string) => {
-    setMarkerList(prevMarkerList =>
-      prevMarkerList.map((marker, i) =>
-        i === index ? { ...marker, info: newInfo } : marker
-      )
-    )
-  }
-
   const handleMarkerRightClick = (index: number) => {
     setMarkerList(prevMarkerList =>
       prevMarkerList.filter((_, i) => i !== index)
     )
+  }
+
+  const handlePopupOpen = (index: number, popup: L.Popup) => {
+    setCurrentMarkerIndex(index)
+    setCurrentName(markerList[index].name)
+    setCurrentFile(markerList[index].photoUrl)
+    setPopupRef(popup)
   }
 
   return (
@@ -101,10 +160,11 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
           return (
             <Marker
               key={index}
-              position={marker.position}
+              position={marker.coordinates} // Ajustado a 'coordinates'
               icon={iconPerson}
               eventHandlers={{
-                contextmenu: () => handleMarkerRightClick(index)
+                contextmenu: () => handleMarkerRightClick(index),
+                popupopen: e => handlePopupOpen(index, e.popup)
               }}
             >
               <Popup>
@@ -121,8 +181,8 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
                         id='name'
                         type='text'
                         placeholder='Nombre del lugar turístico'
-                        value={name}
-                        onChange={e => setName(e.target.value)}
+                        value={currentName}
+                        onChange={e => setCurrentName(e.target.value)}
                         className='mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-light focus:border-primary-light'
                       />
                     </div>
@@ -156,7 +216,7 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
 
       {markerList.length > 1 && (
         <Polyline
-          positions={markerList.map(marker => marker.position)}
+          positions={markerList.map(marker => marker.coordinates)} // Ajustado a 'coordinates'
           color='blue'
         />
       )}

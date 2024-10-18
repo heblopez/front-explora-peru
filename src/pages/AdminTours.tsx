@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { PlusCircle, Edit, Trash } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-type Coordinate = [number, number]
+
 interface Tour {
   id: number
-  name: string
-  region: string
-  price: string
-  rating: string
+  tourName: string
+  tourDescription: string
+  regions: string[]
+  price: number
   duration: string
   days: string[]
-  startTime: string
-  endTime: string
-  routeSelection: Coordinate[]
+  places: {
+    name: string
+    description: string
+    photoUrl: File | null
+    coordinates: [number, number]
+  }[]
 }
 
 export default function TourManagement() {
@@ -21,15 +24,13 @@ export default function TourManagement() {
   const [currentTour, setCurrentTour] = useState<Tour | null>(null)
   const [formData, setFormData] = useState<Tour>({
     id: 0,
-    name: '',
-    region: '',
-    price: '',
-    rating: '',
+    tourName: '',
+    tourDescription: '',
+    regions: [],
+    price: 0,
     duration: '',
     days: [],
-    startTime: '',
-    endTime: '',
-    routeSelection: []
+    places: []
   })
 
   const [loading, setLoading] = useState(false)
@@ -117,7 +118,7 @@ export default function TourManagement() {
         throw new Error('Failed to delete the tour')
       }
       fetchTours()
-      alert('Tour elimando correctamente')
+      alert('Tour eliminado correctamente')
     } catch (error) {
       setError('Failed to delete the tour. Please try again.')
     } finally {
@@ -128,23 +129,39 @@ export default function TourManagement() {
   const resetForm = () => {
     setFormData({
       id: 0,
-      name: '',
-      region: '',
-      price: '',
-      rating: '',
+      tourName: '',
+      tourDescription: '',
+      regions: [],
+      price: 0,
       duration: '',
       days: [],
-      startTime: '',
-      endTime: '',
-      routeSelection: []
+      places: []
     })
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: name === 'price' ? Number(value) : value // Asegurar que 'price' sea un número
+    }))
+  }
+
+  const handleDaysChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const daysArray = e.target.value.split(',').map(day => day.trim())
+    setFormData(prev => ({
+      ...prev,
+      days: daysArray
+    }))
+  }
+
+  const handleRegionsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const regionsArray = e.target.value.split(',').map(region => region.trim())
+    setFormData(prev => ({
+      ...prev,
+      regions: regionsArray
     }))
   }
 
@@ -155,7 +172,7 @@ export default function TourManagement() {
         <h1 className='text-2xl font-bold'>Administrador de Tours</h1>
         <div className='space-x-2'>
           <button
-            className='bg-primary text-white px-4 py-2 rounded-md flex items-center'
+            className='bg-primary-darker text-white px-4 py-2 rounded-md flex items-center'
             onClick={() => {
               navigate('/register-tours')
             }}
@@ -175,12 +192,9 @@ export default function TourManagement() {
             <th className='py-3 px-6 text-left'>Nombre</th>
             <th className='py-3 px-6 text-left'>Región</th>
             <th className='py-3 px-6 text-left'>Precio</th>
-            <th className='py-3 px-6 text-left'>Calificación</th>
             <th className='py-3 px-6 text-left'>Duración</th>
             <th className='py-3 px-6 text-left'>Días</th>
-            <th className='py-3 px-6 text-left'>Horas</th>
-            <th className='py-3 px-6 text-left'>Cordenadas</th>
-            <th className='py-3 px-6 text-center'>Acciones</th>
+            <th className='py-3 px-6 text-left'>Acciones</th>
           </tr>
         </thead>
         <tbody className='text-gray-700 text-sm'>
@@ -190,21 +204,11 @@ export default function TourManagement() {
               className='border-b border-gray-200 hover:bg-gray-100'
             >
               <td className='py-3 px-6 text-left'>{tour.id}</td>
-              <td className='py-3 px-6 text-left'>{tour.name}</td>
-              <td className='py-3 px-6 text-left'>{tour.region}</td>
+              <td className='py-3 px-6 text-left'>{tour.tourName}</td>
+              <td className='py-3 px-6 text-left'>{tour.regions.join(', ')}</td>
               <td className='py-3 px-6 text-left'>{tour.price}</td>
-              <td className='py-3 px-6 text-left'>{tour.rating}</td>
               <td className='py-3 px-6 text-left'>{tour.duration}</td>
               <td className='py-3 px-6 text-left'>{tour.days.join(', ')}</td>
-              <td className='py-3 px-6 text-left'>{tour.startTime}</td>
-              <td className='py-3 px-6 text-left'>
-                {tour.routeSelection?.map(([lat, lng]: Coordinate, index) => (
-                  <div key={index}>
-                    <b>{`Punto ${index + 1}:`}</b>
-                    {`Latitud: ${lat.toFixed(4)}, Longitud: ${lng.toFixed(4)}`}
-                  </div>
-                ))}
-              </td>
 
               <td className='py-3 px-6 text-center'>
                 <div className='flex item-center justify-center space-x-4'>
@@ -232,28 +236,36 @@ export default function TourManagement() {
       {isDialogOpen && (
         <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'>
           <div className='bg-white p-6 rounded-lg w-96'>
-            <h2 className='text-xl font-bold mb-4'>
-              {currentTour ? 'Edit Tour' : 'Add New Tour'}
+            <h2 className='text-xl font-bold mb-4 text-primary-darker'>
+              {currentTour ? 'Editar Tour' : 'Agregar Nuevo Tour'}
             </h2>
             <form onSubmit={handleSubmit} className='w-50 space-y-4'>
               <input
                 type='text'
-                name='name'
+                name='tourName'
                 placeholder='Nombre del Tour'
-                value={formData.name}
+                value={formData.tourName}
                 onChange={handleChange}
                 className='w-full p-2 border rounded'
               />
               <input
                 type='text'
-                name='region'
-                placeholder='Región'
-                value={formData.region}
+                name='tourDescription'
+                placeholder='Descripción del Tour'
+                value={formData.tourDescription}
                 onChange={handleChange}
                 className='w-full p-2 border rounded'
               />
               <input
                 type='text'
+                name='regions'
+                placeholder='Regiones (separadas por comas)'
+                value={formData.regions.join(', ')}
+                onChange={handleRegionsChange}
+                className='w-full p-2 border rounded'
+              />
+              <input
+                type='number'
                 name='price'
                 placeholder='Precio'
                 value={formData.price}
@@ -261,23 +273,11 @@ export default function TourManagement() {
                 className='w-full p-2 border rounded'
               />
               <input
-                type='number'
-                name='rating'
-                placeholder='Calificación'
-                value={formData.rating}
-                onChange={handleChange}
-                min='0'
-                max='5'
-                step='0.1'
-                className='w-full p-2 border rounded'
-              />
-              <input
-                type='number'
+                type='text'
                 name='duration'
                 placeholder='Duración (días)'
                 value={formData.duration}
                 onChange={handleChange}
-                min='1'
                 className='w-full p-2 border rounded'
               />
               <input
@@ -285,28 +285,7 @@ export default function TourManagement() {
                 name='days'
                 placeholder='Días (separados por comas)'
                 value={formData.days.join(', ')}
-                onChange={e => {
-                  const daysArray = e.target.value
-                    .split(',')
-                    .map(day => day.trim())
-                  setFormData(prev => ({ ...prev, days: daysArray }))
-                }}
-                className='w-full p-2 border rounded'
-              />
-              <input
-                type='time'
-                name='startTime'
-                placeholder='Hora de Inicio'
-                value={formData.startTime}
-                onChange={handleChange}
-                className='w-full p-2 border rounded'
-              />
-              <input
-                type='time'
-                name='endTime'
-                placeholder='Hora de Fin'
-                value={formData.endTime}
-                onChange={handleChange}
+                onChange={handleDaysChange}
                 className='w-full p-2 border rounded'
               />
               <div className='flex justify-end space-x-2'>
@@ -319,9 +298,9 @@ export default function TourManagement() {
                 </button>
                 <button
                   type='submit'
-                  className='bg-blue-500 text-white px-4 py-2 rounded-md'
+                  className='bg-primary-darker text-white px-4 py-2 rounded-md'
                 >
-                  {currentTour ? 'Update' : 'Add'}
+                  {currentTour ? 'Actualizar' : 'Agregar'}
                 </button>
               </div>
             </form>

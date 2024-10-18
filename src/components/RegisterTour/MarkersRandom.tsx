@@ -1,13 +1,14 @@
 import { useEffect, useState, ChangeEvent, useCallback } from 'react'
 import { Marker, Polyline, Popup, useMap } from 'react-leaflet'
-import L, { LatLngExpression } from 'leaflet'
+import L, { LatLngExpression, LatLngTuple } from 'leaflet'
 import '@elfalem/leaflet-curve'
 import { debounce } from 'lodash'
 
 interface MarkerData {
-  position: LatLngExpression
   name: string
-  image: File | null
+  description: string
+  photoUrl: File | null
+  coordinates: [number, number] // Ajustamos aquí para que se llame 'coordinates'
 }
 
 interface MarkersRandomProps {
@@ -15,8 +16,7 @@ interface MarkersRandomProps {
 }
 
 const reverseGeocode = async (lat: number, lng: number) => {
-  const url =
-    'https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=10&addressdetails=1'
+  const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=10&addressdetails=1`
 
   try {
     const response = await fetch(url)
@@ -66,7 +66,7 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
       setMarkerList(prevMarkerList =>
         prevMarkerList.map((marker, index) =>
           index === currentMarkerIndex ?
-            { ...marker, name: currentName, image: currentFile }
+            { ...marker, name: currentName, photoUrl: currentFile }
           : marker
         )
       )
@@ -86,9 +86,10 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
 
       const userLocation: LatLngExpression = [latitude, longitude]
       const newMarker: MarkerData = {
-        position: userLocation,
+        coordinates: [userLocation[0], userLocation[1]], // Ajustado a 'coordinates'
+        description: '',
         name: placeName,
-        image: null
+        photoUrl: null
       }
 
       setMarkerList(prevMarkerList => [newMarker, ...prevMarkerList])
@@ -118,9 +119,10 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
       const placeName = await reverseGeocode(lat, lng)
 
       const newMarker: MarkerData = {
-        position: [lat, lng],
+        coordinates: [lat, lng], // Ajustado a 'coordinates'
+        description: '',
         name: placeName,
-        image: null
+        photoUrl: null
       }
       setMarkerList(prevMarkerList => [...prevMarkerList, newMarker])
     }
@@ -141,7 +143,7 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
   const handlePopupOpen = (index: number, popup: L.Popup) => {
     setCurrentMarkerIndex(index)
     setCurrentName(markerList[index].name)
-    setCurrentFile(markerList[index].image)
+    setCurrentFile(markerList[index].photoUrl)
     setPopupRef(popup)
   }
 
@@ -158,7 +160,7 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
           return (
             <Marker
               key={index}
-              position={marker.position}
+              position={marker.coordinates} // Ajustado a 'coordinates'
               icon={iconPerson}
               eventHandlers={{
                 contextmenu: () => handleMarkerRightClick(index),
@@ -214,7 +216,7 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
 
       {markerList.length > 1 && (
         <Polyline
-          positions={markerList.map(marker => marker.position)}
+          positions={markerList.map(marker => marker.coordinates)} // Ajustado a 'coordinates'
           color='blue'
         />
       )}

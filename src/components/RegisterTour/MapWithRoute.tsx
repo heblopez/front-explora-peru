@@ -1,23 +1,28 @@
 import 'leaflet/dist/leaflet.css'
 import { MapContainer, TileLayer } from 'react-leaflet'
-
-import { LatLngExpression } from 'leaflet'
+import { LatLngExpression, LatLngTuple } from 'leaflet'
 import '@elfalem/leaflet-curve'
 import MarkersRandom from './MarkersRandom'
+
 interface MarkerData {
-  position: LatLngExpression
   name: string
-  image: File | null
+  description: string
+  photoUrl: File | null
+  coordinates: [number, number] // Cambiado de 'position' a 'coordinates'
 }
+
 interface MapWithRouteProps {
   onUpdate: (data: MarkerData[]) => void
 }
+
 export default function MapWithRoute({ onUpdate }: MapWithRouteProps) {
   const position: LatLngExpression = [35.376307, 5.918474]
   const zoom = 4.75
+
   const handleMarkersUpdate = (markers: MarkerData[]) => {
-    onUpdate(markers)
+    onUpdate(markers) // Pasamos los marcadores al componente padre
   }
+
   return (
     <MapContainer
       center={position}

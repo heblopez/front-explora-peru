@@ -1,4 +1,4 @@
-import { UserRegister } from '@/types/User'
+import { UserRegister } from '@/types/user'
 import { toast } from 'sonner'
 
 export const getAllUsers = async () => {

@@ -8,7 +8,7 @@ import LanguageDropdown from './LanguageDropdown'
 {
   /*import CurrencyDropdown from './CurrencyDropdown'*/
 }
-import LoginDropdown from './LoginDropdown'
+import LoginButton from './LoginButton'
 import RegisterDropdown from './RegisterDropdown'
 import { useTranslation } from 'react-i18next'
 import MyAccountDropdown from './MyAccountDropdown'
@@ -60,7 +60,7 @@ function Navbar({ isDark, toggleTheme }: NavbarProps) {
           {/*<CurrencyDropdown />*/}
           {!user ?
             <>
-              <LoginDropdown />
+              <LoginButton />
               <RegisterDropdown />
             </>
           : <>
@@ -104,7 +104,7 @@ function Navbar({ isDark, toggleTheme }: NavbarProps) {
             {!user ?
               <>
                 <li className='px-3 py-2'>
-                  <LoginDropdown />
+                  <LoginButton />
                 </li>
                 <li className='px-3 py-2'>
                   <RegisterDropdown />

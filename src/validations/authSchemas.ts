@@ -48,3 +48,6 @@ export const userRegisterSchema = z
     message: 'Las contraseñas no coinciden',
     path: ['confirmPassword']
   })
+
+export type LoginForm = z.infer<typeof userLoginSchema>
+export type TouristRegForm = z.infer<typeof userRegisterSchema>

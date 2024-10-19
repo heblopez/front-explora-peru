@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { Tour } from '@/types/Tour'
+import { Tour } from '@/types/tour'
 import { StarFilledIcon } from '@radix-ui/react-icons'
 import { LucideClock, MapPin, Search } from 'lucide-react'
 import { FormEvent, useEffect, useState } from 'react'

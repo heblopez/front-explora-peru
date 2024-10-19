@@ -1,10 +1,14 @@
 import { createContext, useState, ReactNode } from 'react'
-import { User } from '@/types/User'
 import { toast } from 'sonner'
+import {
+  AgencyDataResponse,
+  LoginResponse,
+  TouristDataResponse
+} from '@/types/auth'
 
 interface IUserContext {
-  user: Omit<User, 'password'> | null
-  saveUser: (user: User) => void
+  user: AgencyDataResponse | TouristDataResponse | null
+  saveUser: (user: LoginResponse) => void
   removeUser: () => void
 }
 
@@ -13,20 +17,24 @@ export const UserContext = createContext<IUserContext>({} as IUserContext)
 export default function UserProvider({ children }: { children: ReactNode }) {
   const getUserFromLocalStorage = () => {
     const user = localStorage.getItem('user')
-    if (user) {
+    if (user && user !== 'undefined') {
       return JSON.parse(user)
     }
     return null
   }
 
-  const [user, setUser] = useState<Omit<User, 'password'> | null>(
-    getUserFromLocalStorage()
-  )
+  const [user, setUser] = useState<
+    AgencyDataResponse | TouristDataResponse | null
+  >(getUserFromLocalStorage())
 
-  const saveUser = (user: User) => {
-    const { password, ...dataToSave } = user
+  const saveUser = (data: LoginResponse) => {
+    const { token, data: dataToSave } = data
+    if (!token || !dataToSave) {
+      return
+    }
     localStorage.setItem('user', JSON.stringify(dataToSave))
     setUser(dataToSave)
+    document.cookie = `token=${token}`
   }
 
   const removeUser = () => {
@@ -41,6 +49,7 @@ export default function UserProvider({ children }: { children: ReactNode }) {
       loading: 'Cerrando sesión...',
       success: () => {
         localStorage.removeItem('user')
+        document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
         setUser(null)
         return 'Nos vemos pronto! 👋'
       },

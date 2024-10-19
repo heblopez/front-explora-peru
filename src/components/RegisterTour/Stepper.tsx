@@ -2,25 +2,29 @@ import { useState } from 'react'
 import MapWithRoute from './MapWithRoute'
 import { useNavigate } from 'react-router-dom'
 import TourDetails from './TourDetails'
+import { registerTour } from '@/services/tourService'
+import { toast } from 'sonner'
+
+const initialFormData = {
+  tourName: '',
+  tourDescription: '',
+  regions: '',
+  price: 0,
+  duration: '',
+  days: [],
+  maxGroupSize: '',
+  places: [] as {
+    name: string
+    description: string
+    photoUrl: File | null
+    coordinates: [number, number]
+  }[]
+}
 
 export default function RegisterTour() {
   const navigate = useNavigate()
 
-  const [formData, setFormData] = useState({
-    tourName: '',
-    tourDescription: '',
-    regions: '',
-    price: 0,
-    duration: '',
-    days: [],
-    maxGroupSize: '',
-    places: [] as {
-      name: string
-      description: string
-      photoUrl: File | null
-      coordinates: [number, number]
-    }[]
-  })
+  const [formData, setFormData] = useState(initialFormData)
 
   const updateFormData = (key: string, data: any) => {
     setFormData(prevData => ({
@@ -40,23 +44,13 @@ export default function RegisterTour() {
         Array.isArray(formData.regions) ? formData.regions : [formData.regions]
     }
     try {
-      const response = await fetch('http://localhost:3000/tours', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dataToSubmit)
-      })
-
-      if (!response.ok) {
-        throw new Error('Error al enviar los datos')
-      }
-
-      alert('Datos enviados con éxito')
+      const response = await registerTour(dataToSubmit)
+      if (!response) return
+      setFormData(initialFormData)
+      toast.success('Tour creado con éxito 🥳')
       navigate('/admin-tours')
     } catch (error) {
       console.error(error)
-      alert('Hubo un problema al enviar los datos')
     }
   }
 

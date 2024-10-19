@@ -10,12 +10,17 @@ import {
 import { Input } from '@/components/ui/input'
 import { FormEvent, useContext, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { User, UserLogin } from '@/types/User'
+import { UserLogin } from '@/types/user'
 import { toast } from 'sonner'
 import { UserContext } from '@/context/UserContext'
 import { useTranslation } from 'react-i18next'
-import { userLoginSchema } from '@/validations/userSchemas'
-import { getAllUsers } from '@/services/userService'
+import { userLoginSchema } from '@/validations/authSchemas'
+import { login } from '@/services/authService'
+import {
+  AgencyDataResponse,
+  LoginResponse,
+  TouristDataResponse
+} from '@/types/auth'
 
 export default function Login() {
   const formRef = useRef<HTMLFormElement>(null)
@@ -35,35 +40,31 @@ export default function Login() {
     const isValidForm = userLoginSchema.safeParse(credentials)
 
     if (isValidForm.success) {
-      const { email, password } = credentials
-
-      const allUsers: User[] = await getAllUsers()
-      if (allUsers.length === 0) {
-        toast.error('Error al recuperar usuarios.')
-        return
-      }
-
       const loginPromise = () =>
-        new Promise<User>((resolve, reject) =>
+        new Promise<LoginResponse>((resolve, reject) =>
           setTimeout(() => {
-            allUsers.forEach(user => {
-              if (user.email === email && user.password === password) {
-                return resolve(user)
-              }
-            })
-            return reject(
-              'Error! Las credenciales ingresadas son incorrectas 😟'
-            )
-          }, 2000)
+            login(credentials)
+              .then(data => resolve(data))
+              .catch(_ =>
+                reject('Error! Las credenciales ingresadas son incorrectas 😟')
+              )
+          }, 1200)
         )
 
       toast.promise(loginPromise, {
         loading: 'Iniciando sesión...',
-        success: dataUser => {
+        success: loginRes => {
           formRef.current?.reset()
-          saveUser(dataUser)
+          saveUser(loginRes)
           navigate('/')
-          return `¡Bienvenido de vuelta, ${dataUser.name}! 🫡`
+          if (
+            loginRes.data &&
+            (loginRes.data as TouristDataResponse).firstName
+          ) {
+            return `¡Bienvenido de vuelta, ${(loginRes.data as TouristDataResponse).firstName}! 🫡`
+          } else {
+            return `¡Bienvenido de vuelta, ${(loginRes.data as AgencyDataResponse).agencyName}! 🫡`
+          }
         },
         error: err => err,
         style: {

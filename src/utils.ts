@@ -11,3 +11,13 @@ export const getToken = () => {
 export const getBearerToken = () => {
   return `Bearer ${getToken()}`
 }
+
+export const getDataFromLocalStorage = (key: string) => {
+  try {
+    const data = localStorage.getItem(key)
+    if (data) return JSON.parse(data)
+    return null
+  } catch {
+    return localStorage.getItem(key)
+  }
+}

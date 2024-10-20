@@ -1,14 +1,21 @@
 export interface LoginResponse {
   message: string
-  token?: string
-  data?: TouristDataResponse | AgencyDataResponse
-  errors?: object[]
+  token: string
+  data: TouristDataResponse | AgencyDataResponse
 }
 
-export interface TouristDataResponse {
+interface UserData {
   username: string
   email: string
   phoneNumber: string
+  profilePicture?: string
+  userType: 'ADMIN' | 'CUSTOMER'
+  role?: 'tourist' | 'agency'
+  lastLogin?: Date
+  createdAt: Date
+  updatedAt: Date
+}
+export interface TouristDataResponse extends UserData {
   firstName: string
   lastName: string
   documentType: string
@@ -16,27 +23,16 @@ export interface TouristDataResponse {
   birthdate: Date
   country: string
   gender: string
-  profilePicture: null
-  userType: string
-  createdAt: Date
-  updatedAt: Date
-  lastLogin: null
 }
 
-export interface AgencyDataResponse {
-  username: string
-  email: string
-  phoneNumber: string
+export interface AgencyDataResponse extends UserData {
   agencyName: string
-  agencyDescription: null
+  agencyDescription?: string
   ruc: string
   address: string
-  logoUrl: null
-  website: null
+  logoUrl?: string
+  website?: string
   verified: boolean
-  profilePicture: null
-  userType: string
-  createdAt: Date
-  updatedAt: Date
-  lastLogin: null
 }
+
+export type RegisterResponse = Omit<LoginResponse, 'token'>

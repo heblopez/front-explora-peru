@@ -5,6 +5,7 @@ import {
   LoginResponse,
   TouristDataResponse
 } from '@/types/auth'
+import { getDataFromLocalStorage } from '@/utils'
 
 interface IUserContext {
   user: AgencyDataResponse | TouristDataResponse | null
@@ -15,26 +16,24 @@ interface IUserContext {
 export const UserContext = createContext<IUserContext>({} as IUserContext)
 
 export default function UserProvider({ children }: { children: ReactNode }) {
-  const getUserFromLocalStorage = () => {
-    const user = localStorage.getItem('user')
-    if (user && user !== 'undefined') {
-      return JSON.parse(user)
-    }
-    return null
-  }
-
   const [user, setUser] = useState<
     AgencyDataResponse | TouristDataResponse | null
-  >(getUserFromLocalStorage())
+  >(getDataFromLocalStorage('user'))
 
-  const saveUser = (data: LoginResponse) => {
+  const saveUser = (data: LoginResponse): string => {
     const { token, data: dataToSave } = data
-    if (!token || !dataToSave) {
-      return
-    }
+
     localStorage.setItem('user', JSON.stringify(dataToSave))
     setUser(dataToSave)
     document.cookie = `token=${token}`
+
+    return (
+      dataToSave.role === 'tourist' ?
+        (dataToSave as TouristDataResponse).firstName
+      : dataToSave.role === 'agency' ?
+        (dataToSave as AgencyDataResponse).agencyName
+      : ''
+    )
   }
 
   const removeUser = () => {
@@ -42,15 +41,15 @@ export default function UserProvider({ children }: { children: ReactNode }) {
       new Promise<void>(resolve =>
         setTimeout(() => {
           resolve()
-        }, 1200)
+        }, 700)
       )
 
     toast.promise(logoutPromise, {
       loading: 'Cerrando sesión...',
       success: () => {
-        localStorage.removeItem('user')
         document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
         setUser(null)
+        localStorage.removeItem('user')
         return 'Nos vemos pronto! 👋'
       },
       error: err => err,

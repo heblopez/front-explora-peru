@@ -1,29 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { PlusCircle, Edit, Trash } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-
-interface Tour {
-  id: number
-  tourName: string
-  tourDescription: string
-  regions: string[]
-  price: number
-  duration: string
-  days: string[]
-  places: {
-    name: string
-    description: string
-    photoUrl: File | null
-    coordinates: [number, number]
-  }[]
-}
+import { getTours } from '@/services/tourService'
+import { TourAdmin } from '@/types/tour'
 
 export default function TourManagement() {
-  const [tours, setTours] = useState<Tour[]>([])
+  const [tours, setTours] = useState<TourAdmin[]>([])
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const [currentTour, setCurrentTour] = useState<Tour | null>(null)
-  const [formData, setFormData] = useState<Tour>({
-    id: 0,
+  const [currentTour, setCurrentTour] = useState<TourAdmin | null>(null)
+  const [formData, setFormData] = useState<TourAdmin>({
+    tourId: 0,
     tourName: '',
     tourDescription: '',
     regions: [],
@@ -44,12 +30,8 @@ export default function TourManagement() {
     setLoading(true)
     setError(null)
     try {
-      const response = await fetch('http://localhost:3000/tours')
-      if (!response.ok) {
-        throw new Error('Failed to fetch tours')
-      }
-      const data = await response.json()
-      setTours(data)
+      const data = await getTours()
+      if (data) setTours(data)
     } catch (error) {
       setError('Failed to load tours. Please try again.')
     } finally {
@@ -65,7 +47,7 @@ export default function TourManagement() {
     const method = currentTour ? 'PUT' : 'POST'
     const url =
       currentTour ?
-        `http://localhost:3000/tours/${currentTour.id}`
+        `http://localhost:3000/tours/${currentTour.tourId}`
       : 'http://localhost:3000/tours'
 
     try {
@@ -97,7 +79,7 @@ export default function TourManagement() {
     }
   }
 
-  const handleEdit = (tour: Tour) => {
+  const handleEdit = (tour: TourAdmin) => {
     setCurrentTour(tour)
     setFormData(tour)
     setIsDialogOpen(true)
@@ -128,7 +110,7 @@ export default function TourManagement() {
 
   const resetForm = () => {
     setFormData({
-      id: 0,
+      tourId: 0,
       tourName: '',
       tourDescription: '',
       regions: [],
@@ -200,10 +182,10 @@ export default function TourManagement() {
         <tbody className='text-gray-700 text-sm'>
           {tours.map(tour => (
             <tr
-              key={tour.id}
+              key={tour.tourId}
               className='border-b border-gray-200 hover:bg-gray-100'
             >
-              <td className='py-3 px-6 text-left'>{tour.id}</td>
+              <td className='py-3 px-6 text-left'>{tour.tourId}</td>
               <td className='py-3 px-6 text-left'>{tour.tourName}</td>
               <td className='py-3 px-6 text-left'>{tour.regions.join(', ')}</td>
               <td className='py-3 px-6 text-left'>{tour.price}</td>
@@ -221,7 +203,7 @@ export default function TourManagement() {
                   </button>
                   <button
                     className='text-red-600 hover:text-red-900'
-                    onClick={() => handleDelete(tour.id)}
+                    onClick={() => handleDelete(tour.tourId)}
                     title='Borrar'
                   >
                     <Trash className='w-4 h-4' />

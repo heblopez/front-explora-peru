@@ -29,8 +29,9 @@ import { es, enUS } from 'date-fns/locale'
 import { toast } from 'sonner'
 import { useTranslation } from 'react-i18next'
 import { userRegisterSchema } from '@/validations/authSchemas'
-import { addUser } from '@/services/userService'
 import CountriesSelect from '@/components/Register/CountriesList'
+import { registerTourist } from '@/services/authService'
+import { RegisterResponse } from '@/types/auth'
 
 export default function Register() {
   const [date, setDate] = useState<Date | undefined>()
@@ -48,19 +49,20 @@ export default function Register() {
     e.preventDefault()
 
     const registerForm = {
-      name: (formRef.current?.elements.namedItem('name') as HTMLInputElement)
-        .value,
+      firstName: (
+        formRef.current?.elements.namedItem('name') as HTMLInputElement
+      ).value,
       lastName: formRef.current?.lastname.value,
       documentType: (
         formRef.current?.elements.namedItem(
           'document-type'
         ) as HTMLSelectElement
       ).value,
-      documentNumber: parseInt(formRef.current?.['document-number'].value),
+      documentNumber: formRef.current?.['document-number'].value,
       birthdate: date ? format(date as Date, 'yyyy-MM-dd') : '',
       country: country ? country.split(' ')[1] : '',
       gender: formRef.current?.gender.value,
-      phone: formRef.current?.['phone-number'].value,
+      phoneNumber: formRef.current?.['phone-number'].value,
       email: formRef.current?.email.value,
       password: formRef.current?.password.value,
       confirmPassword: formRef.current?.['confirm-password'].value
@@ -70,21 +72,28 @@ export default function Register() {
 
     if (isValidForm.success) {
       delete registerForm.confirmPassword
-      addUser(registerForm)
-        .then(user => {
-          localStorage.setItem('user', JSON.stringify(user))
-          formRef.current?.reset()
-          toast.success(`¡Registro exitoso! Bienvenido ${user.name} 🎉`)
+      const registerPromise = () =>
+        new Promise<RegisterResponse>((resolve, reject) => {
           setTimeout(() => {
-            navigate('/')
-          }, 1200)
+            registerTourist(registerForm)
+              .then(_ => resolve(_))
+              .catch(err => reject(err.message))
+          })
         })
-        .catch(err => {
-          console.error(err)
-          toast.error(
-            'Error al registrar usuario 😢 Por favor, inténtalo de nuevo.'
-          )
-        })
+
+      toast.promise(registerPromise, {
+        loading: 'Registrando...',
+        success: () => {
+          formRef.current?.reset()
+          navigate('/login')
+          return '¡Registro exitoso! 🎉 Por favor, inicia sesión'
+        },
+        error: err => err,
+        style: {
+          justifyContent: 'center'
+        },
+        position: 'top-center'
+      })
     } else {
       isValidForm.error.errors.forEach(err => toast.error(err.message))
     }

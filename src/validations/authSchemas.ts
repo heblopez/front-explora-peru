@@ -14,7 +14,7 @@ export const userLoginSchema = z.object({
 
 export const userRegisterSchema = z
   .object({
-    name: z
+    firstName: z
       .string()
       .min(2, 'El nombre es obligatorio y debe tener al menos 2 caracteres'),
     lastName: z
@@ -22,12 +22,12 @@ export const userRegisterSchema = z
       .min(2, 'El apellido es obligatorio y debe tener al menos 2 caracteres'),
     documentType: z.string().min(1, 'El tipo de documento es obligatorio'),
     documentNumber: z
-      .number({ invalid_type_error: 'El número de documento es incorrecto' })
+      .string()
       .min(8, 'El número de documento debe tener al menos 8 digitos'),
     birthdate: z.string().date('La fecha de nacimiento es incorrecta'),
     country: z.string(),
     gender: z.string(),
-    phone: z
+    phoneNumber: z
       .string()
       .min(1, 'El número de celular es obligatorio')
       .min(11, 'El número de celular debe tener al menos 11 caracteres'),

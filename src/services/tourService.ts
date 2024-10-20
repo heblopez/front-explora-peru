@@ -1,23 +1,27 @@
 import { API_TOURS_URL } from '@/config'
+import { TourAdmin } from '@/types/tour'
 import { getBearerToken } from '@/utils'
 import { toast } from 'sonner'
 
 const bearerToken = getBearerToken()
 
-export const getTours = async () => {
+export const getTours = async (): Promise<TourAdmin[] | null> => {
+  // Pending: Modify the type 'TourAdmin' with the fields that come from the API
   try {
-    const res = await fetch(`${API_TOURS_URL}/tours`)
-    return res.json()
+    const res = await fetch(`${API_TOURS_URL}`)
+    if (!res.ok) throw new Error('Failed to load tours')
+    const data = await res.json()
+    return data.data
   } catch (error) {
-    toast.error('Error de servidor 😢 Por favor, inténtalo de nuevo')
+    toast.error('Error al cargar los tours 😢 Por favor, inténtalo de nuevo')
     console.error(error)
     return null
   }
 }
 
-export const getTour = async (id: string) => {
+export const getTourById = async (id: string) => {
   try {
-    const res = await fetch(`${API_TOURS_URL}/tour/${id}`)
+    const res = await fetch(`${API_TOURS_URL}/${id}`)
     return res.json()
   } catch (error) {
     toast.error('Error de servidor 😢 Por favor, inténtalo de nuevo')

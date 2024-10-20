@@ -16,11 +16,7 @@ import { UserContext } from '@/context/UserContext'
 import { useTranslation } from 'react-i18next'
 import { userLoginSchema } from '@/validations/authSchemas'
 import { login } from '@/services/authService'
-import {
-  AgencyDataResponse,
-  LoginResponse,
-  TouristDataResponse
-} from '@/types/auth'
+import { LoginResponse } from '@/types/auth'
 
 export default function Login() {
   const formRef = useRef<HTMLFormElement>(null)
@@ -45,9 +41,14 @@ export default function Login() {
           setTimeout(() => {
             login(credentials)
               .then(data => resolve(data))
-              .catch(_ =>
-                reject('Error! Las credenciales ingresadas son incorrectas 😟')
-              )
+              .catch(err => {
+                if (err.message.includes('Incorrect password')) {
+                  reject(
+                    'Error: Las credenciales ingresadas son incorrectas 😟'
+                  )
+                }
+                reject(`${err.message} 😢`)
+              })
           }, 1200)
         )
 
@@ -55,16 +56,9 @@ export default function Login() {
         loading: 'Iniciando sesión...',
         success: loginRes => {
           formRef.current?.reset()
-          saveUser(loginRes)
+          const welcomeName = saveUser(loginRes)
           navigate('/')
-          if (
-            loginRes.data &&
-            (loginRes.data as TouristDataResponse).firstName
-          ) {
-            return `¡Bienvenido de vuelta, ${(loginRes.data as TouristDataResponse).firstName}! 🫡`
-          } else {
-            return `¡Bienvenido de vuelta, ${(loginRes.data as AgencyDataResponse).agencyName}! 🫡`
-          }
+          return `¡Bienvenido de vuelta, ${welcomeName}! 🫡`
         },
         error: err => err,
         style: {

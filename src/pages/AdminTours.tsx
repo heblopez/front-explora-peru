@@ -2,22 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { PlusCircle, Edit, Trash } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { getTours } from '@/services/tourService'
-import { TourAdmin } from '@/types/tour'
+import { Tour } from '@/types/tour'
 
 export default function TourManagement() {
-  const [tours, setTours] = useState<TourAdmin[]>([])
+  const [tours, setTours] = useState<Tour[]>([])
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const [currentTour, setCurrentTour] = useState<TourAdmin | null>(null)
-  const [formData, setFormData] = useState<TourAdmin>({
-    tourId: 0,
-    tourName: '',
-    tourDescription: '',
-    regions: [],
-    price: 0,
-    duration: '',
-    days: [],
-    places: []
-  })
+  const [currentTour, setCurrentTour] = useState<Tour | null>(null)
+  const [formData, setFormData] = useState<Tour>({} as Tour)
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -79,7 +70,7 @@ export default function TourManagement() {
     }
   }
 
-  const handleEdit = (tour: TourAdmin) => {
+  const handleEdit = (tour: Tour) => {
     setCurrentTour(tour)
     setFormData(tour)
     setIsDialogOpen(true)
@@ -109,16 +100,7 @@ export default function TourManagement() {
   }
 
   const resetForm = () => {
-    setFormData({
-      tourId: 0,
-      tourName: '',
-      tourDescription: '',
-      regions: [],
-      price: 0,
-      duration: '',
-      days: [],
-      places: []
-    })
+    setFormData({} as Tour)
   }
 
   const handleChange = (

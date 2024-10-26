@@ -1,13 +1,23 @@
 export interface Tour {
-  id: string
-  name: string
-  region: string
-  price: number
-  rating: number
-  duration: number
+  tourId: number
+  agencyId: number
+  tourName: string
+  tourDescription: string
+  regions: string[]
+  price: string | number
+  duration: string
   days: string[]
-  startTime: string
-  routeSelection: [number, number][]
+  maxGroupSize: number
+  photosUrl: string[]
+  places: {
+    name: string
+    description: string
+    photoUrl: File | null
+    coordinates: [number, number]
+  }[]
+  rating?: number
+  startTime?: string
+  routeSelection?: [number, number][]
 }
 
 export interface TourAdmin {

@@ -1,14 +1,15 @@
 import { API_TOURS_URL } from '@/config'
-import { TourAdmin } from '@/types/tour'
+import { Tour } from '@/types/tour'
 import { getBearerToken } from '@/utils'
 import { toast } from 'sonner'
 
 const bearerToken = getBearerToken()
 
-export const getTours = async (): Promise<TourAdmin[] | null> => {
-  // Pending: Modify the type 'TourAdmin' with the fields that come from the API
+export const getTours = async (query?: string): Promise<Tour[] | null> => {
   try {
-    const res = await fetch(`${API_TOURS_URL}`)
+    let urlToFetch = API_TOURS_URL
+    if (query) urlToFetch += `?${query}`
+    const res = await fetch(`${urlToFetch} `)
     if (!res.ok) throw new Error('Failed to load tours')
     const data = await res.json()
     return data.data

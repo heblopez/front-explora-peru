@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { PlusCircle, Edit, Trash } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { getTours } from '@/services/tourService'
-import { Tour } from '@/types/tour'
+import { getMyTours } from '@/services/tourService'
+import { Tour } from '@/types/Tour'
 
 export default function TourManagement() {
   const [tours, setTours] = useState<Tour[]>([])
@@ -21,7 +21,7 @@ export default function TourManagement() {
     setLoading(true)
     setError(null)
     try {
-      const data = await getTours()
+      const data = await getMyTours()
       if (data) setTours(data)
     } catch (error) {
       setError('Failed to load tours. Please try again.')

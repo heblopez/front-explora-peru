@@ -17,7 +17,7 @@ import TourDetailPage from './pages/TourDetailsPage'
 import RegisterToursv2 from './pages/RegisterToursv2'
 import TermsAndConditions from './pages/TermsAndConditions'
 import PrivacyPolicy from './pages/PrivacyPolicy'
-import TourScheduler from './components/RegisterTour/TourScheduler'
+import TourScheduler from './components/RegisterTour/TourScheluder2'
 
 function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode()

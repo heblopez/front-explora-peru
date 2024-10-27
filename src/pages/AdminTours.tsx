@@ -109,7 +109,7 @@ export default function TourManagement() {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'price' ? Number(value) : value // Asegurar que 'price' sea un número
+      [name]: name === 'price' ? Number(value) : value
     }))
   }
 
@@ -131,12 +131,14 @@ export default function TourManagement() {
 
   const navigate = useNavigate()
   return (
-    <div className='container mx-auto p-4 min-h-screen'>
+    <div className='container mx-auto p-4 min-h-screen bg-secondary dark:bg-dark-secondary text-dark-secondary dark:text-primary'>
       <div className='flex justify-between items-center mb-4'>
-        <h1 className='text-2xl font-bold'>Administrador de Tours</h1>
+        <h1 className='text-2xl font-bold text-primary-darker dark:text-primary-light'>
+          Administrador de Tours
+        </h1>
         <div className='space-x-2'>
           <button
-            className='bg-primary-darker text-white px-4 py-2 rounded-md flex items-center'
+            className='bg-primary-darker dark:bg-primary text-white dark:text-dark-primary-foreground px-4 py-2 rounded-md flex items-center'
             onClick={() => {
               navigate('/register-tours')
             }}
@@ -146,45 +148,51 @@ export default function TourManagement() {
         </div>
       </div>
 
-      {loading && <p>Loading...</p>}
-      {error && <p className='text-red-500'>{error}</p>}
+      {loading && <p className='text-warning dark:text-warning'>Loading...</p>}
+      {error && <p className='text-danger dark:text-danger'>{error}</p>}
 
-      <table className='min-w-full bg-white shadow rounded'>
+      <table className='min-w-full bg-secondary dark:bg-dark-card shadow rounded'>
         <thead>
-          <tr className='bg-primary-lighter text-gray-700 text-sm leading-normal'>
+          <tr className='bg-primary-lighter dark:bg-primary-dark text-dark-secondary dark:text-white text-sm leading-normal'>
             <th className='py-3 px-6 text-left'>ID</th>
             <th className='py-3 px-6 text-left'>Nombre</th>
-            <th className='py-3 px-6 text-left'>Región</th>
+            <th className='py-3 px-6 text-left'>Descripción</th>
+            <th className='py-3 px-6 text-left'>Regiones</th>
             <th className='py-3 px-6 text-left'>Precio</th>
             <th className='py-3 px-6 text-left'>Duración</th>
+            <th className='py-3 px-6 text-left'>Tamaño máximo del grupo</th>
+            <th className='py-3 px-6 text-left'>Foto</th>
             <th className='py-3 px-6 text-left'>Días</th>
             <th className='py-3 px-6 text-left'>Acciones</th>
           </tr>
         </thead>
-        <tbody className='text-gray-700 text-sm'>
+        <tbody className='text-dark-secondary dark:text-white text-sm'>
           {tours.map(tour => (
             <tr
               key={tour.tourId}
-              className='border-b border-gray-200 hover:bg-gray-100'
+              className='border-b border-gray-200 dark:border-dark-secondary hover:bg-primary-lightest dark:hover:bg-dark-card'
             >
               <td className='py-3 px-6 text-left'>{tour.tourId}</td>
               <td className='py-3 px-6 text-left'>{tour.tourName}</td>
+              <td className='py-3 px-6 text-left'>{tour.tourDescription}</td>
               <td className='py-3 px-6 text-left'>{tour.regions.join(', ')}</td>
               <td className='py-3 px-6 text-left'>{tour.price}</td>
               <td className='py-3 px-6 text-left'>{tour.duration}</td>
+              <td className='py-3 px-6 text-left'>{tour.maxGroupSize}</td>
+              <td className='py-3 px-6 text-left'>{tour.photosUrl}</td>
               <td className='py-3 px-6 text-left'>{tour.days.join(', ')}</td>
 
               <td className='py-3 px-6 text-center'>
                 <div className='flex item-center justify-center space-x-4'>
                   <button
-                    className='text-blue-600 hover:text-blue-900'
+                    className='text-accent dark:text-primary-light hover:text-primary-dark dark:hover:text-primary-lighter'
                     onClick={() => handleEdit(tour)}
                     title='Editar'
                   >
                     <Edit className='w-4 h-4' />
                   </button>
                   <button
-                    className='text-red-600 hover:text-red-900'
+                    className='text-danger dark:text-danger hover:text-danger-dark dark:hover:text-danger-light'
                     onClick={() => handleDelete(tour.tourId)}
                     title='Borrar'
                   >
@@ -199,78 +207,116 @@ export default function TourManagement() {
 
       {isDialogOpen && (
         <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'>
-          <div className='bg-white p-6 rounded-lg w-96'>
-            <h2 className='text-xl font-bold mb-4 text-primary-darker'>
+          <div className='bg-white dark:bg-dark-card p-6 rounded-lg w-96'>
+            <h2 className='text-xl font-bold mb-4 text-primary-darker dark:text-primary-light'>
               {currentTour ? 'Editar Tour' : 'Agregar Nuevo Tour'}
             </h2>
             <form onSubmit={handleSubmit} className='w-50 space-y-4'>
-              <input
+              <InputField
                 type='text'
                 name='tourName'
                 placeholder='Nombre del Tour'
                 value={formData.tourName}
                 onChange={handleChange}
-                className='w-full p-2 border rounded'
               />
-              <input
+              <InputField
                 type='text'
                 name='tourDescription'
                 placeholder='Descripción del Tour'
                 value={formData.tourDescription}
                 onChange={handleChange}
-                className='w-full p-2 border rounded'
               />
-              <input
+              <InputField
                 type='text'
                 name='regions'
                 placeholder='Regiones (separadas por comas)'
                 value={formData.regions.join(', ')}
                 onChange={handleRegionsChange}
-                className='w-full p-2 border rounded'
               />
-              <input
+              <InputField
                 type='number'
                 name='price'
                 placeholder='Precio'
                 value={formData.price}
                 onChange={handleChange}
-                className='w-full p-2 border rounded'
               />
-              <input
+              <InputField
                 type='text'
                 name='duration'
                 placeholder='Duración (días)'
                 value={formData.duration}
                 onChange={handleChange}
-                className='w-full p-2 border rounded'
               />
-              <input
+              <InputField
                 type='text'
                 name='days'
-                placeholder='Días (separados por comas)'
+                placeholder='Días '
                 value={formData.days.join(', ')}
                 onChange={handleDaysChange}
-                className='w-full p-2 border rounded'
               />
               <div className='flex justify-end space-x-2'>
-                <button
-                  type='button'
+                <Button
                   onClick={() => setIsDialogOpen(false)}
-                  className='bg-gray-200 text-gray-800 px-4 py-2 rounded-md'
+                  styleType='secondary'
                 >
                   Cancelar
-                </button>
-                <button
-                  type='submit'
-                  className='bg-primary-darker text-white px-4 py-2 rounded-md'
-                >
+                </Button>
+                <Button type='submit' styleType='primary'>
                   {currentTour ? 'Actualizar' : 'Agregar'}
-                </button>
+                </Button>
               </div>
             </form>
           </div>
         </div>
       )}
     </div>
+  )
+}
+type ButtonProps = {
+  children: React.ReactNode
+  onClick?: () => void
+  type?: 'button' | 'submit'
+  styleType: 'primary' | 'secondary'
+}
+
+type InputFieldProps = {
+  type: string
+  name: string
+  placeholder: string
+  value: string | number
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
+const InputField: React.FC<InputFieldProps> = ({
+  type,
+  name,
+  placeholder,
+  value,
+  onChange
+}) => (
+  <input
+    type={type}
+    name={name}
+    placeholder={placeholder}
+    value={value}
+    onChange={onChange}
+    className='w-full p-2 border rounded bg-white dark:bg-dark-secondary text-gray-900 dark:text-primary'
+  />
+)
+
+const Button: React.FC<ButtonProps> = ({
+  children,
+  onClick,
+  type = 'button',
+  styleType
+}) => {
+  const styles =
+    styleType === 'primary' ?
+      'bg-primary-darker dark:bg-primary text-white px-4 py-2 rounded-md'
+    : 'bg-gray-200 dark:bg-dark-secondary text-gray-800 dark:text-primary px-4 py-2 rounded-md'
+
+  return (
+    <button type={type} onClick={onClick} className={styles}>
+      {children}
+    </button>
   )
 }

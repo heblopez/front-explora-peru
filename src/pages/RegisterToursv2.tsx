@@ -3,6 +3,8 @@ import { DollarSign, Clock, Users, Upload, X, CheckIcon } from 'lucide-react'
 import { MapContainer, TileLayer } from 'react-leaflet'
 import MarkersRandom from '@/components/RegisterTour/MarkersRandom'
 import { useNavigate } from 'react-router-dom'
+import { registerTour } from '@/services/tourService'
+import { toast } from 'sonner'
 const dayNames = [
   'Monday',
   'Tuesday',
@@ -112,49 +114,46 @@ export default function RegisterTourV2() {
   }
   const navigate = useNavigate()
   const handleCreateTour = async () => {
-    const dataToSubmit = {
-      tourName: formData.tour.tour_name,
-      tourDescription: formData.tour.tour_description,
-      price: formData.tour.price,
-      duration: formData.tour.duration,
-      maxGroupSize: formData.tour.max_group_size,
-      photosUrl: formData.tour.photos_url,
-
-      places: formData.place.map(place => ({
-        name: place.name,
-        description: place.description || 'Descripción no disponible',
-        region: 'Puno',
-        photoUrl: place.photo_url || 'https://default.photo.url',
-        coordinates: place.coordinates.map(String)
-      })),
-      schedules: formData.schedules.map(schedule => ({
-        startDay: schedule.start_day,
-        startTime: schedule.start_time,
-        endDay: schedule.end_day,
-        endTime: schedule.end_time
-      }))
-    }
-
     try {
-      const response = await fetch('http://localhost:3000/api/tours', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0cmF2ZWxBZ2VuY3lJZCI6MSwidXNlcm5hbWUiOiI4ZTAwMzEzMy1iNjY1LTQwYTItOTZlNC1jMzVhNTE5MzkwM2MiLCJlbWFpbCI6Im5ld2FnZW5jeUBtYWlsLmNvbSIsImlhdCI6MTcyOTkxMTg2MywiZXhwIjoxNzI5OTE5MDYzfQ.UpRklXnt9mlpIb_IaKSDIV8tYHyqQE2s5LN1VIjRm1Y'
-        },
-        body: JSON.stringify(dataToSubmit)
-      })
+      const dataToSubmit = {
+        tourName: formData.tour.tour_name || 'Nombre no disponible',
+        tourDescription:
+          formData.tour.tour_description || 'Descripción no disponible',
+        price: formData.tour.price || 0,
+        duration: formData.tour.duration || 'Duración no especificada',
+        maxGroupSize: formData.tour.max_group_size || 1,
+        photosUrl: formData.tour.photos_url || 'https://default.photo.url',
 
-      if (!response.ok) {
-        throw new Error('Error al enviar los datos')
+        places: formData.place.map(place => ({
+          name: place.name || 'Nombre no disponible',
+          description: place.description || 'Descripción no disponible',
+          region: place.region || 'Puno',
+          photoUrl: place.photo_url || 'https://default.photo.url',
+          coordinates: place.coordinates.map(coordinate =>
+            coordinate.toString()
+          )
+        })),
+        schedules: formData.schedules.map(schedule => ({
+          startDay: schedule.start_day || 'Lunes',
+          startTime: schedule.start_time || '00:00',
+          endDay: schedule.end_day || 'Lunes',
+          endTime: schedule.end_time || '00:00'
+        }))
       }
 
-      alert('Datos enviados con éxito')
-      navigate('/admin-tours')
+      const result = await registerTour(dataToSubmit)
+
+      if (result) {
+        toast.success('Tour registrado con éxito 🎉')
+        navigate('/admin-tours')
+      } else {
+        toast.error('Error al registrar el tour 😢')
+      }
     } catch (error) {
-      console.error(error)
-      alert('Hubo un problema al enviar los datos')
+      toast.error(
+        'Error al procesar la solicitud. Por favor, inténtalo de nuevo.'
+      )
+      console.error('Error en handleCreateTour:', error)
     }
   }
 
@@ -171,7 +170,7 @@ export default function RegisterTourV2() {
     }
   }
   return (
-    <div className='w-3/6 sm:w-5/6 bg-secondary dark:bg-gray-700 max-w-3xl mx-auto p-8 rounded-lg shadow-lg text-dark-secondary dark:text-primary'>
+    <div className='w-5/6 md:w-3/6 bg-secondary dark:bg-gray-700 max-w-3xl mx-auto p-8 rounded-lg shadow-lg text-dark-secondary dark:text-primary'>
       <div className='flex justify-between items-center mb-8'>
         {steps.map((step, index) => (
           <React.Fragment key={step.name}>

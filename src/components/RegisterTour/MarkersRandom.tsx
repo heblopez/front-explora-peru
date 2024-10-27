@@ -8,7 +8,7 @@ interface MarkerData {
   name: string
   description: string
   photoUrl: File | null
-  coordinates: [number, number] // Ajustamos aquí para que se llame 'coordinates'
+  coordinates: [number, number]
 }
 
 interface MarkersRandomProps {

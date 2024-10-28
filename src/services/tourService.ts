@@ -36,10 +36,13 @@ export const getMyTours = async (): Promise<Tour[] | null> => {
     return null
   }
 }
-export const getTourById = async (id: string) => {
+export const getTourById = async (id: string): Promise<Tour | null> => {
   try {
     const res = await fetch(`${API_TOURS_URL}/${id}`)
-    return res.json()
+
+    if (!res.ok) throw new Error('Failed to load tour by ID')
+    const data = await res.json()
+    return data.data || null
   } catch (error) {
     toast.error('Error de servidor 😢 Por favor, inténtalo de nuevo')
     console.error(error)

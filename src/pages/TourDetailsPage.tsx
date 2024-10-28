@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Tour } from '@/types/tour'
+import { Tour } from '@/types/Tour'
 import { Button } from '@/components/ui/button'
 import {
   StarFilledIcon,
@@ -18,22 +18,41 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
+import { getTourById, getTours } from '@/services/tourService'
 
 export default function TourDetailPage() {
-  const { id } = useParams()
+  const { id } = useParams<{ id?: string }>()
   const [tour, setTour] = useState<Tour | null>(null)
   const [featuredTours, setFeaturedTours] = useState<Tour[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const toursPerPage = 4
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/tours/${id}`)
-      .then(res => res.json())
-      .then(data => setTour(data))
+    if (!id) {
+      console.error('Tour ID no disponible')
+      return
+    }
 
-    fetch(`http://localhost:3000/api/tours?featured=true`)
-      .then(res => res.json())
-      .then(data => setFeaturedTours(data))
+    const fetchTour = async () => {
+      try {
+        const fetchedTour = await getTourById(id)
+        setTour(fetchedTour)
+      } catch (error) {
+        console.error('Error fetching tour:', error)
+      }
+    }
+
+    const fetchFeaturedTours = async () => {
+      try {
+        const fetchedTours = await getTours('featured=true')
+        setFeaturedTours(fetchedTours || [])
+      } catch (error) {
+        console.error('Error fetching featured tours:', error)
+      }
+    }
+
+    fetchTour()
+    fetchFeaturedTours()
   }, [id])
 
   const handleNext = () => {
@@ -60,15 +79,22 @@ export default function TourDetailPage() {
 
       <p className='text-lg mb-2 flex items-center'>
         <StarFilledIcon className='text-yellow-500 mr-1' />
-        <strong>{tour.rating}</strong>
+        <strong>{tour.rating || 'Sin valoraciones'}</strong>
       </p>
+      {/* Mostrar la imagen del tour justo debajo de la calificación */}
+      {tour.photosUrl.length > 0 && (
+        <div className='mb-4 p-2 border rounded-lg shadow-md bg-white dark:bg-gray-700'>
+          <img
+            src={tour.photosUrl[0]}
+            alt={`${tour.tourName} - imagen`}
+            className='w-3/4 h-auto mx-auto rounded-md'
+          />
+        </div>
+      )}
       <div className='flex flex-col md:flex-row mb-8'>
         <div className='w-full md:w-2/3 pr-0 md:pr-8 mb-4 md:mb-0'>
           <p className='text-lg mb-4 text-gray-800 dark:text-gray-200'>
-            Explora la Universidad de Harvard, situada cerca de Boston, en un
-            tour guiado a pie. Pasea por el campus con un estudiante actual,
-            aprende sobre la universidad más antigua de EE.UU. y contempla sus
-            monumentos más destacados.
+            {tour.tourDescription}
           </p>
           <h2 className='text-2xl font-bold mb-4 text-gray-900 dark:text-white'>
             Información sobre el tour
@@ -78,17 +104,17 @@ export default function TourDetailPage() {
               {
                 icon: <GlobeIcon className='text-xl mr-2' />,
                 label: 'Región:',
-                value: tour.regions
+                value: tour.regions.join(', ') || 'No especificada'
               },
               {
                 icon: <ClockIcon className='text-xl mr-2' />,
-                label: 'Hora de inicio:',
-                value: tour.startTime
+                label: 'Duración:',
+                value: `${tour.duration} h` || 'No especificada'
               },
               {
                 icon: <CalendarIcon className='text-xl mr-2' />,
                 label: 'Días disponibles:',
-                value: tour.days.join(', ')
+                value: tour.days?.join(', ') || 'No especificados'
               },
               {
                 icon: <CheckCircledIcon className='text-xl mr-2' />,
@@ -150,14 +176,14 @@ export default function TourDetailPage() {
                 </CardTitle>
                 <CardDescription className='flex items-center text-gray-700 dark:text-gray-400'>
                   <GlobeIcon className='h-4 w-4 mr-1' />
-                  <em>{featuredTour.regions}</em>
+                  <em>{featuredTour.regions.join(', ')}</em>
                 </CardDescription>
               </CardHeader>
               <CardContent className='flex-grow'>
                 <div className='flex justify-between items-center mb-2'>
                   <div className='flex items-center'>
                     <StarFilledIcon className='h-4 w-4 text-yellow-400 mr-1' />
-                    <span>{featuredTour.rating}</span>
+                    <span>{featuredTour.rating || 'Sin valoraciones'}</span>
                   </div>
                   <div className='text-sm text-gray-700 dark:text-gray-400'>
                     <ClockIcon className='h-4 w-4 inline mr-1' />
@@ -169,7 +195,7 @@ export default function TourDetailPage() {
                 </p>
               </CardContent>
               <CardFooter>
-                <Link to={`/tours/${featuredTour.tourName}`}>
+                <Link to={`/tours/${featuredTour.tourId}`}>
                   <Button className='w-full bg-primary hover:bg-primary-light dark:bg-primary-darker dark:text-inherit'>
                     Ver detalles
                   </Button>

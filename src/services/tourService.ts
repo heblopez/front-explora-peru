@@ -1,5 +1,5 @@
 import { API_TOURS_URL } from '@/config'
-import { Tour } from '@/types/tour'
+import { Tour } from '@/types/Tour'
 import { getBearerToken } from '@/utils'
 import { toast } from 'sonner'
 
@@ -19,7 +19,23 @@ export const getTours = async (query?: string): Promise<Tour[] | null> => {
     return null
   }
 }
+export const getMyTours = async (): Promise<Tour[] | null> => {
+  try {
+    const res = await fetch(`${API_TOURS_URL}/admin `, {
+      headers: {
+        Authorization: bearerToken
+      }
+    })
 
+    if (!res.ok) throw new Error('Failed to load tours')
+    const data = await res.json()
+    return data.data
+  } catch (error) {
+    toast.error('Error al cargar los tours 😢 Por favor, inténtalo de nuevo')
+    console.error(error)
+    return null
+  }
+}
 export const getTourById = async (id: string) => {
   try {
     const res = await fetch(`${API_TOURS_URL}/${id}`)

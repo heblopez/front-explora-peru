@@ -6,7 +6,6 @@ import Tours from './pages/Tours'
 import Navbar from './components/Header/Navbar'
 import AgenciesLanding from './pages/AgenciesLanding'
 import Footer from './components/Footer/Footer'
-import { RegisterTours } from './pages/RegisterTours'
 import { useDarkMode } from './hooks/useDarkMode'
 import EditProfile from './pages/EditProfile'
 import { Toaster } from 'sonner'
@@ -15,8 +14,9 @@ import SearchTours from './pages/SearchTours'
 import AboutExplora from './pages/AboutExplora'
 import AdminTours from './pages/AdminTours'
 import TourDetailPage from './pages/TourDetailsPage'
-import PrivacyPolicy from './pages/PrivacyPolicy'
+import RegisterToursv2 from './pages/RegisterToursv2'
 import TermsAndConditions from './pages/TermsAndConditions'
+import PrivacyPolicy from './pages/PrivacyPolicy'
 import TourScheduler from './components/RegisterTour/TourScheluder2'
 
 function App() {
@@ -39,7 +39,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/tours' element={<Tours />} />
-          <Route path='/register-tours' element={<RegisterTours />} />
+          <Route path='/register-tours' element={<RegisterToursv2 />} />
           <Route path='/edit-profile' element={<EditProfile />} />
           <Route path='/search-tours' element={<SearchTours />} />
           <Route path='/about-us' element={<AboutExplora />} />

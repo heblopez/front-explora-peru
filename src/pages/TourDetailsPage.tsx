@@ -27,11 +27,11 @@ export default function TourDetailPage() {
   const toursPerPage = 4
 
   useEffect(() => {
-    fetch(`http://localhost:3000/tours/${id}`)
+    fetch(`http://localhost:3000/api/tours/${id}`)
       .then(res => res.json())
       .then(data => setTour(data))
 
-    fetch(`http://localhost:3000/tours?featured=true`)
+    fetch(`http://localhost:3000/api/tours?featured=true`)
       .then(res => res.json())
       .then(data => setFeaturedTours(data))
   }, [id])
@@ -55,7 +55,7 @@ export default function TourDetailPage() {
   return (
     <div className='p-4 md:p-8 bg-white dark:bg-gray-800'>
       <h1 className='text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white'>
-        {tour.name}
+        {tour.tourName}
       </h1>
 
       <p className='text-lg mb-2 flex items-center'>
@@ -78,7 +78,7 @@ export default function TourDetailPage() {
               {
                 icon: <GlobeIcon className='text-xl mr-2' />,
                 label: 'Región:',
-                value: tour.region
+                value: tour.regions
               },
               {
                 icon: <ClockIcon className='text-xl mr-2' />,
@@ -141,16 +141,16 @@ export default function TourDetailPage() {
           .slice(currentIndex, currentIndex + toursPerPage)
           .map(featuredTour => (
             <Card
-              key={featuredTour.id}
+              key={featuredTour.tourId}
               className='flex flex-col dark:bg-dark-secondary'
             >
               <CardHeader>
                 <CardTitle className='text-lg font-semibold line-clamp-2 text-gray-900 dark:text-white'>
-                  {featuredTour.name}
+                  {featuredTour.tourName}
                 </CardTitle>
                 <CardDescription className='flex items-center text-gray-700 dark:text-gray-400'>
                   <GlobeIcon className='h-4 w-4 mr-1' />
-                  <em>{featuredTour.region}</em>
+                  <em>{featuredTour.regions}</em>
                 </CardDescription>
               </CardHeader>
               <CardContent className='flex-grow'>
@@ -169,7 +169,7 @@ export default function TourDetailPage() {
                 </p>
               </CardContent>
               <CardFooter>
-                <Link to={`/tours/${featuredTour.id}`}>
+                <Link to={`/tours/${featuredTour.tourName}`}>
                   <Button className='w-full bg-primary hover:bg-primary-light dark:bg-primary-darker dark:text-inherit'>
                     Ver detalles
                   </Button>

@@ -136,7 +136,7 @@ export default function RegisterTourV2() {
         schedules: formData.schedules.map(schedule => ({
           startDay: schedule.start_day || 'Monday',
           startTime: schedule.start_time || '00:00',
-          endDay: schedule.end_day || 'Tuesday',
+          endDay: 'Tuesday',
           endTime: schedule.end_time || '00:00'
         }))
       }

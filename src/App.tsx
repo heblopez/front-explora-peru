@@ -23,8 +23,8 @@ function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
 
   return (
-    <UserProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <UserProvider>
         <Navbar isDark={isDarkMode} toggleTheme={toggleDarkMode} />
         <Toaster
           position='top-right'
@@ -54,8 +54,8 @@ function App() {
           <Route path='/scheduler' element={<TourScheduler />} />
         </Routes>
         <Footer />
-      </BrowserRouter>
-    </UserProvider>
+      </UserProvider>
+    </BrowserRouter>
   )
 }
 

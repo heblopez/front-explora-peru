@@ -6,6 +6,7 @@ import {
   TouristDataResponse
 } from '@/types/auth'
 import { getDataFromLocalStorage } from '@/utils'
+import { useNavigate } from 'react-router-dom'
 
 interface IUserContext {
   user: AgencyDataResponse | TouristDataResponse | null
@@ -19,6 +20,8 @@ export default function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<
     AgencyDataResponse | TouristDataResponse | null
   >(getDataFromLocalStorage('user'))
+
+  const navigate = useNavigate()
 
   const saveUser = (data: LoginResponse): string => {
     const { token, data: dataToSave } = data
@@ -50,6 +53,7 @@ export default function UserProvider({ children }: { children: ReactNode }) {
         document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
         setUser(null)
         localStorage.removeItem('user')
+        navigate('/')
         return 'Nos vemos pronto! 👋'
       },
       error: err => err,

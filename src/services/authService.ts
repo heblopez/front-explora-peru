@@ -1,6 +1,10 @@
 import { API_AUTH_URL } from '@/config'
-import { LoginResponse } from '@/types/auth'
-import { LoginForm, TouristRegForm } from '@/validations/authSchemas'
+import { LoginResponse, RegisterResponse } from '@/types/auth'
+import {
+  AgencyRegForm,
+  LoginForm,
+  TouristRegForm
+} from '@/validations/authSchemas'
 
 export const login = async (form: LoginForm): Promise<LoginResponse> => {
   try {
@@ -25,18 +29,46 @@ export const login = async (form: LoginForm): Promise<LoginResponse> => {
   }
 }
 
-export const registerTourist = async (form: TouristRegForm) => {
+export const registerTourist = async (
+  form: TouristRegForm
+): Promise<RegisterResponse> => {
   try {
+    const { confirmPassword: _, ...formToSend } = form
     const res = await fetch(`${API_AUTH_URL}/register-tourist`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(form)
+      body: JSON.stringify(formToSend)
     })
     if (!res.ok)
-      throw new Error('Error al registrar 😢 Por favor, inténtalo de nuevo')
-    return res.json()
+      throw new Error(
+        'Error al registrar turista 😢 Por favor, inténtalo de nuevo'
+      )
+    return res.json() as Promise<RegisterResponse>
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const registerAgency = async (
+  form: AgencyRegForm
+): Promise<RegisterResponse> => {
+  try {
+    const { confirmPassword: _, ...formToSend } = form
+    const res = await fetch(`${API_AUTH_URL}/register-agency`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formToSend)
+    })
+    if (!res.ok)
+      throw new Error(
+        'Error al registrar agencia 😢 Por favor, inténtalo de nuevo'
+      )
+    return res.json() as Promise<RegisterResponse>
   } catch (error) {
     console.error(error)
     throw error

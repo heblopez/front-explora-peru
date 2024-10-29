@@ -30,7 +30,11 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true }
       ],
-      ...prettierConfig.rules
+      ...prettierConfig.rules,
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }
+      ]
     }
   }
 )

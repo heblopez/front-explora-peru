@@ -18,6 +18,7 @@ import RegisterToursv2 from './pages/RegisterToursv2'
 import TermsAndConditions from './pages/TermsAndConditions'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TourScheduler from './components/RegisterTour/TourScheluder2'
+import ScrollToTop from './components/global/ScrollToTop'
 
 function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
@@ -33,6 +34,7 @@ function App() {
           theme={isDarkMode ? 'dark' : 'light'}
           visibleToasts={4}
         />
+        <ScrollToTop />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/agencies' element={<AgenciesLanding />} />

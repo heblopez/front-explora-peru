@@ -139,7 +139,7 @@ function AboutExplora() {
             className='w-full sm:w-auto bg-primary text-white dark:bg-primary-light hover:bg-primary-dark hover:dark:bg-primary-lighter transition-colors duration-300 ease-in-out'
             size='lg'
           >
-            <Link to='/register' className='block px-6 py-3'>
+            <Link to='/register-agency' className='block px-6 py-3'>
               {t('aboutExplora.agencyButton')}
             </Link>
           </Button>

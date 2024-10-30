@@ -19,15 +19,29 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
+import { TrashIcon } from 'lucide-react'
 
-type SingleSchedule = {
-  day: string
-  times: Array<{ startTime: string; endTime: string }>
+type TimeSlot = {
+  startTime: string
+  endTime: string
 }
 
-type TourScheduleData = {
+type DaySchedule = {
+  day: string
+  timeSlots: TimeSlot[]
+}
+
+type SingleSchedule = {
+  startDay: string
+  startTime: string
+  endDay: string
+  endTime: string
+}
+
+type TourSchedulerData = {
   isMultiDay: boolean
-  schedules: SingleSchedule[]
+  multidaySchedules: SingleSchedule[]
+  oneDaySchedules: DaySchedule[]
 }
 
 const daysOfWeek = [
@@ -40,22 +54,23 @@ const daysOfWeek = [
   'Domingo'
 ]
 
-export default function TourScheduler() {
-  const [scheduleData, setScheduleData] = useState<TourScheduleData>({
+export default function TourScheduler({ tourId = 1 }: { tourId?: number }) {
+  const [schedulerData, setSchedulerData] = useState<TourSchedulerData>({
     isMultiDay: false,
-    schedules: []
+    multidaySchedules: [],
+    oneDaySchedules: []
   })
 
   const handleMultiDayToggle = (checked: boolean) => {
-    setScheduleData({ ...scheduleData, isMultiDay: checked, schedules: [] })
+    setSchedulerData({ ...schedulerData, isMultiDay: checked })
   }
 
   const addSchedule = () => {
-    setScheduleData({
-      ...scheduleData,
-      schedules: [
-        ...scheduleData.schedules,
-        { day: '', times: [{ startTime: '', endTime: '' }] }
+    setSchedulerData({
+      ...schedulerData,
+      multidaySchedules: [
+        ...schedulerData.multidaySchedules,
+        { startDay: '', startTime: '', endDay: '', endTime: '' }
       ]
     })
   }
@@ -65,117 +80,115 @@ export default function TourScheduler() {
     field: keyof SingleSchedule,
     value: string
   ) => {
-    const updatedSchedules = scheduleData.schedules.map((schedule, i) =>
-      i === index ? { ...schedule, [field]: value } : schedule
+    const updatedSchedules = schedulerData.multidaySchedules.map(
+      (schedule, i) =>
+        i === index ? { ...schedule, [field]: value } : schedule
     )
-    setScheduleData({ ...scheduleData, schedules: updatedSchedules })
+    setSchedulerData({ ...schedulerData, multidaySchedules: updatedSchedules })
   }
 
   const removeSchedule = (index: number) => {
-    const updatedSchedules = scheduleData.schedules.filter(
+    const updatedSchedules = schedulerData.multidaySchedules.filter(
       (_, i) => i !== index
     )
-    setScheduleData({ ...scheduleData, schedules: updatedSchedules })
+    setSchedulerData({ ...schedulerData, multidaySchedules: updatedSchedules })
   }
 
   const handleDayToggle = (day: string) => {
-    const updatedSchedules =
-      scheduleData.schedules.some(s => s.day === day) ?
-        scheduleData.schedules.filter(s => s.day !== day)
+    const updatedDaySchedules =
+      schedulerData.oneDaySchedules.some(s => s.day === day) ?
+        schedulerData.oneDaySchedules.filter(s => s.day !== day)
       : [
-          ...scheduleData.schedules,
-          { day, times: [{ startTime: '', endTime: '' }] }
+          ...schedulerData.oneDaySchedules,
+          {
+            day,
+            timeSlots: [{ startTime: '', endTime: '' }]
+          }
         ]
-    setScheduleData({ ...scheduleData, schedules: updatedSchedules })
+    setSchedulerData({ ...schedulerData, oneDaySchedules: updatedDaySchedules })
   }
 
   const addTimeSlot = (day: string) => {
-    const updatedSchedules = scheduleData.schedules.map(schedule =>
+    const updatedDaySchedules = schedulerData.oneDaySchedules.map(schedule =>
       schedule.day === day ?
         {
           ...schedule,
-          times: [...schedule.times, { startTime: '', endTime: '' }]
+          timeSlots: [...schedule.timeSlots, { startTime: '', endTime: '' }]
         }
       : schedule
     )
-    setScheduleData({ ...scheduleData, schedules: updatedSchedules })
+    setSchedulerData({ ...schedulerData, oneDaySchedules: updatedDaySchedules })
   }
 
   const updateTimeSlot = (
     day: string,
     index: number,
-    field: 'startTime' | 'endTime',
+    field: keyof TimeSlot,
     value: string
   ) => {
-    const updatedSchedules = scheduleData.schedules.map(schedule =>
+    const updatedDaySchedules = schedulerData.oneDaySchedules.map(schedule =>
       schedule.day === day ?
         {
           ...schedule,
-          times: schedule.times.map((time, i) =>
-            i === index ? { ...time, [field]: value } : time
+          timeSlots: schedule.timeSlots.map((slot, i) =>
+            i === index ? { ...slot, [field]: value } : slot
           )
         }
       : schedule
     )
-    setScheduleData({ ...scheduleData, schedules: updatedSchedules })
+    setSchedulerData({ ...schedulerData, oneDaySchedules: updatedDaySchedules })
   }
 
   const removeTimeSlot = (day: string, index: number) => {
-    const updatedSchedules = scheduleData.schedules
+    const updatedDaySchedules = schedulerData.oneDaySchedules
       .map(schedule =>
         schedule.day === day ?
-          { ...schedule, times: schedule.times.filter((_, i) => i !== index) }
+          {
+            ...schedule,
+            timeSlots: schedule.timeSlots.filter((_, i) => i !== index)
+          }
         : schedule
       )
-      .filter(schedule => schedule.times.length > 0)
-    setScheduleData({ ...scheduleData, schedules: updatedSchedules })
+      .filter(schedule => schedule.timeSlots.length > 0)
+
+    setSchedulerData({ ...schedulerData, oneDaySchedules: updatedDaySchedules })
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const formattedData = {
-      ...scheduleData,
-      schedules:
-        scheduleData.isMultiDay ?
-          scheduleData.schedules
-        : scheduleData.schedules.flatMap(schedule =>
-            schedule.times.map(time => ({
-              startDay: schedule.day,
-              startTime: time.startTime,
-              endDay: schedule.day,
-              endTime: time.endTime
-            }))
-          )
+      ...schedulerData,
+      schedules: schedulerData.multidaySchedules
     }
     console.log('Evento programado:', formattedData)
     // Here would be the logic to send the data to the server
   }
 
   return (
-    <Card className='w-full min-w-[16rem] max-w-[20rem]'>
-      <CardHeader>
-        <CardTitle>Programar Evento</CardTitle>
+    <Card
+      key={`scheduler-tour-${tourId}`}
+      className='flex flex-col w-max min-w-[18rem] max-w-[22rem]'
+    >
+      <CardHeader className='p-4'>
+        <CardTitle>Programar Horarios del Tour</CardTitle>
         <CardDescription>
-          Crea un nuevo evento con horarios personalizados
+          Agrega horarios personalizados al tour
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
-        <CardContent className='p-6'>
-          <div className='space-y-4 max-h-[600px] overflow-y-auto pr-2'>
+        <CardContent className='p-4'>
+          <div className='space-y-4 max-h-[600px] overflow-y-auto scrollbar-hidden'>
             <div className='flex gap-4 items-center'>
-              <Label>¿Es un evento de varios días?</Label>
+              <Label>¿Es un tour que toma más de un día?</Label>
               <Switch
                 id='multi-day'
-                checked={scheduleData.isMultiDay}
+                checked={schedulerData.isMultiDay}
                 onCheckedChange={handleMultiDayToggle}
               />
             </div>
-            {scheduleData.isMultiDay ?
+            {schedulerData.isMultiDay ?
               <div className='space-y-4'>
-                <Button type='button' onClick={addSchedule}>
-                  Agregar Horario
-                </Button>
-                {scheduleData.schedules.map((schedule, index) => (
+                {schedulerData.multidaySchedules.map((schedule, index) => (
                   <Card key={index} className='p-4'>
                     <div className='grid grid-cols-2 gap-4'>
                       <div className='space-y-2'>
@@ -183,13 +196,13 @@ export default function TourScheduler() {
                           Día de inicio
                         </Label>
                         <Select
-                          value={schedule.day}
+                          value={schedule.startDay}
                           onValueChange={value =>
-                            updateSchedule(index, 'day', value)
+                            updateSchedule(index, 'startDay', value)
                           }
                         >
                           <SelectTrigger id={`start-day-${index}`}>
-                            <SelectValue placeholder='Seleccionar día' />
+                            <SelectValue placeholder='Seleccionar' />
                           </SelectTrigger>
                           <SelectContent>
                             {daysOfWeek.map(day => (
@@ -200,68 +213,52 @@ export default function TourScheduler() {
                           </SelectContent>
                         </Select>
                       </div>
-                      {schedule.times.map((time, timeIndex) => (
-                        <>
-                          <div className='space-y-2'>
-                            <Label htmlFor={`start-time-${index}-${timeIndex}`}>
-                              Hora de inicio
-                            </Label>
-                            <Input
-                              id={`start-time-${index}-${timeIndex}`}
-                              type='time'
-                              value={time.startTime}
-                              onChange={e =>
-                                updateTimeSlot(
-                                  schedule.day,
-                                  timeIndex,
-                                  'startTime',
-                                  e.target.value
-                                )
-                              }
-                              required
-                            />
-                          </div>
-                          <div className='space-y-2'>
-                            <Label htmlFor={`end-time-${index}-${timeIndex}`}>
-                              Hora de fin
-                            </Label>
-                            <Input
-                              id={`end-time-${index}-${timeIndex}`}
-                              type='time'
-                              value={time.endTime}
-                              onChange={e =>
-                                updateTimeSlot(
-                                  schedule.day,
-                                  timeIndex,
-                                  'endTime',
-                                  e.target.value
-                                )
-                              }
-                              required
-                            />
-                          </div>
-                        </>
-                      ))}
-                      <Button
-                        type='button'
-                        onClick={() => addTimeSlot(schedule.day)}
-                      >
-                        Agregar Horario
-                      </Button>
-                      {schedule.times.length > 1 && (
-                        <Button
-                          type='button'
-                          variant='destructive'
-                          onClick={() =>
-                            removeTimeSlot(
-                              schedule.day,
-                              schedule.times.length - 1
-                            )
+                      <div className='space-y-2'>
+                        <Label htmlFor={`end-day-${index}`}>Día de fin</Label>
+                        <Select
+                          value={schedule.endDay}
+                          onValueChange={value =>
+                            updateSchedule(index, 'endDay', value)
                           }
                         >
-                          Eliminar Último Horario
-                        </Button>
-                      )}
+                          <SelectTrigger id={`end-day-${index}`}>
+                            <SelectValue placeholder='Seleccionar' />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {daysOfWeek.map(day => (
+                              <SelectItem key={day} value={day}>
+                                {day}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className='space-y-2'>
+                        <Label htmlFor={`start-time-${index}`}>
+                          Hora de inicio
+                        </Label>
+                        <Input
+                          id={`start-time-${index}`}
+                          type='time'
+                          value={schedule.startTime}
+                          onChange={e =>
+                            updateSchedule(index, 'startTime', e.target.value)
+                          }
+                          required
+                        />
+                      </div>
+                      <div className='space-y-2'>
+                        <Label htmlFor={`end-time-${index}`}>Hora de fin</Label>
+                        <Input
+                          id={`end-time-${index}`}
+                          type='time'
+                          value={schedule.endTime}
+                          onChange={e =>
+                            updateSchedule(index, 'endTime', e.target.value)
+                          }
+                          required
+                        />
+                      </div>
                     </div>
                     <Button
                       type='button'
@@ -273,16 +270,19 @@ export default function TourScheduler() {
                     </Button>
                   </Card>
                 ))}
+                <Button type='button' onClick={addSchedule}>
+                  Agregar Horario
+                </Button>
               </div>
             : <div className='space-y-4'>
                 <div className='space-y-2'>
-                  <Label>Días del evento</Label>
+                  <Label>Días del tour</Label>
                   <div className='grid grid-cols-2 gap-2'>
                     {daysOfWeek.map(day => (
                       <div key={day} className='flex items-center space-x-2'>
                         <Checkbox
                           id={`day-${day}`}
-                          checked={scheduleData.schedules.some(
+                          checked={schedulerData.oneDaySchedules.some(
                             s => s.day === day
                           )}
                           onCheckedChange={() => handleDayToggle(day)}
@@ -292,12 +292,12 @@ export default function TourScheduler() {
                     ))}
                   </div>
                 </div>
-                {scheduleData.schedules.map(schedule => (
-                  <Card key={schedule.day} className='p-4'>
+                {schedulerData.oneDaySchedules.map((schedule, index) => (
+                  <Card key={`${schedule.day}-${index}`} className='p-4'>
                     <CardTitle className='mb-4'>{schedule.day}</CardTitle>
-                    {schedule.times.map((time, index) => (
+                    {schedule.timeSlots.map((slot, index) => (
                       <div
-                        key={index}
+                        key={`${schedule.day}-slot-${index}`}
                         className='grid grid-cols-[1fr_1fr_auto] gap-4 mb-2 items-end'
                       >
                         <div className='space-y-2'>
@@ -309,7 +309,7 @@ export default function TourScheduler() {
                           <Input
                             id={`start-time-${schedule.day}-${index}`}
                             type='time'
-                            value={time.startTime}
+                            value={slot.startTime}
                             onChange={e =>
                               updateTimeSlot(
                                 schedule.day,
@@ -328,7 +328,7 @@ export default function TourScheduler() {
                           <Input
                             id={`end-time-${schedule.day}-${index}`}
                             type='time'
-                            value={time.endTime}
+                            value={slot.endTime}
                             onChange={e =>
                               updateTimeSlot(
                                 schedule.day,
@@ -343,13 +343,14 @@ export default function TourScheduler() {
                         <Button
                           type='button'
                           variant='destructive'
-                          size='icon'
+                          size='sm'
                           onClick={() => removeTimeSlot(schedule.day, index)}
                         >
-                          X
+                          <TrashIcon className='w-4 h-4' />
                         </Button>
                       </div>
                     ))}
+
                     <div className='mt-4'>
                       <Button
                         type='button'
@@ -364,8 +365,8 @@ export default function TourScheduler() {
             }
           </div>
         </CardContent>
-        <CardFooter>
-          <Button type='submit'>Guardar Evento</Button>
+        <CardFooter className='p-4 justify-end'>
+          <Button type='submit'>Guardar Horarios</Button>
         </CardFooter>
       </form>
     </Card>

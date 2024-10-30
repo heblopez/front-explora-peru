@@ -1,5 +1,5 @@
 import { API_TOURS_URL } from '@/config'
-import { Tour } from '@/types/Tour'
+import { Tour } from '@/types/tour'
 import { getBearerToken } from '@/utils'
 import { toast } from 'sonner'
 

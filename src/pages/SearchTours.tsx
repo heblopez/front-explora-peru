@@ -194,7 +194,11 @@ export default function SearchTours() {
                     </CardTitle>
                     <CardDescription className='flex items-center text-gray-700 dark:text-inherit'>
                       <MapPin className='h-4 w-4 mr-1 text-gray-700 dark:text-inherit' />
-                      <em>{tour.regions.length > 0 ? tour.regions[0] : ''}</em>
+                      <em>
+                        {tour.regions.length > 0 ?
+                          tour.regions.join(' - ')
+                        : ''}
+                      </em>
                     </CardDescription>
                   </CardHeader>
                   <CardContent className='flex-grow'>

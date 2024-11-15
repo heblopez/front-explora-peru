@@ -151,6 +151,151 @@ export default function TourManagement() {
       {loading && <p className='text-warning dark:text-warning'>Loading...</p>}
       {error && <p className='text-danger dark:text-danger'>{error}</p>}
 
+      {/* Mostrar los tours como tarjetas */}
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
+        {tours.map(tour => (
+          <div
+            key={tour.tourId}
+            className='border rounded-lg shadow-md bg-secondary dark:bg-dark-card text-dark-primary-foreground dark:text-secondary p-4'
+          >
+            {/* Imagen del tour */}
+            <img
+              src={tour.photosUrl[0] || 'https://via.placeholder.com/150'}
+              alt={tour.tourName}
+              className='w-full h-48 object-cover rounded-md mb-4'
+            />
+
+            {/* Información del tour */}
+            <h2 className='text-lg font-bold mb-2'>{tour.tourName}</h2>
+            <p className='text-sm mb-2'>{tour.tourDescription}</p>
+            <p className='text-sm'>
+              <strong>Precio:</strong> ${tour.price}
+            </p>
+            <p className='text-sm'>
+              <strong>Duración:</strong> {tour.duration}
+            </p>
+            <p className='text-sm'>
+              <strong>Regiones:</strong> {tour.regions.join(', ')}
+            </p>
+            <p className='text-sm'>
+              <strong>Días:</strong> {tour.days.join(', ')}
+            </p>
+            <p className='text-sm'>
+              <strong>Tamaño máximo del grupo:</strong> {tour.maxGroupSize}
+            </p>
+            {tour.rating && (
+              <p className='text-sm'>
+                <strong>Rating:</strong> {tour.rating}/5
+              </p>
+            )}
+
+            {/* Acciones */}
+            <div className='flex justify-between items-center mt-4'>
+              <button
+                title='Editar'
+                onClick={() => handleEdit(tour)}
+                className='text-primary dark:text-primary-light hover:text-primary-dark dark:hover:text-primary-lighter'
+              >
+                <Edit className='w-4 h-4' />
+              </button>
+              <button
+                title='Borrar'
+                onClick={() => handleDelete(tour.tourId)}
+                className='text-danger dark:text-danger hover:text-danger-dark dark:hover:text-danger-light'
+              >
+                <Trash className='w-4 h-4' />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {isDialogOpen && (
+        <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'>
+          <div className='bg-white dark:bg-dark-card p-6 rounded-lg w-96'>
+            <h2 className='text-xl font-bold mb-4 text-primary-darker dark:text-primary-light'>
+              {currentTour ? 'Editar Tour' : 'Agregar Nuevo Tour'}
+            </h2>
+            <form onSubmit={handleSubmit} className='w-50 space-y-4'>
+              <InputField
+                type='text'
+                name='tourName'
+                placeholder='Nombre del Tour'
+                value={formData.tourName}
+                onChange={handleChange}
+              />
+              <InputField
+                type='text'
+                name='tourDescription'
+                placeholder='Descripción del Tour'
+                value={formData.tourDescription}
+                onChange={handleChange}
+              />
+              <InputField
+                type='text'
+                name='regions'
+                placeholder='Regiones (separadas por comas)'
+                value={formData.regions.join(', ')}
+                onChange={handleRegionsChange}
+              />
+              <InputField
+                type='number'
+                name='price'
+                placeholder='Precio'
+                value={formData.price}
+                onChange={handleChange}
+              />
+              <InputField
+                type='text'
+                name='duration'
+                placeholder='Duración (días)'
+                value={formData.duration}
+                onChange={handleChange}
+              />
+              <InputField
+                type='text'
+                name='days'
+                placeholder='Días '
+                value={formData.days.join(', ')}
+                onChange={handleDaysChange}
+              />
+              <div className='flex justify-end space-x-2'>
+                <Button
+                  onClick={() => setIsDialogOpen(false)}
+                  styleType='secondary'
+                >
+                  Cancelar
+                </Button>
+                <Button type='submit' styleType='primary'>
+                  {currentTour ? 'Actualizar' : 'Agregar'}
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  ) /*(
+    <div className='container mx-auto p-4 min-h-screen bg-secondary dark:bg-dark-secondary text-dark-secondary dark:text-primary'>
+      <div className='flex justify-between items-center mb-4'>
+        <h1 className='text-2xl font-bold text-primary-darker dark:text-primary-light'>
+          Administrador de Tours
+        </h1>
+        <div className='space-x-2'>
+          <button
+            className='bg-primary-darker dark:bg-primary text-white dark:text-dark-primary-foreground px-4 py-2 rounded-md flex items-center'
+            onClick={() => {
+              navigate('/register-tours')
+            }}
+          >
+            <PlusCircle className='mr-2 h-4 w-4' /> Add Tour
+          </button>
+        </div>
+      </div>
+
+      {loading && <p className='text-warning dark:text-warning'>Loading...</p>}
+      {error && <p className='text-danger dark:text-danger'>{error}</p>}
+
       <table className='min-w-full bg-secondary dark:bg-dark-card shadow rounded'>
         <thead>
           <tr className='bg-primary-lighter dark:bg-primary-dark text-dark-secondary dark:text-white text-sm leading-normal'>
@@ -270,7 +415,7 @@ export default function TourManagement() {
         </div>
       )}
     </div>
-  )
+  )*/
 }
 type ButtonProps = {
   children: React.ReactNode

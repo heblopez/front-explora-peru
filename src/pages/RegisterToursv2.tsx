@@ -145,6 +145,7 @@ export default function RegisterTourV2() {
 
       if (result) {
         toast.success('Tour registrado con éxito 🎉')
+        console.log('Tour registrado:', result)
         navigate('/admin-tours')
       } else {
         toast.error('Error al registrar el tour 😢')
@@ -374,14 +375,31 @@ function ScheduleStep({ data, setData }: StepProps<Schedule[]>) {
 
 function TourStep({ data, setData }: StepProps<Tour>) {
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const cloud_name = 'dgbn9dcr0'
+  const preset_name = 'tours-photo'
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
 
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const url = e.target.value
-    if (url) {
-      setData(prev => ({
-        ...prev,
-        tour: { ...prev.tour, photos_url: [...prev.tour.photos_url, url] }
-      }))
+    if (files) {
+      const data = new FormData()
+      data.append('file', files[0])
+      data.append('upload_preset', preset_name)
+      try {
+        const response = await fetch(
+          `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+          {
+            method: 'POST',
+            body: data
+          }
+        )
+        const file = await response.json()
+        const url = file.secure_url
+        setData(prev => ({
+          ...prev,
+          tour: { ...prev.tour, photos_url: [...prev.tour.photos_url, url] }
+        }))
+      } catch (error) {}
+
       e.target.value = ''
     }
   }

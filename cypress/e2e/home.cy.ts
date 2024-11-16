@@ -1,0 +1,45 @@
+describe('Home Page', () => {
+  it('Access the home page and toggle between light and dark modes', () => {
+    cy.visit('http://localhost:5173')
+
+    cy.url().should('include', '/')
+    cy.get('button[aria-haspopup="menu"]')
+      .should('be.visible')
+      .find('svg.lucide-globe')
+      .should('be.visible')
+      .and('have.class', 'lucide lucide-globe')
+      .should('be.visible')
+      .click()
+    cy.get('div[role="menuitem"]').should('be.visible')
+    cy.get('div[role="menuitem"]').contains('English').click()
+    cy.get('h1').should('contain.text', 'ExploraPerú')
+    cy.get('button[aria-haspopup="menu"]')
+      .should('be.visible')
+      .find('svg.lucide-globe')
+      .should('be.visible')
+      .and('have.class', 'lucide lucide-globe')
+      .should('be.visible')
+      .click()
+    cy.get('div[role="menuitem"]').should('be.visible')
+    cy.get('div[role="menuitem"]').contains('Español').click()
+    cy.get('nav').should('be.visible')
+    cy.get('footer').should('be.visible')
+
+    cy.get('button[aria-label="Cambiar a modo claro"]')
+      .should('be.visible')
+      .click()
+
+    cy.get('button[aria-label="Cambiar a modo oscuro"]')
+      .should('be.visible')
+      .click()
+
+    cy.window().then(win => {
+      cy.spy(win.console, 'error')
+    })
+
+    cy.window()
+      .should('have.property', 'console')
+      .and('have.property', 'error')
+      .and('not.be.called')
+  })
+})

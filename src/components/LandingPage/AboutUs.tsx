@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { Link } from 'react-router-dom'
 
 export default function AboutUs() {
   return (
@@ -21,13 +22,14 @@ export default function AboutUs() {
               primeras 50 personas que se inscriban en el tour recibirán un 15%
               de descuento en compras con nuestros socios:
             </p>
-
-            <Button
-              variant='outline'
-              className='text-cyan-400 border-cyan-400 hover:bg-cyan-400 hover:text-gray-900'
-            >
-              Agendar un Tour
-            </Button>
+            <Link to='/search-tours'>
+              <Button
+                variant='outline'
+                className='text-cyan-400 border-cyan-400 hover:bg-cyan-400 hover:text-gray-900'
+              >
+                Agendar un Tour
+              </Button>
+            </Link>
           </div>
           <div className='md:w-1/2 flex justify-end space-x-4'>
             <img

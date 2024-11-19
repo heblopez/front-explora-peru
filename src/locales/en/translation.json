@@ -53,7 +53,13 @@
     "and": " and ",
     "policyLink": "Privacy Policy",
     "alreadyHaveAccount": "Already have an account? ",
-    "loginLink": "Login"
+    "loginLink": "Login",
+    "agencyName": "Agency Name:",
+    "agencyDescription": "Agency Description:",
+    "max500Characters": "500 characters as maximum",
+    "ruc": "RUC:",
+    "address": "Address:",
+    "website": "Website:"
   },
   "footer": {
     "usefulLinks": "Useful links",

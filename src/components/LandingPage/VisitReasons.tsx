@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const reasons = [
   {
     title: 'Rico Patrimonio Cultural',
@@ -93,9 +95,11 @@ export default function VisitReasons() {
         </div>
 
         <div className='text-center mt-8'>
-          <button className='bg-cyan-400 text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-cyan-300 transition-colors'>
-            Agendar un Tour
-          </button>
+          <Link to='/search-tours'>
+            <button className='bg-cyan-400 text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-cyan-300 transition-colors'>
+              Agendar un Tour
+            </button>
+          </Link>
         </div>
       </div>
     </div>

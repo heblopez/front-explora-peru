@@ -30,7 +30,6 @@ function Footer() {
                 <Link
                   to='/about-us/'
                   className='hover:text-gray-950 transition-colors'
-                  onClick={() => window.scrollTo(0, 0)}
                 >
                   <span>{t('footer.aboutExploraPeru')}</span>
                 </Link>
@@ -51,7 +50,6 @@ function Footer() {
                 <Link
                   to='/terms-and-conditions/'
                   className='hover:text-gray-950 transition-colors'
-                  onClick={() => window.scrollTo(0, 0)}
                 >
                   <span>{t('footer.termsConditions')}</span>
                 </Link>
@@ -60,7 +58,6 @@ function Footer() {
                 <Link
                   to='/privacy-policy/'
                   className='hover:text-gray-950 transition-colors'
-                  onClick={() => window.scrollTo(0, 0)}
                 >
                   <span>{t('footer.privacyPolicy')}</span>
                 </Link>

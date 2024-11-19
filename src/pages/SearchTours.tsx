@@ -20,7 +20,7 @@ import { Spinner } from '@/components/ui/spinner'
 import { getTours } from '@/services/tourService'
 import { Tour } from '@/types/tour'
 import { StarFilledIcon } from '@radix-ui/react-icons'
-import { LucideClock, MapPin, Search } from 'lucide-react'
+import { LucideClock, MapPin, Search, StarIcon } from 'lucide-react'
 import { FormEvent, useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 
@@ -59,7 +59,6 @@ export default function SearchTours() {
       setQueryForm(prev => ({ ...prev, maxPrice }))
       queryArr.push(`maxPrice=${maxPrice}`)
     }
-    console.log('queryString', queryArr.join('&'))
     getTours(queryArr.join('&')).then(data => {
       setLoading(false)
       if (data) setTours(data)
@@ -183,7 +182,6 @@ export default function SearchTours() {
             Loading tours...
           </Spinner>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {queryForm && `Form: ${JSON.stringify(queryForm)}`}
             {tours &&
               tours.map((tour: Tour) => (
                 <Card
@@ -196,14 +194,28 @@ export default function SearchTours() {
                     </CardTitle>
                     <CardDescription className='flex items-center text-gray-700 dark:text-inherit'>
                       <MapPin className='h-4 w-4 mr-1 text-gray-700 dark:text-inherit' />
-                      <em>{tour.regions.length > 0 ? tour.regions[0] : ''}</em>
+                      <em>
+                        {tour.regions.length > 0 ?
+                          tour.regions.join(' - ')
+                        : ''}
+                      </em>
                     </CardDescription>
                   </CardHeader>
                   <CardContent className='flex-grow'>
                     <div className='flex justify-between items-center mb-2'>
                       <div className='flex items-center'>
-                        <StarFilledIcon className='h-4 w-4 text-yellow-400 mr-1' />
-                        <span>{tour.rating}</span>
+                        {tour.rating ?
+                          <>
+                            <StarFilledIcon className='h-4 w-4 text-yellow-400 mr-1' />
+                            <span>{tour.rating}</span>
+                          </>
+                        : <>
+                            <StarIcon className='h-4 w-4 text-yellow-400 mr-1' />
+                            <p className='text-sm text-gray-500 dark:text-inherit'>
+                              Aún no hay calificaciones
+                            </p>
+                          </>
+                        }
                       </div>
                       <div className='text-sm text-gray-700 dark:text-inherit'>
                         <LucideClock className='h-4 w-4 inline mr-1' />

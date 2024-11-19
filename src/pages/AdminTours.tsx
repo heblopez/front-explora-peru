@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { PlusCircle, Edit, Trash } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { getMyTours } from '@/services/tourService'
-import { Tour } from '@/types/Tour'
+import { Tour } from '@/types/tour'
 
 export default function TourManagement() {
   const [tours, setTours] = useState<Tour[]>([])

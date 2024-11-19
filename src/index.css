@@ -85,3 +85,14 @@ h1.web-name::before {
   color: hsla(0, 84%, 57%, 0.17);
   filter: blur(2px);
 }
+
+@layer utilities {
+  .scrollbar-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+}

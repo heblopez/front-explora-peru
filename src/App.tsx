@@ -18,13 +18,14 @@ import RegisterToursv2 from './pages/RegisterToursv2'
 import TermsAndConditions from './pages/TermsAndConditions'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TourScheduler from './components/RegisterTour/TourScheluder2'
+import ScrollToTop from './components/global/ScrollToTop'
 
 function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
 
   return (
-    <UserProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <UserProvider>
         <Navbar isDark={isDarkMode} toggleTheme={toggleDarkMode} />
         <Toaster
           position='top-right'
@@ -33,11 +34,13 @@ function App() {
           theme={isDarkMode ? 'dark' : 'light'}
           visibleToasts={4}
         />
+        <ScrollToTop />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/agencies' element={<AgenciesLanding />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/register-agency' element={<Register role='agency' />} />
           <Route path='/tours' element={<Tours />} />
           <Route path='/register-tours' element={<RegisterToursv2 />} />
           <Route path='/edit-profile' element={<EditProfile />} />
@@ -53,8 +56,8 @@ function App() {
           <Route path='/scheduler' element={<TourScheduler />} />
         </Routes>
         <Footer />
-      </BrowserRouter>
-    </UserProvider>
+      </UserProvider>
+    </BrowserRouter>
   )
 }
 

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export default function TownTour() {
   const images = [
     {
@@ -103,9 +105,11 @@ export default function TownTour() {
           </div>
         </div>
         <div className='flex justify-center mt-12 space-x-4'>
-          <button className='bg-cyan-400 text-gray-900 px-8 py-3 rounded-full font-semibold text-lg hover:bg-cyan-300 transition-colors'>
-            Agendar un Tour
-          </button>
+          <Link to='/search-tours'>
+            <button className='bg-cyan-400 text-gray-900 px-8 py-3 rounded-full font-semibold text-lg hover:bg-cyan-300 transition-colors'>
+              Agendar un Tour
+            </button>
+          </Link>
           <button className='text-cyan-400 font-semibold text-lg hover:underline'>
             Información de Reserva
           </button>

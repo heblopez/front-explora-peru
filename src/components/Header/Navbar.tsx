@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
-import { Menu, X, Building2, LogOut } from 'lucide-react'
+import { Menu, X, Building2, LogOut, Backpack } from 'lucide-react'
 import { DarkModeBtn } from './DarkModeBtn'
 import { UserContext } from '@/context/UserContext'
 import LanguageDropdown from './LanguageDropdown'
@@ -56,6 +56,16 @@ function Navbar({ isDark, toggleTheme }: NavbarProps) {
               <span>{t('header.agencies')}</span>
             </Button>
           </Link>
+          <Link to='/search-tours'>
+            <Button
+              variant='ghost'
+              size='sm'
+              className='text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
+            >
+              <Backpack className='h-4 w-4 mr-1' />
+              <span>{t('header.tours')}</span>
+            </Button>
+          </Link>
           <LanguageDropdown />
           {/*<CurrencyDropdown />*/}
           {!user ?
@@ -92,6 +102,18 @@ function Navbar({ isDark, toggleTheme }: NavbarProps) {
                 >
                   <Building2 className='h-4 w-4 mr-1' />
                   <span>{t('header.agencies')}</span>
+                </Button>
+              </Link>
+            </li>
+            <li className='px-3 py-2'>
+              <Link to='/search-tours' onClick={toggleMenu}>
+                <Button
+                  variant='ghost'
+                  size='sm'
+                  className='text-gray-600 hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:text-primary-light dark:hover:bg-slate-200'
+                >
+                  <Backpack className='h-4 w-4 mr-1' />
+                  <span>{t('header.tours')}</span>
                 </Button>
               </Link>
             </li>

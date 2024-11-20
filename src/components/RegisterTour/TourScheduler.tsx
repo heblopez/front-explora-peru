@@ -16,7 +16,9 @@ interface TourSchedulerProps {
 }
 export default function TourScheduler({ onUpdate }: TourSchedulerProps) {
   const [schedules, setSchedules] = useState<ScheduleItem[]>([])
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
+  const [selectedDate, _setSelectedDate] = useState<Date | undefined>(
+    new Date()
+  )
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
 

@@ -27,12 +27,21 @@ export const getMyTours = async (): Promise<Tour[] | null> => {
       }
     })
 
-    if (!res.ok) throw new Error('Failed to load tours')
+    if (!res.ok) throw new Error(`${res.status} - Failed to load tours`)
     const data = await res.json()
     return data.data
   } catch (error) {
-    toast.error('Error al cargar los tours 😢 Por favor, inténtalo de nuevo')
-    console.error(error)
+    if (error instanceof Error && error.message.includes('401')) {
+      toast.error('Unauthorized error. Por favor, inicia sesión nuevamente')
+      localStorage.removeItem('user')
+    } else if (error instanceof Error && error.message.includes('403')) {
+      toast.error(
+        'Forbidden error. No tienes permisos para acceder a este recurso'
+      )
+    } else {
+      toast.error('Error al cargar los tours 😢 Por favor, inténtalo de nuevo')
+      console.error(error)
+    }
     return null
   }
 }

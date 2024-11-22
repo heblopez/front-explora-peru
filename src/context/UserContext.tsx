@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode } from 'react'
+import { createContext, useState, ReactNode, useEffect } from 'react'
 import { toast } from 'sonner'
 import {
   AgencyDataResponse,
@@ -22,6 +22,22 @@ export default function UserProvider({ children }: { children: ReactNode }) {
   >(getDataFromLocalStorage('user'))
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const storageEventListener = (event: StorageEvent) => {
+      if (event.key === 'user' && event.newValue) {
+        setUser(JSON.parse(event.newValue))
+      }
+      if (event.key === 'user' && !event.newValue) {
+        setUser(null)
+      }
+    }
+    window.addEventListener('storage', storageEventListener)
+
+    return () => {
+      window.removeEventListener('storage', storageEventListener)
+    }
+  }, [user])
 
   const saveUser = (data: LoginResponse): string => {
     const { token, data: dataToSave } = data

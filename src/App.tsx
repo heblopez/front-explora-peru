@@ -19,6 +19,7 @@ import TermsAndConditions from './pages/TermsAndConditions'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TourScheduler from './components/RegisterTour/TourScheluder2'
 import ScrollToTop from './components/global/ScrollToTop'
+import SchedulesModal from './components/TourDetails/SchedulesModal'
 
 function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
@@ -54,6 +55,7 @@ function App() {
           <Route path='/admin-tours' element={<AdminTours />} />
           <Route path='/tours/:id' element={<TourDetailPage />} />
           <Route path='/scheduler' element={<TourScheduler />} />
+          <Route path='/modal' element={<SchedulesModal />} />
         </Routes>
         <Footer />
       </UserProvider>

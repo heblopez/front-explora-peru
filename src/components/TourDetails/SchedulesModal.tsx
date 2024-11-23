@@ -130,8 +130,8 @@ export default function SchedulesModal({
             Hora actual:{' '}
             {format(currentTime, "d 'de' MMMM, yyyy HH:mm:ss", { locale: es })}
           </ResponsiveModalDescription>
-          <TourSchedulesInfo dataSchedules={dataSchedules} />
         </ResponsiveModalHeader>
+        <TourSchedulesInfo dataSchedules={dataSchedules} />
       </ResponsiveModalContent>
     </ResponsiveModal>
   )

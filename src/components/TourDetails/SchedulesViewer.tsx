@@ -123,10 +123,10 @@ export default function SchedulesViewer({
   }
 
   return (
-    <Card className='w-full max-w-md mx-auto'>
+    <Card className='w-full mx-auto'>
       <CardContent>
         {nextSchedules.length > 0 ?
-          <div className='grid grid-cols-2 gap-x-4'>
+          <div className='grid grid-cols-[repeat(auto-fit,minmax(224px,1fr))] gap-x-4'>
             {nextSchedules.map((group, index) => (
               <div key={index} className='pb-2'>
                 <h3 className='font-semibold mb-2'>
@@ -154,7 +154,8 @@ export default function SchedulesViewer({
                     </span>
                     {!isSameDay(schedule.startDate, schedule.endDate) && (
                       <span className='text-sm opacity-70 px-1 truncate'>
-                        Fin: {format(schedule.endDate, 'EEEE', { locale: es })}
+                        Hasta el{' '}
+                        {format(schedule.endDate, 'EEEE', { locale: es })}
                       </span>
                     )}
                   </Button>

@@ -43,6 +43,9 @@ export default {
         26: '6.5rem',
         27: '6.75rem',
         29: '7.25rem'
+      },
+      screens: {
+        xs: '480px'
       }
     }
   },

@@ -29,7 +29,7 @@ export default function SchedulesViewer({
   schedulesData,
   onSelectSchedule
 }: AvailableSchedulesProps) {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  // const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(
     null
   )
@@ -117,16 +117,29 @@ export default function SchedulesViewer({
   }, [schedulesData])
 
   const handleSelectHorario = (startDate: Date, schedule: DatedSchedule) => {
-    setSelectedDate(startDate)
     setSelectedSchedule(schedule)
     onSelectSchedule(startDate, schedule)
+  }
+
+  const formatScheduleOption = (schedule: DatedSchedule) => {
+    const formatTime = (date: Date) => format(date, 'HH:mm', { locale: es })
+
+    const formatEndDate = (startDate: Date, endDate: Date) =>
+      isSameDay(startDate, endDate) ?
+        formatTime(endDate)
+      : format(endDate, "EEEE d 'a las' HH:mm", { locale: es })
+
+    return `${formatTime(schedule.startDate)} - ${formatEndDate(
+      schedule.startDate,
+      schedule.endDate
+    )}`
   }
 
   return (
     <Card className='w-full mx-auto'>
       <CardContent>
         {nextSchedules.length > 0 ?
-          <div className='grid grid-cols-[repeat(auto-fit,minmax(224px,1fr))] gap-x-4'>
+          <div className='grid grid-cols-[repeat(auto-fit,minmax(199px,1fr))] gap-x-4'>
             {nextSchedules.map((group, index) => (
               <div key={index} className='pb-2'>
                 <h3 className='font-semibold mb-2'>
@@ -136,28 +149,16 @@ export default function SchedulesViewer({
                   <Button
                     key={index}
                     variant={
-                      (
-                        isSameDay(schedule.startDate, selectedDate as Date) &&
-                        schedule === selectedSchedule
-                      ) ?
-                        'primary'
-                      : 'outline'
+                      schedule === selectedSchedule ? 'primary' : 'outline'
                     }
                     className='w-full justify-between mb-2 last:mb-0'
                     onClick={() =>
                       handleSelectHorario(schedule.startDate, schedule)
                     }
                   >
-                    <span>
-                      {format(schedule.startDate, 'HH:mm')} -{' '}
-                      {format(schedule.endDate, 'HH:mm')}
-                    </span>
-                    {!isSameDay(schedule.startDate, schedule.endDate) && (
-                      <span className='text-sm opacity-70 px-1 truncate'>
-                        Hasta el{' '}
-                        {format(schedule.endDate, 'EEEE', { locale: es })}
-                      </span>
-                    )}
+                    <p className='w-full text-center truncate'>
+                      {formatScheduleOption(schedule)}
+                    </p>
                   </Button>
                 ))}
               </div>

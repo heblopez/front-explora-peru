@@ -81,12 +81,6 @@ function TourSchedulesInfo({
                       <strong>Duración:</strong> Múltiples días
                     </p>
                   )}
-                  {selectedSchedule.schedule.startDay >
-                    selectedSchedule.schedule.endDay && (
-                    <p>
-                      <strong>Nota:</strong> Este evento cruza la medianoche
-                    </p>
-                  )}
                 </div>
               : <p className='text-gray-500 dark:text-secondary'>
                   Selecciona un horario para ver los detalles

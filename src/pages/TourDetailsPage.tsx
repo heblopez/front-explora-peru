@@ -19,6 +19,7 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { getTourById, getTours } from '@/services/tourService'
+import SchedulesModal from '@/components/TourDetails/SchedulesModal'
 
 export default function TourDetailPage() {
   const { id } = useParams<{ id?: string }>()
@@ -145,9 +146,10 @@ export default function TourDetailPage() {
               ${tour.price}
             </p>
             <p className='text-sm mb-4'>por persona</p>
-            <Button className='bg-primary hover:bg-primary-light dark:bg-primary-darker dark:text-inherit mb-4'>
-              Ver disponibilidad
-            </Button>
+            <SchedulesModal
+              dataSchedules={tour.schedules}
+              btnClassName='mb-4'
+            />
             <p className='text-sm text-gray-600 dark:text-gray-300'>
               <a href='#' className='text-blue-500'>
                 Reservar ahora y pagar después
@@ -187,7 +189,7 @@ export default function TourDetailPage() {
                   </div>
                   <div className='text-sm text-gray-700 dark:text-gray-400'>
                     <ClockIcon className='h-4 w-4 inline mr-1' />
-                    {`${featuredTour.duration} h`}
+                    {`${featuredTour.duration}`}
                   </div>
                 </div>
                 <p className='text-2xl font-bold text-gray-900 dark:text-white'>

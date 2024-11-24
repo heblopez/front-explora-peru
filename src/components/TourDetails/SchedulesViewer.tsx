@@ -17,7 +17,7 @@ const daysInNumber = {
 
 type AvailableSchedulesProps = {
   schedulesData: Schedule[]
-  onSelectSchedule: (fecha: Date, horario: DatedSchedule) => void
+  onSelectSchedule: (selectSchedule: DatedSchedule) => void
 }
 
 interface GroupedDatedSchedules {
@@ -29,7 +29,6 @@ export default function SchedulesViewer({
   schedulesData,
   onSelectSchedule
 }: AvailableSchedulesProps) {
-  // const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(
     null
   )
@@ -59,7 +58,9 @@ export default function SchedulesViewer({
         const nextStartDate = calculateNextOccurrence(startDayNumber, now)
         nextStartDate.setHours(
           parseInt(schedule.startTime.split(':')[0], 10),
-          parseInt(schedule.startTime.split(':')[1], 10)
+          parseInt(schedule.startTime.split(':')[1], 10),
+          0,
+          0
         )
 
         const nextEndDate = new Date(nextStartDate)
@@ -68,7 +69,9 @@ export default function SchedulesViewer({
         )
         nextEndDate.setHours(
           parseInt(schedule.endTime.split(':')[0], 10),
-          parseInt(schedule.endTime.split(':')[1], 10)
+          parseInt(schedule.endTime.split(':')[1], 10),
+          0,
+          0
         )
 
         return {
@@ -116,9 +119,9 @@ export default function SchedulesViewer({
     return groupedSchedules
   }, [schedulesData])
 
-  const handleSelectHorario = (startDate: Date, schedule: DatedSchedule) => {
+  const handleSelectHorario = (schedule: DatedSchedule) => {
     setSelectedSchedule(schedule)
-    onSelectSchedule(startDate, schedule)
+    onSelectSchedule(schedule)
   }
 
   const formatScheduleOption = (schedule: DatedSchedule) => {
@@ -127,7 +130,7 @@ export default function SchedulesViewer({
     const formatEndDate = (startDate: Date, endDate: Date) =>
       isSameDay(startDate, endDate) ?
         formatTime(endDate)
-      : format(endDate, "EEEE d 'a las' HH:mm", { locale: es })
+      : format(endDate, "'hasta el ' EEEE 'a las' HH:mm", { locale: es })
 
     return `${formatTime(schedule.startDate)} - ${formatEndDate(
       schedule.startDate,
@@ -152,9 +155,7 @@ export default function SchedulesViewer({
                       schedule === selectedSchedule ? 'primary' : 'outline'
                     }
                     className='w-full justify-between mb-2 last:mb-0'
-                    onClick={() =>
-                      handleSelectHorario(schedule.startDate, schedule)
-                    }
+                    onClick={() => handleSelectHorario(schedule)}
                   >
                     <p className='w-full text-center truncate'>
                       {formatScheduleOption(schedule)}

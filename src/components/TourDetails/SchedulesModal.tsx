@@ -20,14 +20,12 @@ function TourSchedulesInfo({
 }: {
   dataSchedules: DatedSchedule[]
 }) {
-  const [selectedSchedule, setSelectedSchedule] = useState<{
-    date: Date
-    schedule: DatedSchedule
-  } | null>(null)
+  const [selectedSchedule, setSelectedSchedule] =
+    useState<DatedSchedule | null>(null)
 
-  const handleSelectSchedule = (date: Date, schedule: DatedSchedule) => {
-    setSelectedSchedule({ date, schedule })
-    console.log('Horario seleccionado:', { date, schedule })
+  const handleSelectSchedule = (schedule: DatedSchedule) => {
+    setSelectedSchedule(schedule)
+    console.log('Horario seleccionado:', { schedule })
   }
 
   return (
@@ -43,8 +41,8 @@ function TourSchedulesInfo({
         <div className='grid grid-cols-2 gap-y-4 items-center'>
           <h2 className='text-xl font-semibold align-middle'>Más detalles</h2>
           {selectedSchedule && (
-            <Button className='w-max ml-auto bg-primary hover:bg-primary-light font-bold'>
-              Reservar
+            <Button className='w-max px-4 ml-auto bg-primary hover:bg-primary-light font-bold'>
+              Reservar Ahora
             </Button>
           )}
           <Card className='col-span-2'>
@@ -53,34 +51,27 @@ function TourSchedulesInfo({
                 <div className='space-y-2'>
                   <p>
                     <strong>Fecha de inicio:</strong>{' '}
-                    {format(selectedSchedule.date, "EEEE d 'de' MMMM, yyyy", {
-                      locale: es
-                    })}
+                    {format(
+                      selectedSchedule.startDate,
+                      "EEEE d 'de' MMMM, yyyy",
+                      { locale: es }
+                    )}
                   </p>
                   <p>
                     <strong>Hora de inicio:</strong>{' '}
-                    {selectedSchedule.schedule.startTime}
+                    {selectedSchedule.startTime}
                   </p>
-                  {selectedSchedule.schedule.endDate && (
-                    <p>
-                      <strong>Fecha de fin:</strong>{' '}
-                      {format(
-                        selectedSchedule.schedule.endDate,
-                        "EEEE d 'de' MMMM, yyyy",
-                        { locale: es }
-                      )}
-                    </p>
-                  )}
                   <p>
-                    <strong>Hora de fin:</strong>{' '}
-                    {selectedSchedule.schedule.endTime}
+                    <strong>Fecha de fin:</strong>{' '}
+                    {format(
+                      selectedSchedule.endDate,
+                      "EEEE d 'de' MMMM, yyyy",
+                      { locale: es }
+                    )}
                   </p>
-                  {selectedSchedule.schedule.startDay !==
-                    selectedSchedule.schedule.endDay && (
-                    <p>
-                      <strong>Duración:</strong> Múltiples días
-                    </p>
-                  )}
+                  <p>
+                    <strong>Hora de fin:</strong> {selectedSchedule.endTime}
+                  </p>
                 </div>
               : <p className='text-gray-500 dark:text-secondary'>
                   Selecciona un horario para ver los detalles

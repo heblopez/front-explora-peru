@@ -10,10 +10,11 @@ import { Button } from '@/components/ui/button'
 
 import SchedulesViewer from './SchedulesViewer'
 import { useEffect, useState } from 'react'
-import { format } from 'date-fns'
+import { format, getUnixTime } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { Card, CardContent } from '../ui/card'
 import { DatedSchedule } from '@/types/tour'
+import { Link } from 'react-router-dom'
 
 function TourSchedulesInfo({
   dataSchedules
@@ -26,6 +27,15 @@ function TourSchedulesInfo({
   const handleSelectSchedule = (schedule: DatedSchedule) => {
     setSelectedSchedule(schedule)
     console.log('Horario seleccionado:', { schedule })
+  }
+
+  const generateLinkToCheckout = () => {
+    if (!selectedSchedule) return ''
+
+    const startDate = getUnixTime(selectedSchedule.startDate)
+    const endDate = getUnixTime(selectedSchedule.endDate)
+
+    return `/tours/${selectedSchedule?.tourId}/checkout/?sd=${startDate}&ed=${endDate}`
   }
 
   return (
@@ -41,9 +51,11 @@ function TourSchedulesInfo({
         <div className='grid grid-cols-2 gap-y-4 items-center'>
           <h2 className='text-xl font-semibold align-middle'>Más detalles</h2>
           {selectedSchedule && (
-            <Button className='w-max px-4 ml-auto bg-primary hover:bg-primary-light font-bold'>
-              Reservar Ahora
-            </Button>
+            <Link className='ml-auto' to={generateLinkToCheckout()}>
+              <Button className='w-max px-4 bg-primary hover:bg-primary-light font-bold'>
+                Reservar Ahora
+              </Button>
+            </Link>
           )}
           <Card className='col-span-2'>
             <CardContent>

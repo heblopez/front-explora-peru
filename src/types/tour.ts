@@ -8,6 +8,8 @@ type dayOfWeek =
   | 'Sunday'
 
 export interface Schedule {
+  scheduleId: number
+  tourId: number
   startDay: dayOfWeek
   startTime: string
   endDay: dayOfWeek

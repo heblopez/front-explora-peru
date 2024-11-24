@@ -15,7 +15,7 @@ const daysInNumber = {
   Sunday: 7
 }
 
-type AvailableSchedulesProps = {
+type SchedulesViewerProps = {
   schedulesData: Schedule[]
   onSelectSchedule: (selectSchedule: DatedSchedule) => void
 }
@@ -28,7 +28,7 @@ interface GroupedDatedSchedules {
 export default function SchedulesViewer({
   schedulesData,
   onSelectSchedule
-}: AvailableSchedulesProps) {
+}: SchedulesViewerProps) {
   const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(
     null
   )

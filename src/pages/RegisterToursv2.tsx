@@ -134,9 +134,9 @@ export default function RegisterTourV2() {
           )
         })),
         schedules: formData.schedules.map(schedule => ({
-          startDay: schedule.start_day || 'Lunes',
+          startDay: schedule.start_day || 'Monday',
           startTime: schedule.start_time || '00:00',
-          endDay: schedule.end_day || 'Lunes',
+          endDay: 'Tuesday',
           endTime: schedule.end_time || '00:00'
         }))
       }
@@ -145,6 +145,7 @@ export default function RegisterTourV2() {
 
       if (result) {
         toast.success('Tour registrado con éxito 🎉')
+        console.log('Tour registrado:', result)
         navigate('/admin-tours')
       } else {
         toast.error('Error al registrar el tour 😢')
@@ -253,7 +254,7 @@ function ScheduleStep({ data, setData }: StepProps<Schedule[]>) {
   const [currentSchedule, setCurrentSchedule] =
     useState<Schedule>(initialSchedule)
 
-  const handleDayChange = (key: 'start_day' | 'end_day', value: number) => {
+  const handleDayChange = (key: 'start_day' | 'end_day', value: string) => {
     setCurrentSchedule(prev => ({
       ...prev,
       [key]: value
@@ -309,7 +310,7 @@ function ScheduleStep({ data, setData }: StepProps<Schedule[]>) {
         <select
           title='dias'
           value={currentSchedule.start_day}
-          onChange={e => handleDayChange('start_day', parseInt(e.target.value))}
+          onChange={e => handleDayChange('start_day', e.target.value)}
           className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white dark:bg-dark-secondary text-dark-secondary dark:text-primary-lightest focus:outline-none focus:ring-primary-light focus:border-primary-light'
         >
           {dayNames.map(day => (
@@ -339,7 +340,7 @@ function ScheduleStep({ data, setData }: StepProps<Schedule[]>) {
         <select
           title='dias'
           value={currentSchedule.end_day}
-          onChange={e => handleDayChange('end_day', parseInt(e.target.value))}
+          onChange={e => handleDayChange('end_day', e.target.value)}
           className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white dark:bg-dark-secondary text-dark-secondary dark:text-primary-lightest focus:outline-none focus:ring-primary-light focus:border-primary-light'
         >
           {dayNames.map((day, index) => (
@@ -374,14 +375,31 @@ function ScheduleStep({ data, setData }: StepProps<Schedule[]>) {
 
 function TourStep({ data, setData }: StepProps<Tour>) {
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const cloud_name = 'dgbn9dcr0'
+  const preset_name = 'tours-photo'
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
 
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const url = e.target.value
-    if (url) {
-      setData(prev => ({
-        ...prev,
-        tour: { ...prev.tour, photos_url: [...prev.tour.photos_url, url] }
-      }))
+    if (files) {
+      const data = new FormData()
+      data.append('file', files[0])
+      data.append('upload_preset', preset_name)
+      try {
+        const response = await fetch(
+          `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+          {
+            method: 'POST',
+            body: data
+          }
+        )
+        const file = await response.json()
+        const url = file.secure_url
+        setData(prev => ({
+          ...prev,
+          tour: { ...prev.tour, photos_url: [...prev.tour.photos_url, url] }
+        }))
+      } catch (error) {}
+
       e.target.value = ''
     }
   }

@@ -53,12 +53,31 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
     debouncedOnMarkersChange(markerList)
   }, [markerList, debouncedOnMarkersChange])
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setCurrentFile(e.target.files[0])
+  const cloud_name = 'dgbn9dcr0'
+  const preset_name = 'tours-photo'
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+
+    if (files) {
+      const data = new FormData()
+      data.append('file', files[0])
+      data.append('upload_preset', preset_name)
+      try {
+        const response = await fetch(
+          `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+          {
+            method: 'POST',
+            body: data
+          }
+        )
+        const file = await response.json()
+        const url = file.secure_url
+        setCurrentFile(url)
+      } catch (error) {}
+
+      e.target.value = ''
     }
   }
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -86,7 +105,7 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
 
       const userLocation: LatLngExpression = [latitude, longitude]
       const newMarker: MarkerData = {
-        coordinates: [userLocation[0], userLocation[1]], // Ajustado a 'coordinates'
+        coordinates: [userLocation[0], userLocation[1]],
         description: '',
         name: placeName,
         photoUrl: null

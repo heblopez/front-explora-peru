@@ -1,6 +1,6 @@
 import 'leaflet/dist/leaflet.css'
 import { MapContainer, TileLayer } from 'react-leaflet'
-import { LatLngExpression, LatLngTuple } from 'leaflet'
+import { LatLngExpression } from 'leaflet'
 import '@elfalem/leaflet-curve'
 import MarkersRandom from './MarkersRandom'
 

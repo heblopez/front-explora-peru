@@ -1,3 +1,25 @@
+type dayOfWeek =
+  | 'Monday'
+  | 'Tuesday'
+  | 'Wednesday'
+  | 'Thursday'
+  | 'Friday'
+  | 'Saturday'
+  | 'Sunday'
+
+export interface Schedule {
+  scheduleId: number
+  tourId: number
+  startDay: dayOfWeek
+  startTime: string
+  endDay: dayOfWeek
+  endTime: string
+}
+
+export interface DatedSchedule extends Schedule {
+  startDate: Date
+  endDate: Date
+}
 export interface Tour {
   tourId: number
   agencyId: number
@@ -16,8 +38,8 @@ export interface Tour {
     coordinates: [number, number]
   }[]
   rating?: number
-  startTime?: string
   routeSelection?: [number, number][]
+  schedules: DatedSchedule[]
 }
 
 export interface TourAdmin {

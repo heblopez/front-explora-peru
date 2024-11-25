@@ -27,7 +27,9 @@ export default function AgenciesLanding() {
             className='w-full sm:w-auto bg-primary dark:bg-primary-light hover:bg-primary-dark hover:dark:bg-primary-lighter'
             size='lg'
           >
-            <Link to='/register'>{t('agenciesLanding.registerNow')}</Link>
+            <Link to='/register-agency'>
+              {t('agenciesLanding.registerNow')}
+            </Link>
           </Button>
         </div>
       </section>
@@ -199,7 +201,7 @@ export default function AgenciesLanding() {
               quote: t('agenciesLanding.testimonial2')
             },
             {
-              imgSrc: '/assets/landing/empresa3.png',
+              imgSrc: '/assets/landing/empresa3.jpg',
               name: 'Travel Perú',
               quote: t('agenciesLanding.testimonial3')
             }
@@ -232,7 +234,7 @@ export default function AgenciesLanding() {
           {t('agenciesLanding.startNowDescription')}
         </p>
         <Button className='bg-primary text-white hover:bg-primary-dark'>
-          <Link to='/register'>{t('agenciesLanding.registerNow')}</Link>
+          <Link to='/register-agency'>{t('agenciesLanding.registerNow')}</Link>
         </Button>
       </section>
     </main>

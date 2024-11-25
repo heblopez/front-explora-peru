@@ -8,10 +8,12 @@ import {
 } from '../ui/dropdown-menu'
 import { Link } from 'react-router-dom'
 import { t } from 'i18next'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { UserContext } from '@/context/UserContext'
 
 export default function MyAccountDropdown() {
   const [isOpen, setIsOpen] = useState(false)
+  const { user } = useContext(UserContext)
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
@@ -38,7 +40,7 @@ export default function MyAccountDropdown() {
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Link
-            to='/tours'
+            to={user?.role === 'agency' ? '/admin-tours' : '/tours'}
             className='flex items-center space-x-2'
             onClick={prev => setIsOpen(!prev)}
           >

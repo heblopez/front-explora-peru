@@ -17,7 +17,7 @@ const FileUploadForm: React.FC<FileUploadFormProps> = ({ onFilesChange }) => {
   const [files, setFiles] = useState<FileItem[]>([])
   const { isUploading, uploadFile, statusMessage } = useFileUpload()
 
-  const [refreshTrigger, setRefreshTrigger] = useState(false)
+  const [_refreshTrigger, setRefreshTrigger] = useState(false)
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     const droppedFiles = Array.from(e.dataTransfer.files)

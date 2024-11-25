@@ -218,7 +218,7 @@ export default function RegisterTourV2() {
     </div>
   )
 }
-function PlaceStep({ data, setData }: StepProps<Place>) {
+function PlaceStep({ setData }: StepProps<Place>) {
   const handleMarkersChange = (markers: any) => {
     if (markers.length > 0) {
       setData(prev => ({

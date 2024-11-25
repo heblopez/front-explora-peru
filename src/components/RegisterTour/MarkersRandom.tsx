@@ -1,4 +1,4 @@
-import { useEffect, useState, ChangeEvent, useCallback } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { Marker, Polyline, Popup, useMap } from 'react-leaflet'
 import L, { LatLngExpression } from 'leaflet'
 import '@elfalem/leaflet-curve'

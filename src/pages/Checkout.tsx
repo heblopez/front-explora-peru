@@ -30,6 +30,8 @@ import { Tour } from '@/types/tour'
 import { fromUnixTime } from 'date-fns'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
+import { Session } from '@/types/session'
+import { getOrCreateSession } from '@/services/sessionService'
 
 const stripePromise = loadStripe(STRIPE_PUBLIC_KEY)
 
@@ -60,7 +62,6 @@ const PaymentForm = ({ total }: { total: number }) => {
         setPaymentError(error.message || 'Error al procesar el pago')
         console.error(error)
       } else {
-        alert('Pago exitoso!')
         console.log('PaymentMethod created:', paymentMethod)
         card.clear()
       }
@@ -92,28 +93,42 @@ const PaymentForm = ({ total }: { total: number }) => {
 export default function TourCheckout() {
   const { tourId } = useParams()
   const [searchParams] = useSearchParams()
-  const startDate = searchParams.get('sd')
-  const endDate = searchParams.get('ed')
+  const startDate = Number(searchParams.get('sd'))
+  const endDate = Number(searchParams.get('ed'))
 
   const [quantity, setQuantity] = useState(1)
+  const [session, setSession] = useState<Session | null>(null)
   const [tour, setTour] = useState<Tour | null>(null)
 
+  const fetchTour = async () => {
+    const fetchedTour = await getTourById(tourId as string)
+    if (!fetchedTour) return
+    setTour(fetchedTour)
+  }
+
+  const fetchSession = async () => {
+    if (!tourId || !startDate || !endDate) return
+    const fetchedSession = await getOrCreateSession({
+      tourId: Number(tourId),
+      startDate,
+      endDate
+    })
+    if (!fetchedSession) return
+    setSession(fetchedSession)
+  }
+
   useEffect(() => {
-    const fetchTour = async () => {
-      const fetchedTour = await getTourById(tourId as string)
-      if (!fetchedTour) return
-      setTour(fetchedTour)
-    }
     fetchTour()
+    fetchSession()
   }, [tourId])
 
   const total = tour?.price ? (tour.price as number) * quantity : 0
 
-  const formatDate = (date: string | null) => {
-    if (!date) return 'Fecha no disponible'
+  const formatDate = (unixDate: number | null) => {
+    if (!unixDate) return 'Fecha no disponible'
 
     return format(
-      fromUnixTime(Number(date)),
+      fromUnixTime(Number(unixDate)),
       "EEEE d 'de' MMMM, yyyy 'a las' HH:mm",
       { locale: es }
     )

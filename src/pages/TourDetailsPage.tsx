@@ -83,7 +83,6 @@ export default function TourDetailPage() {
           <StarFilledIcon className='text-yellow-500 mr-1' />
           <strong>{tour.rating || 'Sin valoraciones'}</strong>
         </p>
-        {/* Mostrar la imagen del tour justo debajo de la calificación */}
         {tour.photosUrl.length > 0 && (
           <div className='mb-4 p-2 border rounded-lg shadow-md bg-white dark:bg-gray-700'>
             <img

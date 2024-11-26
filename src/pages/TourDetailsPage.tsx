@@ -21,9 +21,35 @@ import {
 import { getTourById, getTours } from '@/services/tourService'
 import SchedulesModal from '@/components/TourDetails/SchedulesModal'
 import MapWithRoute from '@/components/RegisterTour/MapWithRoute'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
 import { Carousel } from 'react-responsive-carousel'
+
+function TourMap({ places }: { places: Tour['places'] }) {
+  const map = useMap()
+
+  useEffect(() => {
+    if (places.length > 0) {
+      const { coordinates } = places[0]
+      map.setView([Number(coordinates[0]), Number(coordinates[1])], 10)
+    }
+  }, [places, map])
+
+  return (
+    <>
+      {places.map((place, index) => (
+        <Marker
+          key={index}
+          position={[Number(place.coordinates[0]), Number(place.coordinates[1])]}
+        >
+          <Popup>
+            <strong>{place.name}</strong>
+          </Popup>
+        </Marker>
+      ))}
+    </>
+  )
+}
 
 export default function TourDetailPage() {
   const { id } = useParams<{ id?: string }>()
@@ -190,26 +216,14 @@ export default function TourDetailPage() {
               Number(tour.places[0].coordinates[0]),
               Number(tour.places[0].coordinates[1])
             ]}
-            zoom={13}
+            zoom={10}
             style={{ height: '400px', width: '100%' }}
           >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
             />
-            {tour.places.map((place, index) => (
-              <Marker
-                key={index}
-                position={[
-                  Number(place.coordinates[0]),
-                  Number(place.coordinates[1])
-                ]}
-              >
-                <Popup>
-                  <strong>{place.name}</strong>
-                </Popup>
-              </Marker>
-            ))}
+            <TourMap places={tour.places} />
           </MapContainer>
         </div>
         <h2 className='text-2xl font-semibold mt-8 text-gray-900 dark:text-white'>
@@ -277,3 +291,4 @@ export default function TourDetailPage() {
     </div>
   )
 }
+

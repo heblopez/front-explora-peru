@@ -140,7 +140,7 @@ export default function TourCheckout() {
   useEffect(() => {
     fetchTour()
     fetchSession()
-  }, [tourId])
+  }, [tourId, startDate, endDate])
 
   const total = tour?.price ? (tour.price as number) * quantity : 0
 

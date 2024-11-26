@@ -10,7 +10,7 @@ export default function TourManagement() {
   const [currentTour, setCurrentTour] = useState<Tour | null>(null)
   const [formData, setFormData] = useState<Tour>({} as Tour)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [_error, setError] = useState<string | null>(null)
 
   const navigate = useNavigate()
 

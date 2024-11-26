@@ -20,7 +20,7 @@ export const getTours = async (query?: string): Promise<Tour[] | null> => {
   }
 }
 
-export const getMyTours = async (): Promise<Tour[] | any> => {
+export const getMyTours = async (): Promise<Tour[] | null> => {
   try {
     const res = await fetch(`${API_TOURS_URL}/admin `, {
       headers: {
@@ -31,7 +31,7 @@ export const getMyTours = async (): Promise<Tour[] | any> => {
     if (!res.ok) throw new Error(`${res.status} - Failed to load tours`)
     const data = await res.json()
     return data.data
-  } catch (error: any) {
+  } catch (error) {
     if (error instanceof Error && error.message.includes('401')) {
       toast.error('Unauthorized error. Por favor, inicia sesión nuevamente')
       localStorage.removeItem('user')
@@ -43,45 +43,48 @@ export const getMyTours = async (): Promise<Tour[] | any> => {
       toast.error('Error al cargar los tours 😢 Por favor, inténtalo de nuevo')
       console.error(error)
     }
-    return error
+    return null
   }
 }
-export const deleteTour = async (id: number): Promise<{ message: string; data: any } | null> => {
+export const deleteTour = async (
+  id: number
+): Promise<{ message: string; data: Tour } | null> => {
   try {
     const res = await fetch(`${API_TOURS_URL}/${id}`, {
       method: 'DELETE',
       headers: {
-        Authorization: bearerToken,
-      },
-    });
+        Authorization: bearerToken
+      }
+    })
 
     if (!res.ok) {
-      throw new Error(`${res.status} - Failed to delete tour`);
+      throw new Error(`${res.status} - Failed to delete tour`)
     }
 
-    const data = await res.json();
+    const data = await res.json()
 
-    return data;
+    return data
   } catch (error) {
     if (error instanceof Error) {
       if (error.message.includes('401')) {
-        toast.error('Unauthorized error. Por favor, inicia sesión nuevamente');
-        localStorage.removeItem('user');
+        toast.error('Unauthorized error. Por favor, inicia sesión nuevamente')
+        localStorage.removeItem('user')
       } else if (error.message.includes('403')) {
         toast.error(
           'Forbidden error. No tienes permisos para acceder a este recurso'
-        );
+        )
       } else {
-        toast.error('Error al eliminar, inténtalo de nuevo');
+        toast.error('Error al eliminar, inténtalo de nuevo')
       }
-      console.error(error);
+      console.error(error)
     }
-    return null;
+    return null
   }
-};
+}
 
-
-export const updateTour = async (tour: any): Promise<{ message: string; data: any } | null> => {
+export const updateTour = async (
+  tour: Partial<Tour>
+): Promise<{ message: string; data: Tour } | null> => {
   try {
     const res = await fetch(`${API_TOURS_URL}/${tour.tourId} `, {
       method: 'PATCH',
@@ -125,7 +128,7 @@ export const getTourById = async (id: string): Promise<Tour | null> => {
   }
 }
 
-export const registerTour = async (tour: unknown) => {
+export const registerTour = async (tour: Partial<Tour>) => {
   try {
     const res = await fetch(`${API_TOURS_URL}`, {
       method: 'POST',

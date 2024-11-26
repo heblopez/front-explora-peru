@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { DollarSign, Clock, Users, Upload, X, CheckIcon } from 'lucide-react'
 import { MapContainer, TileLayer } from 'react-leaflet'
 import MarkersRandom from '@/components/RegisterTour/MarkersRandom'
@@ -219,7 +219,11 @@ export default function RegisterTourV2() {
   )
 }
 function PlaceStep({ setData }: StepProps<Place>) {
-  const handleMarkersChange = (markers: any) => {
+  const [currentPosition, setCurrentPosition] = useState<
+    [number, number] | null
+  >(null)
+
+  const handleMarkersChange = (markers: any[]) => {
     if (markers.length > 0) {
       setData(prev => ({
         ...prev,
@@ -227,11 +231,40 @@ function PlaceStep({ setData }: StepProps<Place>) {
       }))
     }
   }
+
+  useEffect(() => {
+    const getCurrentPosition = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            const { latitude, longitude } = position.coords
+            console.log('Ubicación actual:', latitude, longitude)
+            setCurrentPosition([latitude, longitude])
+          },
+          error => {
+            console.error('Error obteniendo la ubicación:', error.message)
+            setCurrentPosition([-12.04318, -77.02824])
+          }
+        )
+      } else {
+        console.error('La geolocalización no es compatible con este navegador.')
+        setCurrentPosition([-12.04318, -77.02824])
+      }
+    }
+
+    getCurrentPosition()
+  }, [])
+
+  if (!currentPosition) {
+    return <p className='text-center text-gray-500'>Obteniendo ubicación...</p>
+  }
+
   return (
     <div className='mb-4 w-full'>
       <MapContainer
-        center={[35.376307, 5.918474]}
+        center={currentPosition}
         style={{ height: '80vh', width: '100%' }}
+        zoom={16}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -242,7 +275,6 @@ function PlaceStep({ setData }: StepProps<Place>) {
     </div>
   )
 }
-
 const initialSchedule: Schedule = {
   start_day: 'Monday',
   end_day: 'Tuesday',
@@ -344,7 +376,7 @@ function ScheduleStep({ data, setData }: StepProps<Schedule[]>) {
           className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white dark:bg-dark-secondary text-dark-secondary dark:text-primary-lightest focus:outline-none focus:ring-primary-light focus:border-primary-light'
         >
           {dayNames.map((day, index) => (
-            <option key={index} value={index}>
+            <option key={index} value={day}>
               {day}
             </option>
           ))}

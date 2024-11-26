@@ -19,7 +19,8 @@ export const getTours = async (query?: string): Promise<Tour[] | null> => {
     return null
   }
 }
-export const getMyTours = async (): Promise<Tour[] | null> => {
+
+export const getMyTours = async (): Promise<Tour[] | any> => {
   try {
     const res = await fetch(`${API_TOURS_URL}/admin `, {
       headers: {
@@ -30,7 +31,7 @@ export const getMyTours = async (): Promise<Tour[] | null> => {
     if (!res.ok) throw new Error(`${res.status} - Failed to load tours`)
     const data = await res.json()
     return data.data
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof Error && error.message.includes('401')) {
       toast.error('Unauthorized error. Por favor, inicia sesión nuevamente')
       localStorage.removeItem('user')
@@ -40,6 +41,70 @@ export const getMyTours = async (): Promise<Tour[] | null> => {
       )
     } else {
       toast.error('Error al cargar los tours 😢 Por favor, inténtalo de nuevo')
+      console.error(error)
+    }
+    return error
+  }
+}
+export const deleteTour = async (id: number): Promise<{ message: string; data: any } | null> => {
+  try {
+    const res = await fetch(`${API_TOURS_URL}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: bearerToken,
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error(`${res.status} - Failed to delete tour`);
+    }
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      if (error.message.includes('401')) {
+        toast.error('Unauthorized error. Por favor, inicia sesión nuevamente');
+        localStorage.removeItem('user');
+      } else if (error.message.includes('403')) {
+        toast.error(
+          'Forbidden error. No tienes permisos para acceder a este recurso'
+        );
+      } else {
+        toast.error('Error al eliminar, inténtalo de nuevo');
+      }
+      console.error(error);
+    }
+    return null;
+  }
+};
+
+
+export const updateTour = async (tour: any): Promise<{ message: string; data: any } | null> => {
+  try {
+    const res = await fetch(`${API_TOURS_URL}/${tour.tourId} `, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: bearerToken
+      },
+      body: JSON.stringify(tour)
+    })
+
+    if (!res.ok) throw new Error(`${res.status} - Failed to update tour`)
+    const data = await res.json()
+    return data
+  } catch (error) {
+    if (error instanceof Error && error.message.includes('401')) {
+      toast.error('Unauthorized error. Por favor, inicia sesión nuevamente')
+      localStorage.removeItem('user')
+    } else if (error instanceof Error && error.message.includes('403')) {
+      toast.error(
+        'Forbidden error. No tienes permisos para acceder a este recurso'
+      )
+    } else {
+      toast.error('Error al actualizar, inténtalo de nuevo')
       console.error(error)
     }
     return null

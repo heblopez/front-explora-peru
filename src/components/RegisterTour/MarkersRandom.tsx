@@ -6,6 +6,7 @@ import { debounce } from 'lodash'
 
 interface MarkerData {
   name: string
+  region: string
   description: string
   photoUrl: File | null
   coordinates: [number, number]
@@ -85,7 +86,12 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
       setMarkerList(prevMarkerList =>
         prevMarkerList.map((marker, index) =>
           index === currentMarkerIndex ?
-            { ...marker, name: currentName, photoUrl: currentFile }
+            {
+              ...marker,
+              name: currentName,
+              region: currentName.split(',')[2],
+              photoUrl: currentFile
+            }
           : marker
         )
       )
@@ -99,7 +105,7 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
     }
   }
 
-  useEffect(() => {
+  /* useEffect(() => {
     const addDefaultMarker = async (latitude: number, longitude: number) => {
       const placeName = await reverseGeocode(latitude, longitude)
 
@@ -108,6 +114,7 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
         coordinates: [userLocation[0], userLocation[1]],
         description: '',
         name: placeName,
+        region: placeName.split(',')[2],
         photoUrl: null
       }
 
@@ -128,7 +135,7 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
     } else {
       console.error('La geolocalización no es compatible con este navegador.')
     }
-  }, [map])
+  }, [map])*/
 
   useEffect(() => {
     const onMapClick = async (e: L.LeafletMouseEvent) => {
@@ -139,6 +146,7 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
 
       const newMarker: MarkerData = {
         coordinates: [lat, lng], // Ajustado a 'coordinates'
+        region: placeName.split(',')[2],
         description: '',
         name: placeName,
         photoUrl: null
@@ -207,6 +215,21 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
                     </div>
                     <div>
                       <label
+                        htmlFor='name'
+                        className='block text-sm font-medium text-gray-700'
+                      >
+                        Región:
+                      </label>
+                      <input
+                        id='region'
+                        type='text'
+                        placeholder='Nombre de la región'
+                        defaultValue={currentName.split(',')[2]}
+                        className='mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-light focus:border-primary-light'
+                      />
+                    </div>
+                    <div>
+                      <label
                         htmlFor='image'
                         className='block text-sm font-medium text-gray-700'
                       >
@@ -233,12 +256,12 @@ const MarkersRandom = ({ onMarkersChange }: MarkersRandomProps) => {
           )
         })}
 
-      {markerList.length > 1 && (
+      {/*       {markerList.length > 1 && (
         <Polyline
           positions={markerList.map(marker => marker.coordinates)} // Ajustado a 'coordinates'
           color='blue'
         />
-      )}
+      )} */}
     </>
   )
 }

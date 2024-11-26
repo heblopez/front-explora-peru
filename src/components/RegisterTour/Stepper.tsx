@@ -13,12 +13,15 @@ const initialFormData = {
   duration: '',
   days: [],
   maxGroupSize: '',
+  photosUrl: [],
   places: [] as {
     name: string
     description: string
+    region: string
     photoUrl: File | null
     coordinates: [number, number]
-  }[]
+  }[],
+  schedules: []
 }
 
 export default function RegisterTour() {
@@ -41,7 +44,14 @@ export default function RegisterTour() {
       price: Number(formData.price),
       maxGroupSize: Number(formData.maxGroupSize),
       regions:
-        Array.isArray(formData.regions) ? formData.regions : [formData.regions]
+        Array.isArray(formData.regions) ? formData.regions : [formData.regions],
+      places: formData.places.map(place => ({
+        name: place.name,
+        description: place.description,
+        region: place.region,
+        photoUrl: place.photoUrl?.toString() || '',
+        coordinates: place.coordinates.map(coordinate => coordinate.toString())
+      }))
     }
     try {
       const response = await registerTour(dataToSubmit)

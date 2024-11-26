@@ -13,14 +13,10 @@ import { useEffect, useState } from 'react'
 import { format, getUnixTime } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { Card, CardContent } from '../ui/card'
-import { DatedSchedule } from '@/types/tour'
+import { DatedSchedule, Schedule } from '@/types/tour'
 import { Link } from 'react-router-dom'
 
-function TourSchedulesInfo({
-  dataSchedules
-}: {
-  dataSchedules: DatedSchedule[]
-}) {
+function TourSchedulesInfo({ dataSchedules }: { dataSchedules: Schedule[] }) {
   const [selectedSchedule, setSelectedSchedule] =
     useState<DatedSchedule | null>(null)
 
@@ -101,7 +97,7 @@ export default function SchedulesModal({
   dataSchedules,
   btnClassName
 }: {
-  dataSchedules: DatedSchedule[]
+  dataSchedules: Schedule[]
   btnClassName?: string
 }) {
   const [currentTime, setCurrentTime] = useState(new Date())

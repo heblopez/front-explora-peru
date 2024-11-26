@@ -1,5 +1,5 @@
 import { API_TOURS_URL } from '@/config'
-import { Tour } from '@/types/tour'
+import { Tour, TourDTO } from '@/types/tour'
 import { getBearerToken } from '@/utils'
 import { toast } from 'sonner'
 
@@ -128,7 +128,7 @@ export const getTourById = async (id: string): Promise<Tour | null> => {
   }
 }
 
-export const registerTour = async (tour: Partial<Tour>) => {
+export const registerTour = async (tour: TourDTO) => {
   try {
     const res = await fetch(`${API_TOURS_URL}`, {
       method: 'POST',

@@ -130,8 +130,8 @@ export default function TourCheckout() {
     if (!tourId || !startDate || !endDate) return
     const fetchedSession = await getOrCreateSession({
       tourId: Number(tourId),
-      startDate,
-      endDate
+      startDate: startDate * 1000,
+      endDate: endDate * 1000
     })
     if (!fetchedSession) return
     setSession(fetchedSession)

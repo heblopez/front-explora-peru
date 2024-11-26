@@ -11,12 +11,12 @@ import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
 import { useTranslation } from 'react-i18next'
 
-type FormFields = 'username' | 'lastname' | 'email' | 'phone' | 'password'
+type FormFields = 'name' | 'lastname' | 'email' | 'phone' | 'password'
 
 const EditProfile: React.FC = () => {
   const { t } = useTranslation() // Hook de traducción
   const [formData, setFormData] = useState<Record<FormFields, string>>({
-    username: '',
+    name: '',
     lastname: '',
     email: '',
     phone: '',
@@ -25,7 +25,7 @@ const EditProfile: React.FC = () => {
 
   const [userData, setUserData] = useState<any>(null)
   const [errors, setErrors] = useState<Record<FormFields, string>>({
-    username: '',
+    name: '',
     lastname: '',
     email: '',
     phone: '',
@@ -40,7 +40,7 @@ const EditProfile: React.FC = () => {
       const user = JSON.parse(storedUserData)
       setUserData(user)
       setFormData({
-        username: user.name || '',
+        name: user.name || '',
         lastname: user.lastName || '',
         email: user.email || '',
         phone: user.phone || '',
@@ -57,21 +57,11 @@ const EditProfile: React.FC = () => {
   const validateForm = () => {
     let isValid = true
     const newErrors: Record<FormFields, string> = {
-      username: '',
+      name: '',
       lastname: '',
       email: '',
       phone: '',
       password: ''
-    }
-
-    if (!/^[A-Za-z]+$/.test(formData.username.trim())) {
-      newErrors.username = t('profile.username_error')
-      isValid = false
-    }
-
-    if (!/^[A-Za-z]+$/.test(formData.lastname.trim())) {
-      newErrors.lastname = t('profile.lastname_error')
-      isValid = false
     }
 
     if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -93,7 +83,7 @@ const EditProfile: React.FC = () => {
     if (validateForm()) {
       const updatedData = {
         ...userData,
-        name: formData.username,
+        name: formData.name,
         lastName: formData.lastname,
         email: formData.email,
         phone: formData.phone,
@@ -124,7 +114,7 @@ const EditProfile: React.FC = () => {
         success: () => {
           localStorage.setItem('user', JSON.stringify(updatedData))
           setFormData({
-            username: '',
+            name: '',
             lastname: '',
             email: '',
             phone: '',
@@ -154,7 +144,7 @@ const EditProfile: React.FC = () => {
             <div className='space-y-4'>
               {(
                 [
-                  'username',
+                  'name',
                   'lastname',
                   'email',
                   'phone',
@@ -166,7 +156,7 @@ const EditProfile: React.FC = () => {
                     htmlFor={field}
                     className='text-sm font-medium leading-none'
                   >
-                    {field === 'username' && t('profile.username')}
+                    {field === 'name' && t('profile.name')}
                     {field === 'lastname' && t('profile.lastname')}
                     {field === 'email' && t('profile.email')}
                     {field === 'phone' && t('profile.phone')}

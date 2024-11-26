@@ -110,6 +110,7 @@ export const updateTour = async (tour: any): Promise<{ message: string; data: an
     return null
   }
 }
+
 export const getTourById = async (id: string): Promise<Tour | null> => {
   try {
     const res = await fetch(`${API_TOURS_URL}/${id}`)

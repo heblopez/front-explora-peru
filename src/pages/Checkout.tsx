@@ -24,7 +24,7 @@ import {
   useElements
 } from '@stripe/react-stripe-js'
 import { STRIPE_PUBLIC_KEY } from '@/config'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { getTourById } from '@/services/tourService'
 import { Tour } from '@/types/tour'
 import { fromUnixTime } from 'date-fns'
@@ -32,14 +32,26 @@ import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { Session } from '@/types/session'
 import { getOrCreateSession } from '@/services/sessionService'
+import { registerBooking } from '@/services/bookingService'
+import { toast } from 'sonner'
 
 const stripePromise = loadStripe(STRIPE_PUBLIC_KEY)
 
-const PaymentForm = ({ total }: { total: number }) => {
+const PaymentForm = ({
+  sessionId,
+  quantity,
+  total
+}: {
+  sessionId: number
+  quantity: number
+  total: number
+}) => {
   const stripe = useStripe()
   const elements = useElements()
   const [isProcessing, setIsProcessing] = useState(false)
   const [paymentError, setPaymentError] = useState<string | null>(null)
+
+  const navigate = useNavigate()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -63,6 +75,14 @@ const PaymentForm = ({ total }: { total: number }) => {
         console.error(error)
       } else {
         console.log('PaymentMethod created:', paymentMethod)
+        const res = await registerBooking({
+          sessionId,
+          numberOfAttendees: quantity,
+          totalPrice: total
+        })
+        if (!res) return
+        toast.success('Reserva registrada con éxito 🎉')
+        navigate('/tours')
         card.clear()
       }
 
@@ -224,7 +244,11 @@ export default function TourCheckout() {
                   </div>
                 </div>
               </div>
-              <PaymentForm total={total} />
+              <PaymentForm
+                sessionId={session?.sessionId ?? 0}
+                quantity={quantity}
+                total={total}
+              />
             </Elements>
           </CardContent>
         </Card>

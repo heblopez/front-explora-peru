@@ -12,7 +12,8 @@ export const getOrCreateSession = async (
     const res = await fetch(API_SESSIONS_URL, {
       method: 'POST',
       headers: {
-        Authorization: bearerToken
+        Authorization: bearerToken,
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(sessionData)
     })

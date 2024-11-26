@@ -19,6 +19,7 @@ export const getTours = async (query?: string): Promise<Tour[] | null> => {
     return null
   }
 }
+
 export const getMyTours = async (): Promise<Tour[] | null> => {
   try {
     const res = await fetch(`${API_TOURS_URL}/admin `, {
@@ -45,6 +46,7 @@ export const getMyTours = async (): Promise<Tour[] | null> => {
     return null
   }
 }
+
 export const getTourById = async (id: string): Promise<Tour | null> => {
   try {
     const res = await fetch(`${API_TOURS_URL}/${id}`)

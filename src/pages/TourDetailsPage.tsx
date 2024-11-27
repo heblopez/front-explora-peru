@@ -20,7 +20,6 @@ import {
 } from '@/components/ui/card'
 import { getTourById, getTours } from '@/services/tourService'
 import SchedulesModal from '@/components/TourDetails/SchedulesModal'
-import MapWithRoute from '@/components/RegisterTour/MapWithRoute'
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
 import { Carousel } from 'react-responsive-carousel'
@@ -40,7 +39,10 @@ function TourMap({ places }: { places: Tour['places'] }) {
       {places.map((place, index) => (
         <Marker
           key={index}
-          position={[Number(place.coordinates[0]), Number(place.coordinates[1])]}
+          position={[
+            Number(place.coordinates[0]),
+            Number(place.coordinates[1])
+          ]}
         >
           <Popup>
             <strong>{place.name}</strong>
@@ -291,4 +293,3 @@ export default function TourDetailPage() {
     </div>
   )
 }
-

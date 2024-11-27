@@ -1,5 +1,5 @@
 import { API_BOOKINGS_URL } from '@/config'
-import { Booking } from '@/types/booking'
+import { Booking, ResMyBookings } from '@/types/booking'
 import { getBearerToken } from '@/utils'
 import { toast } from 'sonner'
 
@@ -22,6 +22,23 @@ export const registerBooking = async (
     toast.error(
       'Error al registrar la reserva 😢 Por favor, inténtalo de nuevo'
     )
+    console.error(error)
+    return null
+  }
+}
+
+export const getMyBookings = async () => {
+  try {
+    const res = await fetch(API_BOOKINGS_URL, {
+      headers: {
+        Authorization: getBearerToken()
+      }
+    })
+    if (!res.ok) throw new Error('Failed to load the user bookings')
+    const data = (await res.json()) as ResMyBookings
+    return data.data
+  } catch (error) {
+    toast.error('Error al cargar los libros 😢 Por favor, inténtalo de nuevo')
     console.error(error)
     return null
   }

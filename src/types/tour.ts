@@ -38,7 +38,6 @@ export interface Tour {
     coordinates: string[]
   }[]
   rating?: number
-  routeSelection?: [number, number][]
   schedules: Schedule[]
 }
 

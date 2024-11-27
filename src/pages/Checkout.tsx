@@ -82,7 +82,7 @@ const PaymentForm = ({
         })
         if (!res) return
         toast.success('Reserva registrada con éxito 🎉')
-        navigate('/tours')
+        navigate('/my-tours')
         card.clear()
       }
 

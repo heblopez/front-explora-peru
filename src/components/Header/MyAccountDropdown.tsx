@@ -1,4 +1,4 @@
-import { BookHeartIcon, LuggageIcon, UserCheck, UserPen } from 'lucide-react'
+import { BookHeartIcon, UserCheck, UserPen } from 'lucide-react'
 import { Button } from '../ui/button'
 import {
   DropdownMenu,
@@ -40,7 +40,7 @@ export default function MyAccountDropdown() {
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Link
-            to={user?.role === 'agency' ? '/admin-tours' : '/tours'}
+            to={user?.role === 'agency' ? '/admin-tours' : '/my-tours'}
             className='flex items-center space-x-2'
             onClick={prev => setIsOpen(!prev)}
           >
@@ -48,7 +48,7 @@ export default function MyAccountDropdown() {
             <span>{t('header.myTours')}</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        {/* <DropdownMenuItem>
           <Link
             to='/bookings'
             className='flex items-center space-x-2'
@@ -57,7 +57,7 @@ export default function MyAccountDropdown() {
             <LuggageIcon className='h-4 w-4' />
             <span>{t('header.myBookings')}</span>
           </Link>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
   )

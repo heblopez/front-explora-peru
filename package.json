@@ -11,9 +11,8 @@
     "format": "prettier --write --ignore-unknown .",
     "preview": "vite preview",
     "prepare": "husky",
-    "test": "echo \"Error: no test specified\"",
-    "backend": "json-server --watch data/db.json --port 3000",
-    "cy:open": "cypress open"
+    "test": "cypress open",
+    "backend": "json-server --watch data/db.json --port 3000"
   },
   "dependencies": {
     "@elfalem/leaflet-curve": "^0.9.2",

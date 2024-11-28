@@ -31,7 +31,6 @@ Users should be able to:
   <img src="./design/landing-explora-peru.jpeg" alt="Landing" />
 </div>
 
-
 ## Built With
 
 **Frontend:**
@@ -45,15 +44,14 @@ Users should be able to:
 
 - Node.js (Express) with TypeScript
 - PostgreSQL for database management
-  
+
 **Test con Cypress**
 npm run test
-  
+
 **Operations:**
 
 - Deployed on Vercel
 - End-to-end testing with Cypress
-
 
 ## Authors
 

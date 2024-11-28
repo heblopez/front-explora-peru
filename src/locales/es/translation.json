@@ -184,12 +184,12 @@
   "profile": {
     "update_info": "Actualizar Información Personal",
     "complete_fields": "Completa los campos a continuación",
-    "username": "Nombre del Usuario:",
+    "username": "Nombre de usuario:",
     "lastname": "Apellido del Usuario:",
     "email": "Correo Electrónico:",
     "phone": "Número de Teléfono:",
     "password": "Nueva Contraseña:",
-    "username_error": "El nombre de usuario solo puede contener letras.",
+    "username_error": "El nombre de usuario solo puede contener letras, números, puntos y guiones bajos.",
     "lastname_error": "El apellido solo puede contener letras.",
     "email_error": "Por favor, introduce un correo electrónico válido.",
     "password_error": "La contraseña debe tener al menos 6 caracteres.",
@@ -199,7 +199,7 @@
     "placeholder_username": "Tu nombre de usuario",
     "placeholder_lastname": "Tu apellido de usuario",
     "placeholder_email": "Tu correo electrónico",
-    "placeholder_phone": "Tu número de teléfono",
+    "placeholder_phone": "+51 999-999-999",
     "placeholder_password": "Tu nueva contraseña",
     "show_password": "Mostrar Contraseña",
     "save_changes": "Guardar Cambios"

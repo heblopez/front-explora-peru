@@ -187,7 +187,7 @@
     "email": "Email Address:",
     "phone": "Phone Number:",
     "password": "New Password:",
-    "username_error": "Username can only contain letters.",
+    "username_error": "Username can only contain letters, numbers, periods and underscores",
     "lastname_error": "Last name can only contain letters.",
     "email_error": "Please enter a valid email address.",
     "password_error": "Password must be at least 6 characters long.",

@@ -11,24 +11,22 @@ import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
 import { useTranslation } from 'react-i18next'
 
-type FormFields = 'name' | 'lastname' | 'email' | 'phone' | 'password'
+type FormFields = 'username' | 'email' | 'phoneNumber' | 'password'
 
 const EditProfile: React.FC = () => {
   const { t } = useTranslation() // Hook de traducción
   const [formData, setFormData] = useState<Record<FormFields, string>>({
-    name: '',
-    lastname: '',
+    username: '',
     email: '',
-    phone: '',
+    phoneNumber: '',
     password: ''
   })
 
   const [userData, setUserData] = useState<any>(null)
   const [errors, setErrors] = useState<Record<FormFields, string>>({
-    name: '',
-    lastname: '',
+    username: '',
     email: '',
-    phone: '',
+    phoneNumber: '',
     password: ''
   })
 
@@ -40,10 +38,9 @@ const EditProfile: React.FC = () => {
       const user = JSON.parse(storedUserData)
       setUserData(user)
       setFormData({
-        name: user.name || '',
-        lastname: user.lastName || '',
+        username: user.username || '',
         email: user.email || '',
-        phone: user.phone || '',
+        phoneNumber: user.phoneNumber || '',
         password: ''
       })
     }
@@ -57,11 +54,17 @@ const EditProfile: React.FC = () => {
   const validateForm = () => {
     let isValid = true
     const newErrors: Record<FormFields, string> = {
-      name: '',
-      lastname: '',
+      username: '',
       email: '',
-      phone: '',
+      phoneNumber: '',
       password: ''
+    }
+
+    const usernameRegex = /^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9][a-zA-Z0-9._]{2,29}$/
+
+    if (!formData.username || !usernameRegex.test(formData.username)) {
+      newErrors.username = t('profile.username_error')
+      isValid = false
     }
 
     if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -80,13 +83,13 @@ const EditProfile: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    debugger
     if (validateForm()) {
       const updatedData = {
         ...userData,
-        name: formData.name,
-        lastName: formData.lastname,
+        username: formData.username,
         email: formData.email,
-        phone: formData.phone,
+        phoneNumber: formData.phoneNumber,
         password: formData.password ? formData.password : userData.password
       }
 
@@ -114,10 +117,9 @@ const EditProfile: React.FC = () => {
         success: () => {
           localStorage.setItem('user', JSON.stringify(updatedData))
           setFormData({
-            name: '',
-            lastname: '',
+            username: '',
             email: '',
-            phone: '',
+            phoneNumber: '',
             password: ''
           })
           return t('profile.save_success')
@@ -143,23 +145,16 @@ const EditProfile: React.FC = () => {
           <form onSubmit={handleSubmit}>
             <div className='space-y-4'>
               {(
-                [
-                  'name',
-                  'lastname',
-                  'email',
-                  'phone',
-                  'password'
-                ] as FormFields[]
+                ['username', 'email', 'phoneNumber', 'password'] as FormFields[]
               ).map(field => (
                 <div key={field} className='space-y-2'>
                   <label
                     htmlFor={field}
                     className='text-sm font-medium leading-none'
                   >
-                    {field === 'name' && t('profile.name')}
-                    {field === 'lastname' && t('profile.lastname')}
+                    {field === 'username' && t('profile.username')}
                     {field === 'email' && t('profile.email')}
-                    {field === 'phone' && t('profile.phone')}
+                    {field === 'phoneNumber' && t('profile.phone')}
                     {field === 'password' && t('profile.password')}
                   </label>
                   <Input
@@ -171,7 +166,7 @@ const EditProfile: React.FC = () => {
                         : 'password'
                       : field === 'email' ?
                         'email'
-                      : field === 'phone' ?
+                      : field === 'phoneNumber' ?
                         'tel'
                       : 'text'
                     }

@@ -192,7 +192,7 @@
     "email_error": "Please enter a valid email address.",
     "password_error": "Password must be at least 6 characters long.",
     "saving_changes": "Saving changes...",
-    "save_success": "Your data has been changed ✅",
+    "save_success": "Your data has been updated successfully 🎉",
     "save_error": "Error saving changes",
     "placeholder_username": "Your username",
     "placeholder_lastname": "Your last name",

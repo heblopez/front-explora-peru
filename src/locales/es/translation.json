@@ -194,7 +194,7 @@
     "email_error": "Por favor, introduce un correo electrónico válido.",
     "password_error": "La contraseña debe tener al menos 6 caracteres.",
     "saving_changes": "Guardando cambios...",
-    "save_success": "Tus datos han sido cambiados ✅",
+    "save_success": "Tus datos han sido actualizados con éxito 🎉",
     "save_error": "Error al guardar los cambios",
     "placeholder_username": "Tu nombre de usuario",
     "placeholder_lastname": "Tu apellido de usuario",

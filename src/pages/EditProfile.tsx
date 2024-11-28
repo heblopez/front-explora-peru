@@ -10,6 +10,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
 import { useTranslation } from 'react-i18next'
+import { updateUser } from '@/services/userService'
 
 type FormFields = 'username' | 'email' | 'phoneNumber' | 'password'
 
@@ -83,10 +84,9 @@ const EditProfile: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    debugger
+
     if (validateForm()) {
-      const updatedData = {
-        ...userData,
+      const datoToUpdate = {
         username: formData.username,
         email: formData.email,
         phoneNumber: formData.phoneNumber,
@@ -94,34 +94,18 @@ const EditProfile: React.FC = () => {
       }
 
       const saveData = async () => {
-        const response = await fetch(
-          `http://localhost:3000/users/${userData.id}`,
-          {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedData)
-          }
-        )
-
-        if (!response.ok) {
+        const response = await updateUser(datoToUpdate)
+        if (!response) {
           throw new Error(t('profile.save_error'))
         }
-
-        return updatedData
+        return { ...userData, ...response }
       }
 
       toast.promise(saveData, {
         loading: t('profile.saving_changes'),
-        success: () => {
-          localStorage.setItem('user', JSON.stringify(updatedData))
-          setFormData({
-            username: '',
-            email: '',
-            phoneNumber: '',
-            password: ''
-          })
+        success: data => {
+          localStorage.setItem('user', JSON.stringify(data))
+          setFormData({ ...formData, password: '' })
           return t('profile.save_success')
         },
         error: err => err.message,

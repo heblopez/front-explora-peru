@@ -134,10 +134,10 @@ export default function SearchTours() {
                     step={10}
                     value={[
                       queryForm.minPrice === undefined ?
-                        70
+                        0
                       : +queryForm.minPrice,
                       queryForm.maxPrice === undefined ?
-                        240
+                        1000
                       : +queryForm.maxPrice
                     ]}
                     onValueChange={value =>

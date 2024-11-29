@@ -30,7 +30,10 @@ function TourMap({ places }: { places: Tour['places'] }) {
   useEffect(() => {
     if (places.length > 0) {
       const { coordinates } = places[0]
-      map.setView([Number(coordinates[0]), Number(coordinates[1])], 10)
+      map.setView(
+        [Number(coordinates[0]), Number(coordinates[1])],
+        map.getZoom()
+      )
     }
   }, [places, map])
 
@@ -218,8 +221,8 @@ export default function TourDetailPage() {
               Number(tour.places[0].coordinates[0]),
               Number(tour.places[0].coordinates[1])
             ]}
-            zoom={10}
             style={{ height: '400px', width: '100%', zIndex: 1 }}
+            zoom={15}
           >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

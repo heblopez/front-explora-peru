@@ -33,9 +33,9 @@ export default function ExclusiveTour() {
   ]
 
   return (
-    <div className='bg-gray-900 text-white min-h-screen p-8 relative overflow-hidden'>
+    <div className='bg-secondary text-dark-secondary dark:bg-gray-900 dark:text-white min-h-screen p-8 relative overflow-hidden'>
       {/* Decorative elements */}
-      <div className='absolute top-4 left-4 w-24 h-24 opacity-10'>
+      <div className='absolute top-4 left-4 w-24 h-24 opacity-10 text-primary-light dark:text-white'>
         <svg viewBox='0 0 100 100' className='w-full h-full'>
           <rect x='0' y='0' width='45' height='45' fill='currentColor' />
           <rect x='55' y='0' width='45' height='45' fill='currentColor' />
@@ -43,7 +43,7 @@ export default function ExclusiveTour() {
           <rect x='55' y='55' width='45' height='45' fill='currentColor' />
         </svg>
       </div>
-      <div className='absolute bottom-4 right-4 w-24 h-24 opacity-10'>
+      <div className='absolute bottom-4 right-4 w-24 h-24 opacity-10 text-primary-light dark:text-white'>
         <svg viewBox='0 0 100 100' className='w-full h-full'>
           <rect x='0' y='0' width='45' height='45' fill='currentColor' />
           <rect x='55' y='0' width='45' height='45' fill='currentColor' />
@@ -53,16 +53,18 @@ export default function ExclusiveTour() {
       </div>
 
       <div className='max-w-4xl mx-auto'>
-        <h2 className='text-yellow-400 text-xl mb-2 text-center'>
+        <h2 className='text-primary text-xl mb-2 text-center dark:text-yellow-400'>
           Every Month New Tour
         </h2>
-        <h1 className='text-5xl font-bold mb-12 text-center'>Exclusive Tour</h1>
+        <h1 className='text-primary-dark text-5xl font-bold mb-12 text-center dark:text-white'>
+          Exclusive Tour
+        </h1>
 
         <div className='relative h-96'>
           {images.map((image, index) => (
             <div
               key={index}
-              className={`absolute rounded-2xl overflow-hidden border-4 border-white shadow-lg ${
+              className={`absolute rounded-2xl overflow-hidden border-4 border-dark-secondary dark:border-white shadow-lg ${
                 image.size === 'small' ? 'w-24 h-24'
                 : image.size === 'medium' ? 'w-36 h-36'
                 : 'w-48 h-48'
@@ -85,7 +87,7 @@ export default function ExclusiveTour() {
         </div>
 
         <div className='text-center mt-12'>
-          <button className='bg-cyan-400 text-gray-900 px-8 py-3 rounded-full font-semibold text-lg hover:bg-cyan-300 transition-colors'>
+          <button className='bg-primary text-secondary px-8 py-3 rounded-full font-semibold text-lg hover:bg-primary-light transition-colors dark:bg-cyan-400 dark:text-gray-900 dark:hover:bg-cyan-300'>
             Entrar a la Galería
           </button>
         </div>

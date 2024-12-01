@@ -203,5 +203,182 @@
     "placeholder_password": "Tu nueva contraseña",
     "show_password": "Mostrar Contraseña",
     "save_changes": "Guardar Cambios"
+  },
+  "toursRecomendados": [
+    {
+      "title": "MACHU PICCHU",
+      "bgImage": "machu-picchu.jpg",
+      "shortDescription": "Machu Picchu en Cusco",
+      "longDescription": "Descubre el majestuoso Santuario Histórico de Machu Picchu, una de las Siete Maravillas del Mundo Moderno y una joya arqueológica del Perú. Este tour te llevará a explorar los enigmáticos vestigios de la civilización inca, rodeados de imponentes montañas y una exuberante vegetación selvática.",
+      "routes": [
+        {
+          "name": "Camino Inca",
+          "region": "Cusco, Perú",
+          "image": "camino-inca.jpg"
+        },
+        {
+          "name": "Montaña Machu Picchu",
+          "region": "Cusco, Perú",
+          "image": "montana-machu-picchu.jpg"
+        },
+        {
+          "name": "Valle Sagrado",
+          "region": "Cusco, Perú",
+          "image": "valle-sagrado.jpg"
+        }
+      ]
+    },
+    {
+      "title": "LAGO TITICACA",
+      "bgImage": "comunidad-andina-en-el-lago-titicaca.jpg",
+      "shortDescription": "Lago más alto del mundo en Puno",
+      "longDescription": "Sumérgete en la magia del Lago Titicaca, el lago navegable más alto del mundo, situado a 3,812 metros sobre el nivel del mar. Este impresionante cuerpo de agua, cargado de historia y tradiciones, alberga comunidades ancestrales que aún preservan su cultura viva.",
+      "routes": [
+        {
+          "name": "Islas Flotantes de los Uros",
+          "region": "Puno, Perú",
+          "image": "uros.jpg"
+        },
+        {
+          "name": "Isla Taquile",
+          "region": "Puno, Perú",
+          "image": "taquile.jpg"
+        },
+        {
+          "name": "Isla Amantaní",
+          "region": "Puno, Perú",
+          "image": "amantani.jpg"
+        }
+      ]
+    },
+    {
+      "title": "LIMA",
+      "bgImage": "lima-banner-3.jpg",
+      "shortDescription": "Lima, capital del Perú",
+      "longDescription": "Explora la vibrante ciudad de Lima, conocida como la \"Ciudad de los Reyes\", donde se fusionan historia, cultura y una de las mejores gastronomías del mundo. Este tour te llevará por sus fascinantes calles coloniales, modernas avenidas y su hermosa costa del Pacífico.",
+      "routes": [
+        {
+          "name": "Centro Histórico de Lima",
+          "region": "Lima, Perú",
+          "image": "centro-historico.jpg"
+        },
+        { "name": "Barranco", "region": "Lima, Perú", "image": "barranco.jpg" },
+        {
+          "name": "Miraflores",
+          "region": "Lima, Perú",
+          "image": "miraflores.jpg"
+        }
+      ]
+    }
+  ],
+  "carousel": {
+    "previous": "Destino anterior",
+    "next": "Siguiente destino"
+  },
+  "discover_tour": "Descubre más tour",
+  "aboutUs": {
+    "title": "Sobre Nosotros",
+    "subtitle": "Somos los Mejores",
+    "paragraph1": "Nuestros tours ofrecen una amplia gama de destinos que se adaptan a una gran variedad de intereses. Desde playas soleadas con arenas doradas y océanos de aguas cristalinas, hasta impresionantes paisajes montañosos, lagos tranquilos y frondosos bosques, lo tenemos todo cubierto.",
+    "paragraph2": "¡No pierdas la oportunidad! Tenemos una oferta tentadora: las primeras 50 personas que se inscriban en el tour recibirán un 15% de descuento en compras con nuestros socios:",
+    "button": "Agendar un Tour",
+    "stats": {
+      "yearsExperience": "Años de experiencia",
+      "satisfiedClients": "Clientes satisfechos",
+      "regions": "Regiones"
+    },
+    "images": {
+      "mountainLandscape": "Paisaje montañoso",
+      "starryNight": "Noche estrellada sobre el agua",
+      "ancientRuins": "Vista aérea de antiguas ruinas"
+    }
+  },
+  "whyChooseUs": {
+    "title": "¿Por Qué Elegirnos?",
+    "subtitle": "La Mejor Opción",
+    "yearsExperience": "Años de Experiencia",
+    "list": [
+      {
+        "title": "Destinos Seleccionados",
+        "description": "Curamos las mejores experiencias de viaje, ofreciendo solo los destinos más hermosos y únicos en todo el mundo."
+      },
+      {
+        "title": "Itinerarios Personalizados",
+        "description": "No hay dos viajeros iguales, y sus aventuras tampoco deberían serlo."
+      },
+      {
+        "title": "Soporte al Cliente Excepcional",
+        "description": "Desde el momento en que reservas hasta que vuelves a casa, nuestro dedicado equipo de soporte al cliente está disponible las 24 horas, los 7 días de la semana."
+      }
+    ],
+    "images": {
+      "snowyMountainLandscape": "Paisaje montañoso nevado por la noche",
+      "tropicalBay": "Bahía tropical con acantilados de piedra caliza",
+      "coastalSunset": "Atardecer costero"
+    }
+  },
+  "visitReasons": {
+    "title": "5 razones para visitar Perú",
+    "button": "Agendar un Tour",
+    "reasons": [
+      {
+        "title": "Rico Patrimonio Cultural",
+        "image": "cultural-heritage.jpg",
+        "description": "Explora la historia, el arte y la arquitectura de algunas de las civilizaciones más antiguas y fascinantes del mundo, desde antiguos templos en Camboya hasta el majestuoso Taj Mahal en India."
+      },
+      {
+        "title": "Belleza Natural",
+        "image": "natural-beauty.jpg",
+        "description": "Descubre algunos de los paisajes naturales más impresionantes del mundo, incluyendo los imponentes Himalayas y las exuberantes selvas tropicales del sudeste asiático."
+      },
+      {
+        "title": "Increíble Gastronomía",
+        "image": "incredible-cuisine.jpg",
+        "description": "Disfruta de la gran variedad de deliciosas cocinas y sabores que Asia tiene para ofrecer, desde los picantes curris de Tailandia hasta el delicado sushi de Japón."
+      },
+      {
+        "title": "Cálida Hospitalidad",
+        "image": "warm-hospitality.jpg",
+        "description": "Encuentra la amabilidad y generosidad de la gente, conocida por su cálida y acogedora hospitalidad, y crea recuerdos inolvidables en el camino."
+      },
+      {
+        "title": "Ciudades Vibrantes",
+        "image": "vibrant-cities.jpg",
+        "description": "Experimenta la emoción de algunas de las ciudades más dinámicas y vibrantes del mundo, como Tokio y Bangkok, con una mezcla de arquitectura moderna y tradicional, una vida nocturna vibrante y una infinidad de atracciones culturales."
+      }
+    ]
+  },
+  "reviewsCarousel": {
+    "header": {
+      "subtitle": "Testimonios Reales",
+      "title": "Reviews"
+    },
+    "reviews": [
+      {
+        "name": "Sarah Morgan",
+        "image": "/assets/reviewer1.jpg",
+        "text": "Elige entre una amplia selección de mezclas y orígenes únicos, cada uno diseñado para ofrecer algo especial."
+      },
+      {
+        "name": "John Doe",
+        "image": "/assets/reviewer2.jpg",
+        "text": "El tour fue absolutamente increíble. Los guías eran muy conocedores y los paisajes eran impresionantes."
+      },
+      {
+        "name": "Emma Wilson",
+        "image": "/assets/reviewer3.jpg",
+        "text": "Tuve el mejor momento de mi vida en esta aventura. Las experiencias fueron inolvidables y conocí grandes amigos."
+      },
+      {
+        "name": "Michael Brown",
+        "image": "/assets/reviewer4.jpg",
+        "text": "La atención al detalle en la planificación del viaje fue impresionante. Cada día fue una nueva y emocionante experiencia."
+      },
+      {
+        "name": "Lisa Chen",
+        "image": "/assets/reviewer5.jpg",
+        "text": "Desde el momento en que reservé hasta el final del viaje, el servicio fue impecable. ¡Muy recomendado!"
+      }
+    ]
   }
 }

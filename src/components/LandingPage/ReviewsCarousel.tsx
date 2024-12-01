@@ -1,140 +1,65 @@
 import { useState } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-
-const reviews = [
-  {
-    id: 1,
-    image: '/assets/reviewer1.jpg',
-    name: 'Sarah Morgan',
-    text: 'Choose from an extensive selection of blends and single origins, each crafted to deliver a unique. Choose from an extensive selection of blends and single origins, each crafted to deliver a unique.'
-  },
-  {
-    id: 2,
-    image: '/assets/reviewer2.jpg',
-    name: 'John Doe',
-    text: 'The tour was absolutely amazing. The guides were knowledgeable and the scenery was breathtaking.'
-  },
-  {
-    id: 3,
-    image: '/assets/reviewer3.jpg',
-    name: 'Emma Wilson',
-    text: 'I had the time of my life on this adventure. The experiences were unforgettable and I made great friends.'
-  },
-  {
-    id: 4,
-    image: '/assets/reviewer4.jpg',
-    name: 'Michael Brown',
-    text: 'The attention to detail in planning the trip was impressive. Every day was a new and exciting experience.'
-  },
-  {
-    id: 5,
-    image: '/assets/reviewer5.jpg',
-    name: 'Lisa Chen',
-    text: 'From the moment I booked until the end of the trip, the service was impeccable. Highly recommended!'
-  }
-]
+import { useTranslation } from 'react-i18next'
 
 export default function ReviewsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const { t } = useTranslation()
 
-  const nextSlide = () => {
-    setCurrentIndex(prevIndex => (prevIndex + 1) % reviews.length)
-  }
-
-  const prevSlide = () => {
-    setCurrentIndex(
-      prevIndex => (prevIndex - 1 + reviews.length) % reviews.length
-    )
-  }
+  const reviews = t('reviewsCarousel.reviews', { returnObjects: true }) as {
+    image: string
+    name: string
+    text: string
+  }[]
 
   return (
-    <div className='bg-gray-900 min-h-screen flex items-center justify-center px-4 py-16 relative overflow-hidden'>
-      <div className='absolute top-4 left-4 w-24 h-24 opacity-10'>
-        <svg viewBox='0 0 100 100' className='w-full h-full text-white'>
-          <rect x='0' y='0' width='45' height='45' fill='currentColor' />
-          <rect x='55' y='0' width='45' height='45' fill='currentColor' />
-          <rect x='0' y='55' width='45' height='45' fill='currentColor' />
-          <rect x='55' y='55' width='45' height='45' fill='currentColor' />
-        </svg>
-      </div>
-      <div className='absolute bottom-4 right-4 w-24 h-24 opacity-10'>
-        <svg viewBox='0 0 100 100' className='w-full h-full text-white'>
-          <rect x='0' y='0' width='45' height='45' fill='currentColor' />
-          <rect x='55' y='0' width='45' height='45' fill='currentColor' />
-          <rect x='0' y='55' width='45' height='45' fill='currentColor' />
-          <rect x='55' y='55' width='45' height='45' fill='currentColor' />
-        </svg>
-      </div>
-
-      <div className='max-w-4xl w-full'>
-        <h2 className='text-yellow-400 text-xl mb-2 text-center'>
-          Testimonios reales
-        </h2>
-        <h1 className='text-5xl font-bold mb-12 text-center text-white'>
-          Reviews
-        </h1>
-
+    <div className='bg-secondary text-dark-secondary dark:bg-dark-primary-foreground dark:text-white min-h-screen flex items-center justify-center px-6 py-16 relative overflow-hidden'>
+      <div className='max-w-4xl w-full space-y-8'>
+        <header className='text-center'>
+          <h2 className='text-primary text-lg font-medium uppercase tracking-wide dark:text-yellow-400'>
+            {t('reviewsCarousel.header.subtitle')}
+          </h2>
+          <h1 className='text-primary-dark text-5xl font-extrabold dark:text-white'>
+            {t('reviewsCarousel.header.title')}
+          </h1>
+        </header>
         <div className='relative'>
-          <div className='flex justify-center items-center mb-8'>
-            {[-1, 0, 1].map(offset => {
-              const index =
-                (currentIndex + offset + reviews.length) % reviews.length
-              return (
-                <div
-                  key={reviews[index].id}
-                  className={`transform transition-all duration-300 ${
-                    offset === 0 ? 'scale-125 z-20'
-                    : offset === -1 ?
-                      '-translate-x-1/2 scale-75 z-10 opacity-60'
-                    : 'translate-x-1/2 scale-75 z-10 opacity-60'
-                  }`}
-                >
-                  <img
-                    src={reviews[index].image}
-                    alt={reviews[index].name}
-                    className='w-64 h-64 object-cover rounded-3xl'
-                  />
-                </div>
-              )
-            })}
+          <div className='relative h-80'>
+            {reviews.map((review, index) => (
+              <div
+                key={index}
+                className={`absolute inset-0 flex flex-col items-center justify-center text-center transition-all duration-700 ease-in-out ${
+                  index === currentIndex ?
+                    'opacity-100 scale-100 z-10'
+                  : 'opacity-0 scale-90 z-0'
+                }`}
+              >
+                <img
+                  src={review.image}
+                  alt={review.name}
+                  className='w-40 h-40 object-cover rounded-full shadow-lg mb-4'
+                />
+                <h3 className='text-2xl font-bold'>{review.name}</h3>
+                <p className='mt-4 text-lg text-dark-secondary dark:text-gray-300 max-w-lg'>
+                  {review.text}
+                </p>
+              </div>
+            ))}
           </div>
 
-          <div className='text-center text-white'>
-            <h3 className='text-xl font-semibold mb-4'>
-              {reviews[currentIndex].name}
-            </h3>
-            <p className='text-gray-300 max-w-2xl mx-auto'>
-              {reviews[currentIndex].text}
-            </p>
-          </div>
-
-          <div className='flex justify-center mt-8 space-x-2'>
+          <div className='flex justify-center mt-8 space-x-3'>
             {reviews.map((_, index) => (
               <button
                 key={index}
-                className={`w-3 h-3 rounded-full ${
-                  index === currentIndex ? 'bg-cyan-400' : 'bg-gray-600'
+                className={`w-4 h-4 rounded-full transition-all duration-300 ${
+                  index === currentIndex ?
+                    'bg-primary scale-110 dark:bg-cyan-400'
+                  : 'bg-primary-lightest hover:bg-primary dark:bg-gray-600 dark:hover:bg-primary-lightest'
                 }`}
                 onClick={() => setCurrentIndex(index)}
                 aria-label={`Go to slide ${index + 1}`}
               />
             ))}
           </div>
-
-          <button
-            onClick={prevSlide}
-            className='absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 rounded-full p-2 text-white hover:bg-opacity-75 transition-all'
-            aria-label='pre-slide'
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <button
-            onClick={nextSlide}
-            className='absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 rounded-full p-2 text-white hover:bg-opacity-75 transition-all'
-            aria-label='next-slide'
-          >
-            <ChevronRight size={24} />
-          </button>
         </div>
       </div>
     </div>

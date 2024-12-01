@@ -1,54 +1,55 @@
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export default function AboutUs() {
+  const { t } = useTranslation()
+
   return (
-    <div className='bg-gray-900 text-white p-8'>
+    <div className='bg-secondary text-dark-secondary dark:bg-dark-primary-foreground dark:text-white p-8 pb-32'>
       <div className='max-w-6xl mx-auto'>
-        <h2 className='text-cyan-400 text-xl mb-2'>Somos los Mejores</h2>
-        <h1 className='text-5xl font-bold mb-6'>Sobre Nosotros</h1>
+        <h2 className='text-primary text-xl mb-2 dark:text-cyan-400'>
+          {t('aboutUs.subtitle')}
+        </h2>
+        <h1 className='text-primary-dark text-5xl font-bold mb-6 dark:text-white'>
+          {t('aboutUs.title')}
+        </h1>
 
         <div className='flex flex-col md:flex-row gap-8 items-start'>
           <div className='md:w-1/2 pr-14'>
-            <p className='mb-6'>
-              Nuestros tours ofrecen una amplia gama de destinos que se adaptan
-              a una gran variedad de intereses. Desde playas soleadas con arenas
-              doradas y océanos de aguas cristalinas, hasta impresionantes
-              paisajes montañosos, lagos tranquilos y frondosos bosques, lo
-              tenemos todo cubierto.
+            <p className='mb-6 text-dark-secondary dark:text-white'>
+              {t('aboutUs.paragraph1')}
             </p>
-            <p className='mb-6'>
-              ¡No pierdas la oportunidad! Tenemos una oferta tentadora: las
-              primeras 50 personas que se inscriban en el tour recibirán un 15%
-              de descuento en compras con nuestros socios:
+            <p className='mb-6 text-dark-secondary dark:text-white'>
+              {t('aboutUs.paragraph2')}
             </p>
             <Link to='/search-tours'>
               <Button
                 variant='outline'
-                className='text-cyan-400 border-cyan-400 hover:bg-cyan-400 hover:text-gray-900'
+                className='text-primary border-primary hover:bg-primary hover:text-secondary dark:text-cyan-400 dark:border-cyan-400 dark:hover:bg-cyan-400 dark:hover:text-gray-900'
               >
-                Agendar un Tour
+                {t('aboutUs.button')}
               </Button>
             </Link>
           </div>
           <div className='md:w-1/2 flex justify-end space-x-4'>
             <img
               src='/assets/lima-banner-3.jpg'
-              alt='Mountain landscape'
+              alt={t('aboutUs.images.mountainLandscape')}
               width={200}
               height={300}
               className='rounded-lg'
             />
             <img
               src='/assets/intihuatana.jpg'
-              alt='Starry night over water'
+              alt={t('aboutUs.images.starryNight')}
               width={200}
               height={300}
               className='rounded-lg mt-8'
             />
             <img
               src='/assets/intihuatana.jpg'
-              alt='Aerial view of ancient ruins'
+              alt={t('aboutUs.images.ancientRuins')}
               width={200}
               height={300}
               className='rounded-lg'
@@ -57,16 +58,28 @@ export default function AboutUs() {
         </div>
         <div className='flex justify-between mt-12'>
           <div className='text-center'>
-            <h3 className='text-4xl text-cyan-400 font-bold'>10</h3>
-            <p>Años de experiencia</p>
+            <h3 className='text-4xl text-primary font-bold dark:text-cyan-400'>
+              10
+            </h3>
+            <p className='text-dark-secondary dark:text-white'>
+              {t('aboutUs.stats.yearsExperience')}
+            </p>
           </div>
           <div className='text-center'>
-            <h3 className='text-4xl text-cyan-400 font-bold'>1000</h3>
-            <p>Clientes satisfechos</p>
+            <h3 className='text-4xl text-primary font-bold dark:text-cyan-400'>
+              1000
+            </h3>
+            <p className='text-dark-secondary dark:text-white'>
+              {t('aboutUs.stats.satisfiedClients')}
+            </p>
           </div>
           <div className='text-center'>
-            <h3 className='text-4xl text-cyan-400 font-bold'>100</h3>
-            <p>Regiones</p>
+            <h3 className='text-4xl text-primary font-bold dark:text-cyan-400'>
+              100
+            </h3>
+            <p className='text-dark-secondary dark:text-white'>
+              {t('aboutUs.stats.regions')}
+            </p>
           </div>
         </div>
       </div>

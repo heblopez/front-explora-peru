@@ -1,12 +1,6 @@
+import RegionsSelect from '@/components/SearchTours/RegionsSelect'
+import TourCard from '@/components/SearchTours/TourCard'
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
 import { DualRangeSlider } from '@/components/ui/dual-slider'
 import { Input } from '@/components/ui/input'
 import {
@@ -19,20 +13,21 @@ import {
 import { Spinner } from '@/components/ui/spinner'
 import { getTours } from '@/services/tourService'
 import { Tour } from '@/types/tour'
-import { StarFilledIcon } from '@radix-ui/react-icons'
-import { LucideClock, MapPin, Search, StarIcon } from 'lucide-react'
+import { Search } from 'lucide-react'
 import { FormEvent, useEffect, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
-interface QueryForm {
+type SortByOptions = 'newest' | 'min-price' | 'max-price'
+export interface IQueryForm {
   name: string
   region: string
   minPrice: string
   maxPrice: string
+  sortBy: SortByOptions
 }
 
 export default function SearchTours() {
-  const [queryForm, setQueryForm] = useState({} as QueryForm)
+  const [queryForm, setQueryForm] = useState({} as IQueryForm)
   const [tours, setTours] = useState<Tour[] | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -42,12 +37,13 @@ export default function SearchTours() {
     const params = Object.fromEntries(searchParams)
     const queryArr = []
     setLoading(true)
-    const { name, region, minPrice, maxPrice } = params
+    let { name, region, minPrice, maxPrice, sortBy } = params
     if (name) {
       setQueryForm(prev => ({ ...prev, name }))
       queryArr.push(`name=${name}`)
     }
     if (region) {
+      if (region === 'all') region = ''
       setQueryForm(prev => ({ ...prev, region }))
       queryArr.push(`region=${region}`)
     }
@@ -59,6 +55,10 @@ export default function SearchTours() {
       setQueryForm(prev => ({ ...prev, maxPrice }))
       queryArr.push(`maxPrice=${maxPrice}`)
     }
+    if (sortBy) {
+      setQueryForm(prev => ({ ...prev, sortBy: sortBy as SortByOptions }))
+      queryArr.push(`sortBy=${sortBy}`)
+    }
     getTours(queryArr.join('&')).then(data => {
       setLoading(false)
       if (data) setTours(data)
@@ -69,6 +69,10 @@ export default function SearchTours() {
     ev.preventDefault()
     console.log('Buscando...', queryForm)
     setSearchParams({ ...queryForm })
+  }
+
+  function handleSort(sortBy: 'newest' | 'min-price' | 'max-price') {
+    setQueryForm(prev => ({ ...prev, sortBy }))
   }
 
   return (
@@ -102,26 +106,12 @@ export default function SearchTours() {
             <div className='bg-white rounded-lg shadow-lg p-6 dark:bg-dark-secondary dark:text-secondary'>
               <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
                 <div>
-                  <label className='text-sm font-medium text-gray-700 dark:text-inherit'>
-                    Por región:
-                  </label>
-                  <Select
-                    value={queryForm.region}
-                    onValueChange={value =>
+                  <RegionsSelect
+                    queryForm={queryForm}
+                    handleRegionChange={value =>
                       setQueryForm({ ...queryForm, region: value })
                     }
-                  >
-                    <SelectTrigger className='mt-1 dark:border-primary-lighter'>
-                      <SelectValue placeholder='Todas las regiones' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value='Cuzco'>Cuzco</SelectItem>
-                      <SelectItem value='Lima'>Lima</SelectItem>
-                      <SelectItem value='Arequipa'>Arequipa</SelectItem>
-                      <SelectItem value='Cajamarca'>Cajamarca</SelectItem>
-                      <SelectItem value='Ica'>Ica</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  />
                 </div>
                 <div>
                   <label className='text-sm font-medium text-gray-700 dark:text-inherit'>
@@ -134,10 +124,10 @@ export default function SearchTours() {
                     step={10}
                     value={[
                       queryForm.minPrice === undefined ?
-                        70
+                        0
                       : +queryForm.minPrice,
                       queryForm.maxPrice === undefined ?
-                        240
+                        1000
                       : +queryForm.maxPrice
                     ]}
                     onValueChange={value =>
@@ -158,15 +148,17 @@ export default function SearchTours() {
                   <label className='text-sm font-medium text-gray-700 dark:text-inherit'>
                     Ordenar por:
                   </label>
-                  <Select>
+                  <Select onValueChange={handleSort}>
                     <SelectTrigger className='mt-1 dark:border-primary-lighter'>
                       <SelectValue placeholder='Seleccionar orden' />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value='date'>Más recientes</SelectItem>
-                      <SelectItem value='rating'>Mejor valorados</SelectItem>
-                      <SelectItem value='price'>
+                      <SelectItem value='newest'>Más recientes</SelectItem>
+                      <SelectItem value='min-price'>
                         Precio: menor a mayor
+                      </SelectItem>
+                      <SelectItem value='max-price'>
+                        Precio: mayor a menor
                       </SelectItem>
                     </SelectContent>
                   </Select>
@@ -184,54 +176,7 @@ export default function SearchTours() {
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
             {tours &&
               tours.map((tour: Tour) => (
-                <Card
-                  key={tour.tourId}
-                  className='flex flex-col dark:bg-dark-secondary'
-                >
-                  <CardHeader>
-                    <CardTitle className='text-lg font-semibold line-clamp-2'>
-                      {tour.tourName}
-                    </CardTitle>
-                    <CardDescription className='flex items-center text-gray-700 dark:text-inherit'>
-                      <MapPin className='h-4 w-4 mr-1 text-gray-700 dark:text-inherit' />
-                      <em>
-                        {tour.regions.length > 0 ?
-                          tour.regions.join(' - ')
-                        : ''}
-                      </em>
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className='flex-grow'>
-                    <div className='flex justify-between items-center mb-2'>
-                      <div className='flex items-center'>
-                        {tour.rating ?
-                          <>
-                            <StarFilledIcon className='h-4 w-4 text-yellow-400 mr-1' />
-                            <span>{tour.rating}</span>
-                          </>
-                        : <>
-                            <StarIcon className='h-4 w-4 text-yellow-400 mr-1' />
-                            <p className='text-sm text-gray-500 dark:text-inherit'>
-                              Aún no hay calificaciones
-                            </p>
-                          </>
-                        }
-                      </div>
-                      <div className='text-sm text-gray-700 dark:text-inherit'>
-                        <LucideClock className='h-4 w-4 inline mr-1' />
-                        {tour.duration}
-                      </div>
-                    </div>
-                    <p className='text-2xl font-bold'>${tour.price}</p>
-                  </CardContent>
-                  <CardFooter>
-                    <Link to={`/tours/${tour.tourId}`}>
-                      <Button className='w-full bg-primary hover:bg-primary-light dark:bg-primary-darker dark:hover:bg-primary-dark dark:text-inherit'>
-                        Ver detalles
-                      </Button>
-                    </Link>
-                  </CardFooter>
-                </Card>
+                <TourCard key={tour.tourId} tour={tour} />
               ))}
             {tours && tours.length === 0 && (
               <div className='flex flex-col md:col-span-2 lg:col-span-3 items-center justify-center'>

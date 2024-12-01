@@ -101,7 +101,7 @@ export default function AgenciesLanding() {
         </div>
       </section>
 
-      <section className='px-8'>
+      <section className='container mx-auto px-4 '>
         <h2 className='text-2xl md:text-3xl font-title text-center mb-12 text-primary dark:text-primary-light'>
           {t('agenciesLanding.whyWorkWithUs')}
         </h2>
@@ -146,7 +146,7 @@ export default function AgenciesLanding() {
         </div>
       </section>
 
-      <section className='pt-16'>
+      <section className=' container mx-auto px-4 pt-16'>
         <h2 className='text-2xl md:text-3xl font-title text-center mb-12 text-primary dark:text-primary-light'>
           {t('agenciesLanding.improvedPanelTitle')}
         </h2>
@@ -181,7 +181,7 @@ export default function AgenciesLanding() {
         </div>
       </section>
 
-      <section className='bg-white dark:bg-gray-800 py-8'>
+      <section className='container mx-auto px-4 bg-white dark:bg-gray-800 py-8'>
         <div className='text-center mb-8'>
           <h2 className='text-2xl md:text-3xl font-title text-primary dark:text-primary-light'>
             {t('agenciesLanding.partnerTestimonialsTitle')}

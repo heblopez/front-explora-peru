@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
-import { Marker, Polyline, Popup, useMap } from 'react-leaflet'
-import L, { LatLngExpression } from 'leaflet'
+import { Marker, Popup, useMap } from 'react-leaflet'
+import L from 'leaflet'
 import '@elfalem/leaflet-curve'
 import { debounce } from 'lodash'
 

@@ -1,4 +1,4 @@
-type dayOfWeek =
+export type DayOfWeek =
   | 'Monday'
   | 'Tuesday'
   | 'Wednesday'
@@ -10,9 +10,9 @@ type dayOfWeek =
 export interface Schedule {
   scheduleId: number
   tourId: number
-  startDay: dayOfWeek
+  startDay: DayOfWeek
   startTime: string
-  endDay: dayOfWeek
+  endDay: DayOfWeek
   endTime: string
 }
 
@@ -34,12 +34,28 @@ export interface Tour {
   places: {
     name: string
     description: string
-    photoUrl: File | null
-    coordinates: [number, number]
+    photoUrl: string
+    coordinates: string[]
   }[]
   rating?: number
-  routeSelection?: [number, number][]
-  schedules: DatedSchedule[]
+  schedules: Schedule[]
+}
+
+export interface TourDTO {
+  tourName: string
+  tourDescription: string
+  price: number
+  duration: string
+  maxGroupSize: number
+  photosUrl: string[]
+  places: {
+    name: string
+    description: string
+    region: string
+    photoUrl: string
+    coordinates: string[]
+  }[]
+  schedules: Omit<Schedule, 'tourId' | 'scheduleId'>[]
 }
 
 export interface TourAdmin {

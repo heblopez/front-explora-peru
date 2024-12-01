@@ -30,7 +30,7 @@ describe('Agency Login Test', () => {
   })
 
   it('should login successfully with valid credentials', () => {
-    cy.intercept('POST', '**/login-agency', {
+    cy.intercept('POST', '**/login', {
       statusCode: 200,
       body: {
         message: 'Login successful',
@@ -56,7 +56,7 @@ describe('Agency Login Test', () => {
   })
 
   it('should show error message for incorrect credentials', () => {
-    cy.intercept('POST', '**/login-agency', {
+    cy.intercept('POST', '**/login', {
       statusCode: 401,
       body: {
         errors: [{ message: 'Incorrect password' }]

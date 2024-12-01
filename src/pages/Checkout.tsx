@@ -82,7 +82,7 @@ const PaymentForm = ({
         })
         if (!res) return
         toast.success('Reserva registrada con éxito 🎉')
-        navigate('/tours')
+        navigate('/my-tours')
         card.clear()
       }
 
@@ -130,8 +130,8 @@ export default function TourCheckout() {
     if (!tourId || !startDate || !endDate) return
     const fetchedSession = await getOrCreateSession({
       tourId: Number(tourId),
-      startDate,
-      endDate
+      startDate: startDate * 1000,
+      endDate: endDate * 1000
     })
     if (!fetchedSession) return
     setSession(fetchedSession)
@@ -140,7 +140,7 @@ export default function TourCheckout() {
   useEffect(() => {
     fetchTour()
     fetchSession()
-  }, [tourId])
+  }, [tourId, startDate, endDate])
 
   const total = tour?.price ? (tour.price as number) * quantity : 0
 

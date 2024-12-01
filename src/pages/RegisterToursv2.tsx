@@ -5,6 +5,7 @@ import MarkersRandom from '@/components/RegisterTour/MarkersRandom'
 import { useNavigate } from 'react-router-dom'
 import { registerTour } from '@/services/tourService'
 import { toast } from 'sonner'
+import { DayOfWeek } from '@/types/tour'
 const dayNames = [
   'Monday',
   'Tuesday',
@@ -134,9 +135,9 @@ export default function RegisterTourV2() {
           )
         })),
         schedules: formData.schedules.map(schedule => ({
-          startDay: schedule.start_day || 'Monday',
+          startDay: (schedule.start_day || 'Monday') as DayOfWeek,
           startTime: schedule.start_time || '00:00',
-          endDay: 'Tuesday',
+          endDay: (schedule.end_day || 'Tuesday') as DayOfWeek,
           endTime: schedule.end_time || '00:00'
         }))
       }

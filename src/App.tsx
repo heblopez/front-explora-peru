@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
-import Tours from './pages/Tours'
 import Navbar from './components/Header/Navbar'
 import AgenciesLanding from './pages/AgenciesLanding'
 import Footer from './components/Footer/Footer'
@@ -20,6 +19,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import TourScheduler from './components/RegisterTour/TourScheluder2'
 import ScrollToTop from './components/global/ScrollToTop'
 import TourCheckout from './pages/Checkout'
+import Bookings from './pages/Bookings'
 
 function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
@@ -42,7 +42,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/register-agency' element={<Register role='agency' />} />
-          <Route path='/tours' element={<Tours />} />
+          <Route path='/my-tours' element={<Bookings />} />
           <Route path='/register-tours' element={<RegisterToursv2 />} />
           <Route path='/edit-profile' element={<EditProfile />} />
           <Route path='/search-tours' element={<SearchTours />} />

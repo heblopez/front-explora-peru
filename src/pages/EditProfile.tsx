@@ -10,25 +10,24 @@ import {
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
 import { useTranslation } from 'react-i18next'
+import { updateUser } from '@/services/userService'
 
-type FormFields = 'username' | 'lastname' | 'email' | 'phone' | 'password'
+type FormFields = 'username' | 'email' | 'phoneNumber' | 'password'
 
 const EditProfile: React.FC = () => {
   const { t } = useTranslation() // Hook de traducción
   const [formData, setFormData] = useState<Record<FormFields, string>>({
     username: '',
-    lastname: '',
     email: '',
-    phone: '',
+    phoneNumber: '',
     password: ''
   })
 
   const [userData, setUserData] = useState<any>(null)
   const [errors, setErrors] = useState<Record<FormFields, string>>({
     username: '',
-    lastname: '',
     email: '',
-    phone: '',
+    phoneNumber: '',
     password: ''
   })
 
@@ -40,10 +39,9 @@ const EditProfile: React.FC = () => {
       const user = JSON.parse(storedUserData)
       setUserData(user)
       setFormData({
-        username: user.name || '',
-        lastname: user.lastName || '',
+        username: user.username || '',
         email: user.email || '',
-        phone: user.phone || '',
+        phoneNumber: user.phoneNumber || '',
         password: ''
       })
     }
@@ -58,19 +56,15 @@ const EditProfile: React.FC = () => {
     let isValid = true
     const newErrors: Record<FormFields, string> = {
       username: '',
-      lastname: '',
       email: '',
-      phone: '',
+      phoneNumber: '',
       password: ''
     }
 
-    if (!/^[A-Za-z]+$/.test(formData.username.trim())) {
-      newErrors.username = t('profile.username_error')
-      isValid = false
-    }
+    const usernameRegex = /^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9][a-zA-Z0-9._]{2,29}$/
 
-    if (!/^[A-Za-z]+$/.test(formData.lastname.trim())) {
-      newErrors.lastname = t('profile.lastname_error')
+    if (!formData.username || !usernameRegex.test(formData.username)) {
+      newErrors.username = t('profile.username_error')
       isValid = false
     }
 
@@ -90,46 +84,28 @@ const EditProfile: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
     if (validateForm()) {
-      const updatedData = {
-        ...userData,
-        name: formData.username,
-        lastName: formData.lastname,
+      const datoToUpdate = {
+        username: formData.username,
         email: formData.email,
-        phone: formData.phone,
+        phoneNumber: formData.phoneNumber,
         password: formData.password ? formData.password : userData.password
       }
 
       const saveData = async () => {
-        const response = await fetch(
-          `http://localhost:3000/users/${userData.id}`,
-          {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedData)
-          }
-        )
-
-        if (!response.ok) {
+        const response = await updateUser(datoToUpdate)
+        if (!response) {
           throw new Error(t('profile.save_error'))
         }
-
-        return updatedData
+        return { ...userData, ...response }
       }
 
       toast.promise(saveData, {
         loading: t('profile.saving_changes'),
-        success: () => {
-          localStorage.setItem('user', JSON.stringify(updatedData))
-          setFormData({
-            username: '',
-            lastname: '',
-            email: '',
-            phone: '',
-            password: ''
-          })
+        success: data => {
+          localStorage.setItem('user', JSON.stringify(data))
+          setFormData({ ...formData, password: '' })
           return t('profile.save_success')
         },
         error: err => err.message,
@@ -153,13 +129,7 @@ const EditProfile: React.FC = () => {
           <form onSubmit={handleSubmit}>
             <div className='space-y-4'>
               {(
-                [
-                  'username',
-                  'lastname',
-                  'email',
-                  'phone',
-                  'password'
-                ] as FormFields[]
+                ['username', 'email', 'phoneNumber', 'password'] as FormFields[]
               ).map(field => (
                 <div key={field} className='space-y-2'>
                   <label
@@ -167,9 +137,8 @@ const EditProfile: React.FC = () => {
                     className='text-sm font-medium leading-none'
                   >
                     {field === 'username' && t('profile.username')}
-                    {field === 'lastname' && t('profile.lastname')}
                     {field === 'email' && t('profile.email')}
-                    {field === 'phone' && t('profile.phone')}
+                    {field === 'phoneNumber' && t('profile.phone')}
                     {field === 'password' && t('profile.password')}
                   </label>
                   <Input
@@ -181,7 +150,7 @@ const EditProfile: React.FC = () => {
                         : 'password'
                       : field === 'email' ?
                         'email'
-                      : field === 'phone' ?
+                      : field === 'phoneNumber' ?
                         'tel'
                       : 'text'
                     }

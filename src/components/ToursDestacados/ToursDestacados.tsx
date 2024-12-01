@@ -1,280 +1,129 @@
 import { useState } from 'react'
-import { ChevronRight } from 'lucide-react'
-import ScrollableSection from './ScrollableSection'
-import RouteCard from './RouteCard'
-import Tabs from './Tabs'
-const routesData = [
-  {
-    name: 'Intihuatana',
-    region: 'Suiza',
-    rating: 4.8,
-    image: 'intihuatana.jpg',
-    duration: '3 horas',
-    price: '$150',
-    ratingCount: 1250,
-    category: 'Aventura',
-    summary:
-      'Escala la famosa cara norte del Eiger en una emocionante aventura alpina.',
-    agency: 'Swiss Alpine Tours'
-  },
-  {
-    name: 'Templo del Condor',
-    region: 'Suiza',
-    rating: 4.7,
-    image: 'templo-condor.jpg',
-    duration: '4 horas',
-    price: '$180',
-    ratingCount: 980,
-    category: 'Aventura',
-    summary:
-      'Disfruta de vistas panorámicas en esta ruta clásica de los Alpes suizos.',
-    agency: 'Mountain Explorers'
-  },
-  {
-    name: 'Templo del sol',
-    region: 'Suiza/Italia',
-    rating: 4.9,
-    image: 'templo-del-sol.jpg',
-    duration: '6 horas',
-    price: '$220',
-    ratingCount: 1500,
-    category: 'Aventura',
-    summary:
-      'Conquista la cima más alta de los Alpes orientales en esta desafiante ruta.',
-    agency: 'Alpine Adventures'
-  },
-  {
-    name: 'Mont Blanc',
-    region: 'Francia/Italia',
-    rating: 4.9,
-    image: 'intihuatana.jpg',
-    duration: '8 horas',
-    price: '$250',
-    ratingCount: 2000,
-    category: 'Aventura',
-    summary:
-      'Asciende a la cumbre más alta de los Alpes en esta épica jornada.',
-    agency: 'Mont Blanc Expeditions'
-  },
-  {
-    name: 'Huayna Picchu',
-    region: 'Suiza/Italia',
-    rating: 4.8,
-    image: 'huayna1.jpg',
-    duration: '5 horas',
-    price: '$200',
-    ratingCount: 1750,
-    category: 'Aventura',
-    summary:
-      'Explora la icónica montaña en forma de pirámide en la frontera suizo-italiana.',
-    agency: 'Matterhorn Climbers'
-  }
-]
-const tours = [
-  {
-    title: 'MACHU PICCHU',
-    bgImage: 'machu-picchu.jpg',
-    shortDescription: 'machu picchu en cuzco',
-    longDescription:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
-    routes: routesData
-  },
-  {
-    title: 'LAGO TITICACA',
-    bgImage: 'comunidad-andina-en-el-lago-titicaca.jpg',
-    shortDescription: 'lago mas alto del mundo en puno',
-    longDescription:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
-    routes: routesData
-  },
-  {
-    title: 'LIMA',
-    bgImage: 'lima-banner-3.jpg',
-
-    shortDescription: 'Lima capital del Peru',
-    longDescription:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
-    routes: routesData
-  }
-]
-const toursMejorValoradas = [
-  {
-    title: 'MACHU PICCHU',
-    bgImage: 'machu-picchu.jpg',
-    shortDescription: 'machu picchu en cuzco',
-    longDescription:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
-    routes: routesData
-  },
-  {
-    title: 'LAGO TITICACA',
-    bgImage: 'comunidad-andina-en-el-lago-titicaca.jpg',
-    shortDescription: 'lago mas alto del mundo en puno',
-    longDescription:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
-    routes: routesData
-  },
-  {
-    title: 'LIMA',
-    bgImage: 'lima-banner-3.jpg',
-
-    shortDescription: 'Lima capital del Peru',
-    longDescription:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
-    routes: routesData
-  }
-]
-const toursMasPopulares = [
-  {
-    title: 'MACHU PICCHU',
-    bgImage: 'machu-picchu.jpg',
-    shortDescription: 'machu picchu en cuzco',
-    longDescription:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
-    routes: routesData
-  },
-  {
-    title: 'LAGO TITICACA',
-    bgImage: 'comunidad-andina-en-el-lago-titicaca.jpg',
-    shortDescription: 'lago mas alto del mundo en puno',
-    longDescription:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
-    routes: routesData
-  },
-  {
-    title: 'LIMA',
-    bgImage: 'lima-banner-3.jpg',
-
-    shortDescription: 'Lima capital del Peru',
-    longDescription:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
-    routes: routesData
-  }
-]
-
-const toursRecomendadas = [
-  {
-    title: 'PARQUE NACIONAL DE HUASCARAN',
-    bgImage:
-      'https://www.instagram.com/p/Br_l31RBUSF/?utm_source=ig_embed&ig_rid=758780b7-b455-471e-89a5-000d0a9bde41',
-    shortDescription: 'Parque nacional de Huascaran - Ancash',
-    longDescription:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
-    routes: routesData
-  },
-  {
-    title: 'LAGO TITICACA',
-    bgImage: 'comunidad-andina-en-el-lago-titicaca.jpg',
-    shortDescription: 'lago mas alto del mundo en puno',
-    longDescription:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
-    routes: routesData
-  },
-  {
-    title: 'LIMA',
-    bgImage: 'lima-banner-3.jpg',
-
-    shortDescription: 'Lima capital del Peru',
-    longDescription:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ullamcorper, urna ut auctor tempus, lectus ex auctor orci, ut tincidunt enim lectus nec felis. Duis congue odio ut lacinia faucibus. Integer tempor nulla id mi scelerisque, vitae accumsan augue dictum. Donec consectetur dolor eros, eu faucibus est imperdiet at. Donec ornare lorem dui, in ultrices lectus scelerisque sit amet. Pellentesque porttitor nisl venenatis dolor dictum, vestibulum aliquet velit imperdiet. Nunc sit amet luctus diam. Proin finibus odio a dolor cursus, a finibus ligula iaculis. Integer congue leo ante, nec tristique turpis malesuada et. Praesent laoreet nulla nulla, sit amet placerat mauris pretium sed. Fusce tincidunt magna orci, quis consectetur sapien laoreet posuere. Pellentesque ex libero, consequat at erat in, placerat rutrum metus. Ut consectetur laoreet mauris et condimentum.',
-    routes: routesData
-  }
-]
-const tabs = [
-  {
-    icon: '★',
-    label: 'Mejor Valoradas',
-    description:
-      'Las rutas con las mejores calificaciones de nuestros usuarios',
-    tours: toursMejorValoradas
-  },
-  {
-    icon: '👥',
-    label: 'Más Populares',
-    description: 'Las rutas más visitadas recientemente',
-    tours: toursMasPopulares
-  },
-  {
-    icon: '🎯',
-    label: 'Recomendadas',
-    description: 'Selección especial de rutas destacadas',
-    tours: toursRecomendadas
-  }
-]
+import { Card, CardContent } from '@/components/ui/card'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious
+} from '@/components/ui/carousel'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const ToursPopulares: React.FC = () => {
-  const [activeTour, setActiveTour] = useState(0)
-  const [showMoreInfo, setShowMoreInfo] = useState(false)
-  const [activeTab, setActiveTab] = useState(0)
+  const [currentTourIndex, setCurrentTourIndex] = useState(0)
+  const { t } = useTranslation()
+  const toursRecomendadas: any[] = t('toursRecomendados', {
+    returnObjects: true
+  }) as any[]
 
-  const toggleMoreInfo = () => {
-    setShowMoreInfo(!showMoreInfo)
+  if (!toursRecomendadas || !toursRecomendadas.length) {
+    return <div>Loading tours...</div>
   }
 
+  const nextTour = () => {
+    setCurrentTourIndex(prevIndex =>
+      prevIndex === toursRecomendadas.length - 1 ? 0 : prevIndex + 1
+    )
+  }
+
+  const prevTour = () => {
+    setCurrentTourIndex(prevIndex =>
+      prevIndex === 0 ? toursRecomendadas.length - 1 : prevIndex - 1
+    )
+  }
+
+  const currentTour = toursRecomendadas[currentTourIndex]
+
   return (
-    <div className='min-h-screen bg-black text-white'>
-      <div className='relative min-h-screen'>
-        <div className='absolute inset-0 z-0'>
-          <img
-            src={`/assets/${tours[activeTour].bgImage}`}
-            alt={tours[activeTour].title}
-            className='w-full h-full object-cover'
-          />
-          <div className='absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-70'></div>
-        </div>
-        <div className='relative'>
-          <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12'>
-            <Tabs
-              tabs={tabs}
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-            />
+    <div className='relative min-h-screen w-full bg-secondary text-dark-secondary dark:bg-dark-secondary dark:text-primary-lightest overflow-hidden'>
+      <div className='absolute inset-0'>
+        <img
+          src={`/assets/${currentTour.bgImage}`}
+          alt={currentTour.title}
+          className='w-full h-full object-cover dark:opacity-20'
+        />
+        <div className='absolute inset-0 bg-gradient-to-r from-dark-primary-foreground/70 to-transparent dark:from-dark-primary-foreground/90' />
+      </div>
 
-            <div className='absolute left-2 flex flex-col items-center space-y-2'>
-              {tabs[activeTab].tours.map((_, index) => (
-                <button
-                  key={index}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 focus:outline-none ${
-                    activeTour === index ? 'bg-[#2975BA]' : (
-                      'bg-gray-600 hover:bg-gray-400'
-                    )
-                  }`}
-                  onClick={() => setActiveTour(index)}
-                  aria-label={`Route ${index + 1}`}
-                ></button>
-              ))}
-            </div>
-            <div className='ml-12 sm:ml-8'>
-              <h1 className='text-5xl sm:text-7xl font-bold mb-4 text-shadow-lg'>
-                {tours[activeTour].title}
-              </h1>
-              <p className='text-lg sm:text-xl mb-8 text-gray-300 text-shadow'>
-                Descubre las majestuosas montañas y rutas de los{' '}
-                {tours[activeTour].shortDescription}.
-              </p>
-              <button
-                className='bg-[#2975BA] text-white px-6 py-2 rounded-full font-semibold flex items-center hover:bg-orange-600 transition-colors duration-300'
-                onClick={toggleMoreInfo}
+      <div className='relative z-10 max-w-7xl mx-auto px-6 py-12 h-full flex flex-col justify-between'>
+        <div className='flex justify-between items-start'>
+          <div className='max-w-2xl space-y-6'>
+            <h1
+              className='text-8xl font-extrabold uppercase tracking-wider mb-6'
+              style={{
+                backgroundImage: `url(/assets/${currentTour.bgImage})`,
+                backgroundSize: 'cover',
+                backgroundClip: 'text',
+                color: 'transparent',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}
+            >
+              {currentTour.title}
+            </h1>
+            <p className='text-lg leading-relaxed text-primary-darkest dark:text-primary-lightest/80 bg-white/30 p-3 rounded'>
+              {currentTour.longDescription}
+            </p>
+            <Link to='/search-tours'>
+              <Button
+                variant='outline'
+                className='text-primary border-primary hover:bg-primary hover:text-secondary dark:text-cyan-400 dark:border-cyan-400 dark:hover:bg-cyan-400 dark:hover:text-gray-900 my-5'
               >
-                {showMoreInfo ? 'LEER MENOS' : 'LEER MÁS'}{' '}
-                <ChevronRight className='ml-2' />
-              </button>
-
-              {showMoreInfo && (
-                <div className='mt-4 p-4 bg-gray-800 rounded-lg'>
-                  <p>{tours[activeTour].longDescription}</p>
-                </div>
-              )}
-
-              <div className='mt-12'>
-                <ScrollableSection>
-                  {tours[activeTour].routes.map((route, index) => (
-                    <RouteCard key={index} route={route} />
-                  ))}
-                </ScrollableSection>
-              </div>
-            </div>
+                {t('discover_tour')}
+              </Button>
+            </Link>
           </div>
+          <div className='hidden lg:flex space-x-4'>
+            <Button
+              variant='outline'
+              size='icon'
+              onClick={prevTour}
+              className='rounded-full border-dark-secondary text-dark-secondary hover:bg-dark-secondary/20 dark:border-primary-lightest dark:text-primary-lightest dark:hover:bg-primary-dark/20'
+            >
+              <ChevronLeft className='h-6 w-6' />
+              <span className='sr-only'>{t('tours.previous_destination')}</span>
+            </Button>
+            <Button
+              variant='outline'
+              size='icon'
+              onClick={nextTour}
+              className='rounded-full border-dark-secondary text-dark-secondary hover:bg-dark-secondary/20 dark:border-primary-lightest dark:text-primary-lightest dark:hover:bg-primary-dark/20'
+            >
+              <ChevronRight className='h-6 w-6' />
+              <span className='sr-only'>{t('tours.next_destination')}</span>
+            </Button>
+          </div>
+        </div>
+
+        <div className='mt-12'>
+          <Carousel className='w-full'>
+            <CarouselContent>
+              {currentTour.routes.map((route: any, index: number) => (
+                <CarouselItem key={index} className='md:basis-1/2 lg:basis-1/3'>
+                  <Card className='bg-secondary dark:bg-dark-card text-dark-secondary dark:text-primary-lightest rounded-xl shadow-lg overflow-hidden transition-transform transform hover:scale-105'>
+                    <CardContent className='p-0'>
+                      <img
+                        src={`/assets/${route.image}`}
+                        alt={route.name}
+                        className='w-full h-48 object-cover'
+                      />
+                      <div className='p-4 space-y-3'>
+                        <h4 className='font-bold text-xl'>{route.name}</h4>
+                        <p className='text-sm text-dark-primary/80 dark:text-primary-lightest/80 line-clamp-2'>
+                          {route.region}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
       </div>
     </div>

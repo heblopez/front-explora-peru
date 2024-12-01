@@ -44,12 +44,13 @@ export default function SearchTours() {
     const params = Object.fromEntries(searchParams)
     const queryArr = []
     setLoading(true)
-    const { name, region, minPrice, maxPrice, sortBy } = params
+    let { name, region, minPrice, maxPrice, sortBy } = params
     if (name) {
       setQueryForm(prev => ({ ...prev, name }))
       queryArr.push(`name=${name}`)
     }
     if (region) {
+      if (region === 'all') region = ''
       setQueryForm(prev => ({ ...prev, region }))
       queryArr.push(`region=${region}`)
     }
@@ -126,11 +127,33 @@ export default function SearchTours() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value='all'>Todas las regiones</SelectItem>
-                      <SelectItem value='Cuzco'>Cuzco</SelectItem>
-                      <SelectItem value='Lima'>Lima</SelectItem>
+                      <SelectItem value='Amazonas'>Amazonas</SelectItem>
+                      <SelectItem value='Ancash'>Ancash</SelectItem>
+                      <SelectItem value='Apurímac'>Apurímac</SelectItem>
                       <SelectItem value='Arequipa'>Arequipa</SelectItem>
+                      <SelectItem value='Ayacucho'>Ayacucho</SelectItem>
                       <SelectItem value='Cajamarca'>Cajamarca</SelectItem>
+                      <SelectItem value='Callao'>Callao</SelectItem>
+                      <SelectItem value='Cusco'>Cusco</SelectItem>
+                      <SelectItem value='Huancavelica'>Huancavelica</SelectItem>
+                      <SelectItem value='Huánuco'>Huánuco</SelectItem>
                       <SelectItem value='Ica'>Ica</SelectItem>
+                      <SelectItem value='Junín'>Junín</SelectItem>
+                      <SelectItem value='La Libertad'>La Libertad</SelectItem>
+                      <SelectItem value='Lambayeque'>Lambayeque</SelectItem>
+                      <SelectItem value='Lima'>Lima</SelectItem>
+                      <SelectItem value='Loreto'>Loreto</SelectItem>
+                      <SelectItem value='Madre de Dios'>
+                        Madre de Dios
+                      </SelectItem>
+                      <SelectItem value='Moquegua'>Moquegua</SelectItem>
+                      <SelectItem value='Pasco'>Pasco</SelectItem>
+                      <SelectItem value='Piura'>Piura</SelectItem>
+                      <SelectItem value='Puno'>Puno</SelectItem>
+                      <SelectItem value='San Martín'>San Martín</SelectItem>
+                      <SelectItem value='Tacna'>Tacna</SelectItem>
+                      <SelectItem value='Tumbes'>Tumbes</SelectItem>
+                      <SelectItem value='Ucayali'>Ucayali</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

@@ -34,7 +34,7 @@ export const getMyTours = async (): Promise<Tour[] | null> => {
   } catch (error) {
     if (error instanceof Error && error.message.includes('401')) {
       toast.error('Unauthorized error. Por favor, inicia sesión nuevamente')
-      localStorage.removeItem('user')
+      if (bearerToken === 'Bearer null') localStorage.removeItem('user')
     } else if (error instanceof Error && error.message.includes('403')) {
       toast.error(
         'Forbidden error. No tienes permisos para acceder a este recurso'

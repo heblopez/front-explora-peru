@@ -24,11 +24,13 @@ import { LucideClock, MapPin, Search, StarIcon } from 'lucide-react'
 import { FormEvent, useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 
+type SortByOptions = 'newest' | 'min-price' | 'max-price'
 interface QueryForm {
   name: string
   region: string
   minPrice: string
   maxPrice: string
+  sortBy: SortByOptions
 }
 
 export default function SearchTours() {
@@ -42,7 +44,7 @@ export default function SearchTours() {
     const params = Object.fromEntries(searchParams)
     const queryArr = []
     setLoading(true)
-    const { name, region, minPrice, maxPrice } = params
+    const { name, region, minPrice, maxPrice, sortBy } = params
     if (name) {
       setQueryForm(prev => ({ ...prev, name }))
       queryArr.push(`name=${name}`)
@@ -59,6 +61,10 @@ export default function SearchTours() {
       setQueryForm(prev => ({ ...prev, maxPrice }))
       queryArr.push(`maxPrice=${maxPrice}`)
     }
+    if (sortBy) {
+      setQueryForm(prev => ({ ...prev, sortBy: sortBy as SortByOptions }))
+      queryArr.push(`sortBy=${sortBy}`)
+    }
     getTours(queryArr.join('&')).then(data => {
       setLoading(false)
       if (data) setTours(data)
@@ -69,6 +75,10 @@ export default function SearchTours() {
     ev.preventDefault()
     console.log('Buscando...', queryForm)
     setSearchParams({ ...queryForm })
+  }
+
+  function handleSort(sortBy: 'newest' | 'min-price' | 'max-price') {
+    setQueryForm(prev => ({ ...prev, sortBy }))
   }
 
   return (
@@ -112,9 +122,10 @@ export default function SearchTours() {
                     }
                   >
                     <SelectTrigger className='mt-1 dark:border-primary-lighter'>
-                      <SelectValue placeholder='Todas las regiones' />
+                      <SelectValue placeholder='Seleccionar región' />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value='all'>Todas las regiones</SelectItem>
                       <SelectItem value='Cuzco'>Cuzco</SelectItem>
                       <SelectItem value='Lima'>Lima</SelectItem>
                       <SelectItem value='Arequipa'>Arequipa</SelectItem>
@@ -158,15 +169,17 @@ export default function SearchTours() {
                   <label className='text-sm font-medium text-gray-700 dark:text-inherit'>
                     Ordenar por:
                   </label>
-                  <Select>
+                  <Select onValueChange={handleSort}>
                     <SelectTrigger className='mt-1 dark:border-primary-lighter'>
                       <SelectValue placeholder='Seleccionar orden' />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value='date'>Más recientes</SelectItem>
-                      <SelectItem value='rating'>Mejor valorados</SelectItem>
-                      <SelectItem value='price'>
+                      <SelectItem value='newest'>Más recientes</SelectItem>
+                      <SelectItem value='min-price'>
                         Precio: menor a mayor
+                      </SelectItem>
+                      <SelectItem value='max-price'>
+                        Precio: mayor a menor
                       </SelectItem>
                     </SelectContent>
                   </Select>

@@ -21,8 +21,11 @@ import {
 import { getTourById, getTours } from '@/services/tourService'
 import SchedulesModal from '@/components/TourDetails/SchedulesModal'
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
-import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
+import L from 'leaflet'
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
+import markerIcon from 'leaflet/dist/images/marker-icon.png'
+import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 
 function TourMap({ places }: { places: Tour['places'] }) {
   const map = useMap()
@@ -37,6 +40,15 @@ function TourMap({ places }: { places: Tour['places'] }) {
     }
   }, [places, map])
 
+  const mapMarkerIcon = new L.Icon({
+    iconUrl: markerIcon,
+    shadowUrl: markerShadow,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  })
+
   return (
     <>
       {places.map((place, index) => (
@@ -46,6 +58,7 @@ function TourMap({ places }: { places: Tour['places'] }) {
             Number(place.coordinates[0]),
             Number(place.coordinates[1])
           ]}
+          icon={mapMarkerIcon}
         >
           <Popup>
             <strong>{place.name}</strong>

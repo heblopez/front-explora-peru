@@ -34,7 +34,9 @@ export default function Bookings() {
       if (!data) return
       const bookingsWithStatus = data.map((booking: MyBooking) => {
         const status: StatusBooking =
-          booking.session.startDate > new Date() ? 'Próximo' : 'Anterior'
+          new Date(booking.session.startDate) > new Date() ?
+            'Próximo'
+          : 'Anterior'
         return { ...booking, status }
       })
       setBookings(bookingsWithStatus)

@@ -3,8 +3,6 @@ import { Session, SessionDTO } from '@/types/session'
 import { getBearerToken } from '@/utils'
 import { toast } from 'sonner'
 
-const bearerToken = getBearerToken()
-
 export const getOrCreateSession = async (
   sessionData: SessionDTO
 ): Promise<Session | null> => {
@@ -12,7 +10,7 @@ export const getOrCreateSession = async (
     const res = await fetch(API_SESSIONS_URL, {
       method: 'POST',
       headers: {
-        Authorization: bearerToken,
+        Authorization: getBearerToken(),
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(sessionData)

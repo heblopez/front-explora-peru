@@ -163,7 +163,7 @@ export default function TourDetailPage() {
                 {
                   icon: <ClockIcon className='text-xl mr-2' />,
                   label: 'Duración:',
-                  value: `${tour.duration} h` || 'No especificada'
+                  value: tour.duration || 'No especificada'
                 },
                 {
                   icon: <CalendarIcon className='text-xl mr-2' />,
